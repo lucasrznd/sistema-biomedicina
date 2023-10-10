@@ -1,5 +1,6 @@
 package br.edu.unifio.sistemabiomedicina.models.entities;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +21,7 @@ public class Fenotipagem implements Serializable {
     private String tipagemAbo;
     private Character tipagemRh;
 
+    public String getFenotipagemCompleta() {
+        return tipagemAbo + tipagemRh;
+    }
 }
