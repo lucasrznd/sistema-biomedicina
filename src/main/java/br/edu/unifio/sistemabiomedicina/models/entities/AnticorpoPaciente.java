@@ -22,4 +22,5 @@ public class AnticorpoPaciente implements Serializable {
     @MapsId("idPaciente")
     @JoinColumn(name = "id_paciente")
     Paciente paciente;
+
 }
