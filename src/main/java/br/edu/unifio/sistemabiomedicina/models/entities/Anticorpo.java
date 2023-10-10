@@ -6,16 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tb_fenotipagem")
+@Table(name = "tb_anticorpo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Fenotipagem {
+public class Anticorpo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String tipagemAbo;
-    private Character tipagemRh;
+    private String anticorpoIdentificado;
+    private Integer tituloAnticorpo;
 
 }

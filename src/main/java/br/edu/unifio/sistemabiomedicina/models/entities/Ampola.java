@@ -16,7 +16,7 @@ public class Ampola {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private Long codigoInternacao;
     private Integer ampolaMl;
     private LocalDate dataCadastro;
