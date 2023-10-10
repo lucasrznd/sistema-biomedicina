@@ -20,15 +20,12 @@ public class FenotipagemController {
     @Autowired
     private FenotipagemRepository fenotipagemRepository;
 
+    private String fenotipagemTotal;
+
     public void insert() {
         fenotipagemRepository.insert(fenotipagem);
 
         fenotipagem = new Fenotipagem();
         Messages.addFlashGlobalInfo("Fenotipagem salva com sucesso");
     }
-
-    public String getFenotipagemTotal() {
-        return fenotipagem.getTipagemAbo() + fenotipagem.getTipagemRh();
-    }
-
 }

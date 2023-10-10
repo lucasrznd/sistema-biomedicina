@@ -13,25 +13,28 @@
     </h:head>
 
     <h:body>
-        <p:panel header="Cadastro de Fenotipagem">
-            <p:messages id="idMessage" closable="true" />
-            <h:panelGrid id="panelGrid" columns="2">
-                <p:outputLabel value="Digite a tipagem ABO: "/>
-                <p:inputText value="#{fenotipagemController.fenotipagem.tipagemAbo}"
-                             requiredMessage="Campo Tipagem ABO é obrigatório"/>
+        <h:form>
+            <p:panel header="Cadastro de Fenotipagem">
+                <p:messages id="idMessage" closable="true"/>
+                <h:panelGrid id="panelGrid" columns="2">
+                    <p:outputLabel value="Digite a tipagem ABO: "/>
+                    <p:inputText value="#{fenotipagemController.fenotipagem.tipagemAbo}"
+                                 requiredMessage="Campo Tipagem ABO é obrigatório"/>
 
-                <p:outputLabel value="Digite a tipagem RH: "/>
-                <p:inputText value="#{fenotipagemController.fenotipagem.tipagemRh}"
-                             requiredMessage="Campo Tipagem RH é obrigatório"/>
+                    <p:outputLabel value="Digite a tipagem RH: "/>
+                    <p:inputText value="#{fenotipagemController.fenotipagem.tipagemRh}"
+                                 requiredMessage="Campo Tipagem RH é obrigatório"/>
 
-                <p:outputLabel value="Fenotipagem: "/>
-                <p:inputText readonly="true" value="#{null}"/>
-            </h:panelGrid>
+                    <p:outputLabel value="Fenotipagem: "/>
+                    <p:inputText readonly="true" value="#{fenotipagemController.fenotipagemTotal}"/>
+                </h:panelGrid>
 
-            <h:panelGrid columns="4">
-                <p:commandButton value="Cadastrar" actionListener="#{fenotipagemController.insert()}" update="idMessage panelGrid"/>
-            </h:panelGrid>
-        </p:panel>
+                <h:panelGrid columns="4">
+                    <p:commandButton value="Cadastrar" actionListener="#{fenotipagemController.insert()}"
+                                     update="idMessage panelGrid"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
     </h:body>
 </f:view>
 
