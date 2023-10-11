@@ -32,7 +32,11 @@ public class PacienteRepository {
         query.setParameter("nome", "%" + Nome + "%");
         return query.getResultList();
     }
-
+    public  List<Paciente> getBySobrenome(String Sobrenome) {
+        Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.sobrenome LIKE:sobrenome");
+        query.setParameter("sobrenome", "%" + Sobrenome + "%");
+        return query.getResultList();
+    }
 
     @Transactional
     public void insert(Paciente paciente){em.persist(paciente);}

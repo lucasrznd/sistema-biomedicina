@@ -24,6 +24,6 @@ public class Ampola implements Serializable {
     private LocalDate dataValidade;
 
     @ManyToOne
-    private Paciente paciete;
+    private Paciente paciente;
 
 }
