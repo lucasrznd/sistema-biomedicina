@@ -1,0 +1,49 @@
+/* Styles.css */
+.minha-classe {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; /* Centraliza o texto */
+}
+
+.login-form {
+    width: 500px; /* Largura do formulário */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    padding: 20px;
+    border-radius: 5px;
+    text-align: left; /* Alinha o texto dentro do formulário à esquerda */
+}
+
+.login-header {
+    text-align: center;
+    color: #fa1c1c; /* Tom avermelhado mais forte */
+    font-size: 100px; /* Tamanho da fonte maior */
+    margin-bottom: 10px; /* Espaçamento inferior */
+    font-family: Lucida ;
+}
+
+.label-text {
+    color: #c7696f; /* Tom avermelhado leve para os rótulos */
+    font-size: 25px;
+    vertical-align: top;
+    margin-bottom: 10px;
+    font-family: Lucida ;
+}
+
+.input-field {
+    width: 100%; /* Preenche a largura do contêiner */
+    padding: 50px; /* Espaçamento interno */
+    margin-bottom: 10px; /* Espaçamento inferior entre os campos */
+    vertical-align: sub;
+
+}
+
+
+.form-row {
+    margin-bottom: 30px; /* Espaçamento inferior entre as linhas do formulário */
+}
+
+.form-grid {
+    width: 100%;
+}

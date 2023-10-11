@@ -7,45 +7,25 @@
       xmlns:p="http://primefaces.org/ui">
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
-
     <h:head>
         <title>Soroteca Unifio - Tela de Login</title>
-
-        <style>
-            .center-div {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            .login-form {
-                width: 300px; /* Largura do formulário */
-                margin: 0 auto; /* Centraliza horizontalmente */
-                padding: 20px;
-                background: #f2f2f2;
-                border-radius: 5px;
-            }
-        </style>
+        <h:outputStylesheet name="Styles.css"/>
     </h:head>
 
     <h:body>
-        <div class="center-div">
-            <h:form>
-                <p:panel header="Login">
-                    <p:messages id="idMessage" closable="true"/>
-                    <h:panelGrid id="panelGrid" columns="2">
-                        <p:outputLabel for="username" value="Nome de Usuário:"/>
-                        <p:inputText id="username" value="#{loginController.usuario.login}" required="true"/>
-
-                        <p:outputLabel for="password" value="Senha:"/>
-                        <p:password id="password" value="#{loginController.usuario.senha}" required="true"/>
-                    </h:panelGrid>
-                    <p:panelGrid>
-                        <p:commandButton value="Login" action="#{loginController.autenticarUsuario()}"
-                                         update="idMessage panelGrid"/>
-                    </p:panelGrid>
-                </p:panel>
+        <div class="minha-classe">
+            <h:form styleClass="login-form">
+                <h2 class="login-header">LOGIN</h2>
+                <div class="form-row">
+                    <h:outputLabel for="username" value="Nome de Usuário:" styleClass="label-text" style="margin-bottom: 50px"/>
+                    <p:inputText id="username" value="#{seuBean.username}" required="true" styleClass="input-field"/>
+                </div>
+                <div class="form-row">
+                    <h:outputLabel for="password" value="Senha:" styleClass="label-text"/>
+                    <p:password id="password" value="#{seuBean.password}" required="true" styleClass="input-field"/>
+                </div>
+                <p:commandButton value="Entrar" action="#{seuBean.fazerLogin}" style="width: 100%; padding: 10px;
+                 background-color: #ff0000; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 25px; font-family: Lucida ;"/>
             </h:form>
         </div>
     </h:body>
