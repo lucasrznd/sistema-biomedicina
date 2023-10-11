@@ -33,15 +33,17 @@
         <div class="center-div">
             <h:form>
                 <p:panel header="Login">
-                    <h:panelGrid columns="2">
+                    <p:messages id="idMessage" closable="true"/>
+                    <h:panelGrid id="panelGrid" columns="2">
                         <p:outputLabel for="username" value="Nome de Usuário:"/>
-                        <p:inputText id="username" value="#{seuBean.username}" required="true"/>
+                        <p:inputText id="username" value="#{loginController.usuario.login}" required="true"/>
 
                         <p:outputLabel for="password" value="Senha:"/>
-                        <p:password id="password" value="#{seuBean.password}" required="true"/>
+                        <p:password id="password" value="#{loginController.usuario.senha}" required="true"/>
                     </h:panelGrid>
                     <p:panelGrid>
-                        <p:commandButton value="Login" action="#{seuBean.fazerLogin}"/>
+                        <p:commandButton value="Login" action="#{loginController.autenticarUsuario()}"
+                                         update="idMessage panelGrid"/>
                     </p:panelGrid>
                 </p:panel>
             </h:form>
