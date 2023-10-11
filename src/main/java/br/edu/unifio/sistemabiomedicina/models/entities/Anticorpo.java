@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_anticorpo")
@@ -19,5 +20,8 @@ public class Anticorpo implements Serializable {
     private Long id;
     private String anticorpoIdentificado;
     private Integer tituloAnticorpo;
+
+    @OneToMany(mappedBy = "anticorpo")
+    private List<AnticorpoPaciente> anticorposPaciente;
 
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_paciente")
@@ -25,5 +26,8 @@ public class Paciente implements Serializable {
 
     @ManyToOne
     private Fenotipagem fenotipagem;
+
+    @OneToMany(mappedBy = "paciente")
+    List<AnticorpoPaciente> anticorposPaciente;
 
 }

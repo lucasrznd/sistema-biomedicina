@@ -18,6 +18,14 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
+
+            .login-form {
+                width: 300px; /* Largura do formulário */
+                margin: 0 auto; /* Centraliza horizontalmente */
+                padding: 20px;
+                background: #f2f2f2;
+                border-radius: 5px;
+            }
         </style>
     </h:head>
 
@@ -25,10 +33,16 @@
         <div class="center-div">
             <h:form>
                 <p:panel header="Login">
-                    <p:messages/>
-                    <p:inputText placeholder="Usuário"/>
-                    <p:password placeholder="Senha"/>
-                    <p:commandButton value="Login" action="#{seuBean.fazerLogin}"/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="username" value="Nome de Usuário:"/>
+                        <p:inputText id="username" value="#{seuBean.username}" required="true"/>
+
+                        <h:outputLabel for="password" value="Senha:"/>
+                        <p:password id="password" value="#{seuBean.password}" required="true"/>
+                    </h:panelGrid>
+                    <p:panelGrid>
+                        <p:commandButton value="Login" action="#{seuBean.fazerLogin}"/>
+                    </p:panelGrid>
                 </p:panel>
             </h:form>
         </div>
