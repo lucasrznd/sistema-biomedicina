@@ -3,7 +3,6 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
 import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.PostPersist;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Messages;

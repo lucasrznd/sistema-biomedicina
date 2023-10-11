@@ -9,7 +9,7 @@
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
     <h:head>
         <title>Soroteca Unifio - Tela de Login</title>
-        <h:outputStylesheet name="Styles.css"/>
+        <h:outputStylesheet name="css/styles.css"/>
     </h:head>
 
     <h:body>
@@ -17,19 +17,23 @@
             <h:form styleClass="login-form">
                 <h2 class="login-header">LOGIN</h2>
                 <div class="form-row">
-                    <h:outputLabel for="username" value="Nome de Usuário:" styleClass="label-text" style="margin-bottom: 50px"/>
-                    <p:inputText id="username" value="#{seuBean.username}" required="true" styleClass="input-field"/>
+                    <h:outputLabel for="username" value="Nome de Usuário:" styleClass="label-text"
+                                   style="margin-bottom: 50px"/>
+                    <p:inputText id="username" value="#{loginController.usuario.login}" required="true"
+                                 styleClass="input-field"/>
                 </div>
                 <div class="form-row">
                     <h:outputLabel for="password" value="Senha:" styleClass="label-text"/>
-                    <p:password id="password" value="#{seuBean.password}" required="true" styleClass="input-field"/>
+                    <p:password id="password" value="#{loginController.usuario.senha}" required="true"
+                                styleClass="input-field"/>
                 </div>
-                <p:commandButton value="Entrar" action="#{seuBean.fazerLogin}" style="width: 100%; padding: 10px;
-                 background-color: #ff0000; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 25px; font-family: Lucida ;"/>
+                <p:commandButton value="Entrar" action="#{loginController.autenticarUsuario()}" style="width: 100%; padding: 10px;
+                 background-color: #ff0000; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 25px; font-family: Lucida ;"
+                                 update="idMessage"/>
+                <p:messages id="idMessage" closable="true"/>
             </h:form>
         </div>
     </h:body>
-
 </f:view>
 
 </html>
