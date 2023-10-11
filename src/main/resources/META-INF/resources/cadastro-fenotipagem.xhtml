@@ -17,21 +17,40 @@
             <p:panel header="Cadastro de Fenotipagem">
                 <p:messages id="idMessage" closable="true"/>
                 <h:panelGrid id="panelGrid" columns="2">
+
                     <p:outputLabel value="Digite a tipagem ABO: "/>
-                    <p:inputText value="#{fenotipagemController.fenotipagem.tipagemAbo}"
-                                 requiredMessage="Campo Tipagem ABO é obrigatório"/>
+                    <p:inputText maxlength="2" value="#{fenotipagemController.fenotipagem.tipagemAbo}" required="true"
+                                 requiredMessage="Campo Tipagem ABO é obrigatório"
+                                 oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
 
                     <p:outputLabel value="Digite a tipagem RH: "/>
-                    <p:inputText value="#{fenotipagemController.fenotipagem.tipagemRh}"
-                                 requiredMessage="Campo Tipagem RH é obrigatório"/>
+                    <p:inputText maxlength="1" value="#{fenotipagemController.fenotipagem.tipagemRh}" required="true"
+                                 requiredMessage="Campo Tipagem RH é obrigatório"
+                                 oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
 
                     <p:outputLabel value="Fenotipagem: "/>
-                    <p:inputText readonly="true" value="#{fenotipagemController.fenotipagemTotal}"/>
+                    <p:inputText readonly="true" value="#{null}"/>
                 </h:panelGrid>
 
                 <h:panelGrid columns="4">
                     <p:commandButton value="Cadastrar" actionListener="#{fenotipagemController.insert()}"
-                                     update="idMessage panelGrid"/>
+                                     update="idMessage panelGrid dataTable"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid>
+                    <p:dataTable id="dataTable" value="#{fenotipagemController.fenotipagemList}" var="fenotipagem">
+                        <p:column headerText="Tipagem ABO">
+                            #{fenotipagem.tipagemAbo}
+                        </p:column>
+                        <p:column headerText="Tipagem RH">
+                            #{fenotipagem.tipagemRh}
+                        </p:column>
+                        <p:column headerText="Fenotipagem">
+                            #{fenotipagem.fenotipagemCompleta}
+                        </p:column>
+                    </p:dataTable>
                 </h:panelGrid>
             </p:panel>
         </h:form>

@@ -25,7 +25,7 @@ public class FenotipagemRepository {
     }
 
     public List<Fenotipagem> getByTipagemAbo(String tipagemAbo) {
-        Query query = em.createQuery("SELECT f FROM Fenotipagem f where f.tipagemAbo LIKE:tipagemAbo");
+            Query query = em.createQuery("SELECT f FROM Fenotipagem f where f.tipagemAbo LIKE:tipagemAbo");
         query.setParameter("tipagemAbo", "%" + tipagemAbo + "%");
         return query.getResultList();
     }
