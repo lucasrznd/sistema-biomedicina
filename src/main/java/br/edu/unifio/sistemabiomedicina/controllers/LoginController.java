@@ -49,7 +49,6 @@ public class LoginController {
         return null;
     }
 
-
     @PostConstruct
     public List<Usuario> getUsuariosCadastrados() {
         usuarios = usuarioRepository.getAll();
