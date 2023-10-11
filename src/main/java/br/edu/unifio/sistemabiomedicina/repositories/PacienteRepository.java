@@ -27,7 +27,11 @@ public class PacienteRepository {
         return em.find(Paciente.class, paciente.getId());
     }
 
-
+    public  List<Paciente> getByNome(String Nome) {
+        Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.nome LIKE:nome");
+        query.setParameter("nome", "%" + Nome + "%");
+        return query.getResultList();
+    }
 
 
     @Transactional
@@ -37,10 +41,17 @@ public class PacienteRepository {
     public void update(Paciente paciente){
         Paciente pacienteEncontrado = getById(paciente);
 
+        pacienteEncontrado.setNome(paciente.getNome());
+        pacienteEncontrado.setSobrenome(paciente.getSobrenome());
+        pacienteEncontrado.setCpf(paciente.getCpf());
+        pacienteEncontrado.setDataNascimento(paciente.getDataNascimento());
+        pacienteEncontrado.setFenotipagem(paciente.getFenotipagem());
 
+        em.persist(pacienteEncontrado);
 
     }
 
-
+    @Transactional
+    public void delete(Paciente paciente){em.remove(paciente.getId());}
 
 }
