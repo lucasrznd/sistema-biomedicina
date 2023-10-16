@@ -2,7 +2,7 @@
 
 .minha-classe {
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -32,7 +32,15 @@
     font-size: 24px !important;
     margin-bottom: 10px;
     font-family: 'Lucida', sans-serif;
+
 }
+
+.qualquer:hover{
+
+    opacity: 50%;
+}
+
+
 
 
 .input-field {
