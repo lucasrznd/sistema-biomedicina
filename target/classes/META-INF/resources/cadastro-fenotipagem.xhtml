@@ -10,50 +10,82 @@
 
     <h:head>
         <title>Cadastro Fenotipagem</title>
+        <h:outputStylesheet name="StylesCadastro-Fenotipagem.css"/>
     </h:head>
 
     <h:body>
-        <h:form>
-            <p:panel header="Cadastro de Fenotipagem">
+        <div class="minha-classe">
+            <h:form styleClass="login-form">
+
+                <p:panel header="Cadastro de Fenotipagem">
+
                     <p:messages id="idMessage" closable="true"/>
-                <h:panelGrid id="panelGrid" columns="2">
 
-                    <p:outputLabel value="Digite a tipagem ABO: "/>
-                    <p:inputText maxlength="2" value="#{fenotipagemController.fenotipagem.tipagemAbo}" required="true"
-                                 requiredMessage="Campo Tipagem ABO é obrigatório"
-                                 oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
+                    <h:panelGrid id="panelGrid" columns="2">
 
-                    <p:outputLabel value="Digite a tipagem RH: "/>
-                    <p:inputText maxlength="1" value="#{fenotipagemController.fenotipagem.tipagemRh}" required="true"
-                                 requiredMessage="Campo Tipagem RH é obrigatório"
-                                 oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
+                        <div class="form-row">
+                            <div class="label-container">
+                                <p:outputLabel value="Digite a tipagem ABO:" styleClass="label-text"/>
+                            </div>
+                            <div class="input-container">
+                                <p:inputText maxlength="2" value="#{fenotipagemController.fenotipagem.tipagemAbo}" required="true"
+                                             requiredMessage="Campo Tipagem ABO é obrigatório"
+                                             oninput="this.value = this.value.replace(/[^A-Z]/g, '');"
+                                             styleClass="input-field"/>
+                            </div>
+                        </div>
 
-                    <p:outputLabel value="Fenotipagem: "/>
-                    <p:inputText readonly="true" value="#{null}"/>
-                </h:panelGrid>
+                        <div class="form-row">
+                            <div class="label-container">
+                                <p:outputLabel value="Digite a tipagem RH:" styleClass="label-text"/>
+                            </div>
+                            <div class="input-container">
+                                <p:inputText maxlength="1" value="#{fenotipagemController.fenotipagem.tipagemRh}" required="true"
+                                             requiredMessage="Campo Tipagem RH é obrigatório"
+                                             oninput="this.value = this.value.replace(/[^+-]/g, '');"
+                                             styleClass="input-field"/>
+                            </div>
+                        </div>
 
-                <h:panelGrid columns="4">
-                    <p:commandButton value="Cadastrar" actionListener="#{fenotipagemController.insert()}"
-                                     update="idMessage panelGrid dataTable"/>
-                </h:panelGrid>
-            </p:panel>
+                        <div class="form-row">
+                            <div class="label-container">
+                                <p:outputLabel value="Fenotipagem:" styleClass="label-text"/>
+                            </div>
+                            <div class="input-container">
+                                <p:inputText readonly="true" value="#{null}" styleClass="input-field"/>
+                            </div>
+                        </div>
 
-            <p:panel>
-                <h:panelGrid>
-                    <p:dataTable id="dataTable" value="#{fenotipagemController.fenotipagemList}" var="fenotipagem">
-                        <p:column headerText="Tipagem ABO">
-                            #{fenotipagem.tipagemAbo}
-                        </p:column>
-                        <p:column headerText="Tipagem RH">
-                            #{fenotipagem.tipagemRh}
-                        </p:column>
-                        <p:column headerText="Fenotipagem">
-                            #{fenotipagem.fenotipagemCompleta}
-                        </p:column>
-                    </p:dataTable>
-                </h:panelGrid>
-            </p:panel>
-        </h:form>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="4">
+
+                        <p:commandButton value="Cadastrar" action="#{fenotipagemController.insert()}"
+                                         update="idMessage panelGrid dataTable"
+                                         style="width: 100%; padding: 10px;
+                        background-color: #ff0000; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 25px; font-family: Lucida ;"/>
+                    </h:panelGrid>
+
+                </p:panel>
+
+                <p:panel>
+                    <h:panelGrid>
+                        <p:dataTable id="dataTable" value="#{fenotipagemController.fenotipagemList}" var="fenotipagem">
+                            <p:column headerText="Tipagem ABO">
+                                #{fenotipagem.tipagemAbo}
+                            </p:column>
+                            <p:column headerText="Tipagem RH">
+                                #{fenotipagem.tipagemRh}
+                            </p:column>
+                            <p:column headerText="Fenotipagem">
+                                #{fenotipagem.fenotipagemCompleta}
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:panel>
+
+            </h:form>
+        </div>
     </h:body>
 </f:view>
 
