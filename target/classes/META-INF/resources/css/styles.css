@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/main/resources/META-INF/resources/css/styles.css
 /* styles.css */
+========
+/* StylesLogin.css */
+>>>>>>>> origin/frontend-jsf:src/main/resources/META-INF/resources/StylesLogin.css
 .minha-classe {
     position: absolute;
     top: 40%;
@@ -18,7 +22,7 @@
 .login-header {
     text-align: center;
     color: #fa1c1c; /* Tom avermelhado mais forte */
-    font-size: 100px; /* Tamanho da fonte maior */
+    font-size: 140px; /* Tamanho da fonte maior */
     margin-bottom: 10px; /* Espaçamento inferior */
     font-family: Lucida ;
 }
@@ -47,3 +51,11 @@
 .form-grid {
     width: 100%;
 }
+
+
+
+
+
+
+
+
