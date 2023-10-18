@@ -18,28 +18,16 @@ import java.util.List;
 @Data
 public class CadastroFenotipagemController {
 
-    private Fenotipagem fenotipagem = new Fenotipagem();
-
     @Autowired
     private FenotipagemRepository fenotipagemRepository;
-
-    private List<Fenotipagem> fenotipagemList = new ArrayList<>();
+    private Fenotipagem fenotipagem = new Fenotipagem();
 
     public void insert() {
         fenotipagemRepository.insert(fenotipagem);
 
-        getAll();
         fenotipagem = new Fenotipagem();
 
         /*Retorna uma mensagem na tela para o usuário*/
         Messages.addFlashGlobalInfo("Fenotipagem salva com sucesso");
-
-        /*Recarrega a tabela com os dados do banco*/
-        PrimeFaces.current().ajax().update("form:datatable");
-    }
-
-    @PostConstruct
-    public void getAll() {
-        fenotipagemList = fenotipagemRepository.getAll();
     }
 }

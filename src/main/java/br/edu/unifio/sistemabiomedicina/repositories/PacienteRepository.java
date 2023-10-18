@@ -11,17 +11,13 @@ import java.util.List;
 
 @Repository
 public class PacienteRepository {
-
     @PersistenceContext
     private EntityManager em;
-
 
     public List<Paciente> getAll(){
         Query query = em.createQuery("SELECT p FROM Paciente p");
         return query.getResultList();
-
     }
-
 
     public Paciente getById(Paciente paciente){
         return em.find(Paciente.class, paciente.getId());
@@ -52,10 +48,8 @@ public class PacienteRepository {
         pacienteEncontrado.setFenotipagem(paciente.getFenotipagem());
 
         em.persist(pacienteEncontrado);
-
     }
 
     @Transactional
     public void delete(Paciente paciente){em.remove(paciente.getId());}
-
 }
