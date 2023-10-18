@@ -3,6 +3,7 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
 import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
+import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
 import jakarta.annotation.PostConstruct;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -20,37 +22,38 @@ import java.util.List;
 @Data
 public class CadastroPacienteController implements Serializable {
 
+    /* Repositories e classes da entidade Paciente */
     @Autowired
     private PacienteRepository pacienteRepository;
     private Paciente paciente = new Paciente();
 
+    /* Repositories e classes da entidade Fenotipagem */
     @Autowired
     private FenotipagemRepository fenotipagemRepository;
 
-    private List<Fenotipagem> fenotipagemList;
+    private List<Fenotipagem> fenotipagemList = new ArrayList<>();
     private String fenotipagemSelecionada;
 
-    private Anticorpo anticorpo = new Anticorpo();
-
-    public Fenotipagem obterFenotipagem() {
-        /* Faz a busca da Fenotipagem escolhida em String, busca no banco e retorna objeto Fenotipagem */
-        Fenotipagem fenotipagem = fenotipagemRepository.getById(Long.parseLong(fenotipagemSelecionada));
-        return fenotipagem;
-    }
-
-    public void imprimirFenotipagem() {
-        System.out.println(fenotipagemSelecionada);
-    }
+    /* Repositories e classes da entidade Anticorpo */
+    @Autowired
+    private AnticorpoRepository anticorpoRepository;
+    private List<Anticorpo> anticorposList;
 
     public void insert() {
-        Fenotipagem fenotipagem = obterFenotipagem();
-
-        paciente.setFenotipagem(fenotipagem);
         pacienteRepository.insert(paciente);
 
         paciente = new Paciente();
         /*Retorna uma mensagem na tela para o usuário*/
         Messages.addFlashGlobalInfo("Paciente salvo com sucesso");
+    }
+
+    public void imprimirAnticorpos() {
+        System.out.println(fenotipagemList);
+    }
+
+    @PostConstruct
+    public void listarAnticorpos() {
+        anticorposList = anticorpoRepository.getAll();
     }
 
     @PostConstruct

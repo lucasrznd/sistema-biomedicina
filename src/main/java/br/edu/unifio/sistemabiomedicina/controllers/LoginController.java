@@ -5,6 +5,7 @@ import br.edu.unifio.sistemabiomedicina.repositories.UsuarioRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,7 @@ public class LoginController {
         /* Se o user for diferente de null o usuário está autenticado */
         if (user != null) {
             Messages.addFlashGlobalInfo("Autenticado com sucesso.");
+            Faces.redirect("cadastro-paciente.xhtml");
         } else {
             Messages.addFlashGlobalError("Usuário ou senha incorreta.");
         }

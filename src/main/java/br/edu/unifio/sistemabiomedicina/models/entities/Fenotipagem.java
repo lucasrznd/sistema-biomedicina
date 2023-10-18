@@ -26,6 +26,6 @@ public class Fenotipagem implements Serializable {
 
     @Override
     public String toString() {
-        return id.toString();
+        return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
     }
 }

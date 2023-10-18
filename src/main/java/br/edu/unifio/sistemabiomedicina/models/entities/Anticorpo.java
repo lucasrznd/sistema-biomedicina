@@ -19,9 +19,9 @@ public class Anticorpo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String anticorpoIdentificado;
-    private Integer tituloAnticorpo;
+    //private String tituloAnticorpo;
 
-    @OneToMany(mappedBy = "anticorpo")
-    private List<AnticorpoPaciente> anticorposPaciente;
+    /*@OneToMany(mappedBy = "anticorpo")
+    private List<AnticorpoPaciente> anticorposPaciente; */
 
 }

@@ -35,14 +35,18 @@
                                  requiredMessage="Campo CPF é obrigatório"/>
 
                     <p:outputLabel value="Selecione a Fenotipagem"/>
-                    <p:selectOneMenu value="#{cadastroPacienteController.fenotipagemSelecionada}">
+                    <p:selectOneMenu value="#{cadastroPacienteController.paciente.fenotipagem}" converter="omnifaces.SelectItemsConverter">
                         <f:selectItem itemLabel="Selecione"/>
-                        <f:selectItems value="#{cadastroFenotipagemController.fenotipagemList}" var="fenotipagem"
+                        <f:selectItems value="#{cadastroPacienteController.fenotipagemList}" var="fenotipagem"
                                        itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Anticorpo Identificado"/>
-                    <p:inputText value="#{cadastroPacienteController.paciente.anticorpoIdentificado}"/>
+                    <p:selectOneMenu value="#{cadastroPacienteController.paciente.anticorpoIdentificado}" converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{cadastroPacienteController.anticorposList}" var="anticorpo"
+                        itemLabel="#{anticorpo.anticorpoIdentificado}"/>
+                    </p:selectOneMenu>
 
                     <p:outputLabel value="Titulo Anticorpo"/>
                     <p:inputMask mask="99/99" value="#{cadastroPacienteController.paciente.tituloAnticorpo}"

@@ -18,40 +18,44 @@
                 <p:messages id="idMessage" closable="true"/>
                 <h:panelGrid id="panelGrid" columns="2">
                     <p:outputLabel value="Nome"/>
-                    <p:inputText value="#{pacienteController.paciente.nome}" required="true"
+                    <p:inputText value="#{cadastroPacienteController.paciente.nome}" required="true"
                                  requiredMessage="Campo Nome é obrigatório"/>
 
                     <p:outputLabel value="Sobrenome"/>
-                    <p:inputText value="#{pacienteController.paciente.sobrenome}" required="true"
+                    <p:inputText value="#{cadastroPacienteController.paciente.sobrenome}" required="true"
                                  requiredMessage="Campo Sobrenome é obrigatório"/>
 
                     <p:outputLabel value="Data de Nascimento"/>
                     <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
-                                value="#{pacienteController.paciente.dataNascimento}" required="true"
+                                value="#{cadastroPacienteController.paciente.dataNascimento}" required="true"
                                 requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"/>
 
                     <p:outputLabel value="CPF"/>
-                    <p:inputMask mask="999.999.999-99" value="#{pacienteController.paciente.cpf}" required="true"
+                    <p:inputMask mask="999.999.999-99" value="#{cadastroPacienteController.paciente.cpf}" required="true"
                                  requiredMessage="Campo CPF é obrigatório"/>
 
                     <p:outputLabel value="Selecione a Fenotipagem"/>
-                    <p:selectOneMenu value="#{pacienteController.fenotipagemSelecionada}">
+                    <p:selectOneMenu value="#{cadastroPacienteController.paciente.fenotipagem}" converter="omnifaces.SelectItemsConverter">
                         <f:selectItem itemLabel="Selecione"/>
-                        <f:selectItems value="#{fenotipagemController.fenotipagemList}" var="fenotipagem"
+                        <f:selectItems value="#{cadastroPacienteController.fenotipagemList}" var="fenotipagem"
                                        itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Anticorpo Identificado"/>
-                    <p:inputText value="#{pacienteController.paciente.anticorpoIdentificado}"/>
+                    <p:selectOneMenu value="#{cadastroPacienteController.paciente.anticorpoIdentificado}" converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{cadastroPacienteController.anticorposList}" var="anticorpo"
+                        itemLabel="#{anticorpo.anticorpoIdentificado}"/>
+                    </p:selectOneMenu>
 
                     <p:outputLabel value="Titulo Anticorpo"/>
-                    <p:inputMask mask="99/99" value="#{pacienteController.paciente.tituloAnticorpo}"
+                    <p:inputMask mask="99/99" value="#{cadastroPacienteController.paciente.tituloAnticorpo}"
                                  required="true" requiredMessage="Titulo Anticorpo obrigatório"/>
 
                 </h:panelGrid>
 
                 <h:panelGrid columns="4">
-                    <p:commandButton value="Cadastrar" actionListener="#{pacienteController.insert()}"
+                    <p:commandButton value="Cadastrar" actionListener="#{cadastroPacienteController.insert()}"
                                      update="idMessage panelGrid"/>
                 </h:panelGrid>
             </p:panel>
