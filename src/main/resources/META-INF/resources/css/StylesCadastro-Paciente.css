@@ -1,0 +1,144 @@
+/* StylesCadastro-Paciente.css */
+
+.minha-classe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.login-form {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.label-container {
+    width: 5px; /* ou a largura desejada para as labels */
+    display: inline-block;
+}
+
+.input-container {
+    width: calc(100% - 100px); /* Ajuste conforme necessário */
+    display: inline-block;
+    vertical-align: top; /* Alinhar com o topo para garantir o alinhamento correto */
+}
+
+.label-text {
+    color: #c7696f;
+    font-size: 24px !important;
+    margin: 0px;
+    font-family: 'Lucida', sans-serif;
+    text-align: left !important;
+
+}
+
+.label-container {
+    width: 150px; /* Largura do rótulo ajustável conforme necessário */
+    display: inline-block;
+    text-align: right;
+    margin-right: 10px; /* Adicione margem à direita para separar os rótulos dos campos de entrada */
+}
+
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.form-row {
+    margin-bottom: 15px;
+
+}
+
+.ui-panel-title {
+    color: #FF0000FF; /* Cor desejada */
+    font-family: 'Arial', sans-serif; /* Fonte desejada */
+    font-size: 30px; /* Tamanho da fonte desejado */
+}
+
+
+
+.absolute-nome{
+    font-size: 24px !important;
+    color: #c7696f;
+    position: absolute;
+    top: 90px;
+    left: 35px;
+}
+.absolute-nomeinpu{
+    position: absolute;
+    top: 130px;
+    left: 30px;
+}
+
+.absolute-sobrenome{
+    font-size: 24px !important;
+    color: #c7696f;
+    position: absolute;
+    top: 170px;
+    left: 35px;
+}
+.absolute-sobrenomeinpu{
+    position: absolute;
+    top: 210px;
+    left: 30px;
+}
+
+
+.absolute-datanasc{
+    font-size: 24px !important;
+    color: #c7696f;
+    position: absolute;
+    top: 280px;
+    left: 35px;
+}
+.absolute-datanascinpu{
+    position: absolute;
+    top: 280px;
+    left: 258px;
+}
+
+.absolute-cpf{
+    font-size: 24px !important;
+    color: #c7696f;
+    position: absolute;
+    top: 280px;
+    left: 550px;
+}
+.absolute-cpfinpu{
+    position: absolute;
+    top: 280px;
+    left: 600px;
+}
+
+.absolute-anticorpoidentificado{
+    font-size: 24px !important;
+    color: #c7696f;
+    position: absolute;
+    top: 400px;
+    left: 35px;
+}
+.absolute-anticorpoidentificadoinpu{
+    position: absolute;
+    top: 400px;
+    left: 280px;
+}
+
+.absolute-tituloanticorpo{
+    font-size: 24px !important;
+    color: #c7696f;
+    position: absolute;
+    top: 400px;
+    left: 500px;
+}
+.absolute-tituloanticorpoinpu{
+    position: absolute;
+    top: 400px;
+    left: 710px;
+}
