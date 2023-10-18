@@ -1,6 +1,5 @@
 package br.edu.unifio.sistemabiomedicina.models.entities;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

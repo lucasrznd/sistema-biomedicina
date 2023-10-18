@@ -27,4 +27,7 @@ public class Paciente implements Serializable {
     @ManyToOne
     private Fenotipagem fenotipagem;
 
+    private String anticorpoIdentificado;
+    private String tituloAnticorpo;
+
 }
