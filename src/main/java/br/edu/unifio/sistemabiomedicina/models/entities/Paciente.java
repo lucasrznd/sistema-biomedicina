@@ -27,7 +27,4 @@ public class Paciente implements Serializable {
     @ManyToOne
     private Fenotipagem fenotipagem;
 
-    @OneToMany(mappedBy = "paciente")
-    List<AnticorpoPaciente> anticorposPaciente;
-
 }

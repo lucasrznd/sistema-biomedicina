@@ -16,7 +16,7 @@ public class PacienteRepository {
     private EntityManager em;
 
 
-    public List<Paciente> getALL(){
+    public List<Paciente> getAll(){
         Query query = em.createQuery("SELECT p FROM Paciente p");
         return query.getResultList();
 

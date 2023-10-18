@@ -24,6 +24,10 @@ public class FenotipagemRepository {
         return em.find(Fenotipagem.class, fenotipagem.getId());
     }
 
+    public Fenotipagem getById(Long id) {
+        return em.find(Fenotipagem.class, id);
+    }
+
     public List<Fenotipagem> getByTipagemAbo(String tipagemAbo) {
         Query query = em.createQuery("SELECT f FROM Fenotipagem f where f.tipagemAbo LIKE:tipagemAbo");
         query.setParameter("tipagemAbo", "%" + tipagemAbo + "%");

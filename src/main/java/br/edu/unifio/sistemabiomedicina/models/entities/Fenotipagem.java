@@ -24,4 +24,9 @@ public class Fenotipagem implements Serializable {
     public String getFenotipagemCompleta() {
         return tipagemAbo + tipagemRh;
     }
+
+    @Override
+    public String toString() {
+        return id.toString();
+    }
 }

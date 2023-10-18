@@ -18,41 +18,31 @@
                 <p:messages id="idMessage" closable="true"/>
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Nome"/>
-                    <p:inputText value="#{valor}" required="true" requiredMessage="Campo Nome é obrigatório"/>
+                    <p:inputText value="#{pacienteController.paciente.nome}" required="true" requiredMessage="Campo Nome é obrigatório"/>
 
                     <p:outputLabel value="Sobrenome"/>
-                    <p:inputText value="#{valor}" required="true" requiredMessage="Campo Sobrenome é obrigatório"/>
+                    <p:inputText value="#{pacienteController.paciente.sobrenome}" required="true" requiredMessage="Campo Sobrenome é obrigatório"/>
 
                     <p:outputLabel value="Data de Nascimento"/>
                     <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
-                                value="#{produtoController.produto.validade}" required="true"
+                                value="#{pacienteController.paciente.dataNascimento}" required="true"
                                 requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"/>
 
                     <p:outputLabel value="CPF"/>
-                    <p:inputMask mask="999.999.999-99" value="#{valor}" required="true"
+                    <p:inputMask mask="999.999.999-99" value="#{pacienteController.paciente.cpf}" required="true"
                                  requiredMessage="Campo CPF é obrigatório"/>
 
                     <p:outputLabel value="Digite a Tipagem ABO: "/>
-                    <p:inputText maxlength="2" value="#{fenotipagemController.fenotipagem.tipagemAbo}" required="true"
-                                 requiredMessage="Campo Tipagem ABO é obrigatório"
-                                 oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
-
-                    <p:outputLabel value="Digite a Tipagem RH: "/>
-                    <p:inputText maxlength="1" value="#{fenotipagemController.fenotipagem.tipagemRh}" required="true"
-                                 requiredMessage="Campo Tipagem RH é obrigatório"
-                                 oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
-
-                    <p:outputLabel value="Anticorpo Identificado"/>
-                    <p:inputText value="#{valor}" maxlength="20"
-                                 required="true" requiredMessage="Campo Anticorpo Identificado é obrigatório"/>
-
-                    <p:outputLabel value="Título do Anticorpo"/>
-                    <p:inputText value="#{valor}" required="true" requiredMessage="Campo Sobrenome é obrigatório"/>
+                    <p:selectOneMenu value="#{pacienteController.fenotipagemSelecionada}">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{fenotipagemController.fenotipagemList}" var="fenotipagem"
+                        itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
+                    </p:selectOneMenu>
 
                 </h:panelGrid>
 
                 <h:panelGrid columns="4">
-                    <p:commandButton value="Cadastrar" actionListener="#{calculatorController.sum()}"/>
+                    <p:commandButton value="Cadastrar" actionListener="#{pacienteController.insert()}" update="idMessage"/>
                 </h:panelGrid>
             </p:panel>
         </h:form>
