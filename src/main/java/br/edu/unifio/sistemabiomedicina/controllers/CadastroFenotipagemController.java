@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 @ViewScoped
 @Data
-public class FenotipagemController {
+public class CadastroFenotipagemController {
 
     private Fenotipagem fenotipagem = new Fenotipagem();
 

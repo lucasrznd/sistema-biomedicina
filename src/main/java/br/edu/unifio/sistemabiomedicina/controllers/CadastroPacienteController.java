@@ -18,7 +18,7 @@ import java.util.List;
 @Component
 @ViewScoped
 @Data
-public class PacienteController implements Serializable {
+public class CadastroPacienteController implements Serializable {
 
     @Autowired
     private PacienteRepository pacienteRepository;

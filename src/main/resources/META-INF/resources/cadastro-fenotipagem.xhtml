@@ -28,7 +28,7 @@
                                 <p:outputLabel value="Digite a tipagem ABO:" styleClass="label-text"/>
                             </div>
                             <div class="input-container">
-                                <p:inputText maxlength="2" value="#{fenotipagemController.fenotipagem.tipagemAbo}" required="true"
+                                <p:inputText maxlength="2" value="#{cadastroFenotipagemController.fenotipagem.tipagemAbo}" required="true"
                                              requiredMessage="Campo Tipagem ABO é obrigatório"
                                              oninput="this.value = this.value.replace(/[^A-Z]/g, '');"
                                              styleClass="input-field"/>
@@ -40,7 +40,7 @@
                                 <p:outputLabel value="Digite a tipagem RH:" styleClass="label-text"/>
                             </div>
                             <div class="input-container">
-                                <p:inputText maxlength="1" value="#{fenotipagemController.fenotipagem.tipagemRh}" required="true"
+                                <p:inputText maxlength="1" value="#{cadastroFenotipagemController.fenotipagem.tipagemRh}" required="true"
                                              requiredMessage="Campo Tipagem RH é obrigatório"
                                              oninput="this.value = this.value.replace(/[^+-]/g, '');"
                                              styleClass="input-field"/>
@@ -60,7 +60,7 @@
 
                     <h:panelGrid columns="4">
 
-                        <p:commandButton value="Cadastrar" action="#{fenotipagemController.insert()}"
+                        <p:commandButton value="Cadastrar" action="#{cadastroFenotipagemController.insert()}"
                                          update="idMessage panelGrid dataTable"
                                          style="width: 100%; padding: 10px;
                                          background-color: #ff0000; color: white; border: none; border-radius: 20px;
@@ -80,7 +80,7 @@
 
                 <p:panel>
                     <h:panelGrid>
-                        <p:dataTable id="dataTable" value="#{fenotipagemController.fenotipagemList}" var="fenotipagem">
+                        <p:dataTable id="dataTable" value="#{cadastroFenotipagemController.fenotipagemList}" var="fenotipagem">
                             <p:column headerText="Tipagem ABO">
                                 #{fenotipagem.tipagemAbo}
                             </p:column>
