@@ -13,7 +13,7 @@
     <h:body>
         <h:form>
             <!-- Incluir menu -->
-            <ui:include src="menu.xhtml"/>
+            <ui:include src="../menu.xhtml"/>
 
             <p:panel header="Pacientes Cadastrados">
                 <p:dataTable id="dataTable" value="#{listagemPacienteController.pacienteList}" var="paciente">
@@ -37,12 +37,26 @@
                         #{paciente.fenotipagem.fenotipagemCompleta}
                     </p:column>
 
+                    <p:column headerText="Anticorpo Identificado">
+                        #{paciente.anticorpoIdentificado.anticorpoIdentificado}
+                    </p:column>
+
+                    <p:column headerText="Título do Anticorpo">
+                        #{paciente.tituloAnticorpo}
+                    </p:column>
+
                     <p:column>
                         <p:button value="Editar" />
-                        <p:button value="Excluir" styleClass="ui-button-danger" />
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton value="Excluir" styleClass="ui-button-danger" />
                     </p:column>
                 </p:dataTable>
             </p:panel>
+
+            <!-- Incluir rodapé -->
+            <ui:include src="/rodape.xhtml"/>
         </h:form>
     </h:body>
 </f:view>

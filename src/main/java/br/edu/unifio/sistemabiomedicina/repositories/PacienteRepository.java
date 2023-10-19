@@ -14,31 +14,39 @@ public class PacienteRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Paciente> getAll(){
+    public List<Paciente> getAll() {
         Query query = em.createQuery("SELECT p FROM Paciente p");
         return query.getResultList();
     }
 
-    public Paciente getById(Paciente paciente){
+    public Paciente getById(Paciente paciente) {
         return em.find(Paciente.class, paciente.getId());
     }
 
-    public  List<Paciente> getByNome(String Nome) {
+    public Paciente getById(Long id) {
+        return em.find(Paciente.class, id);
+    }
+
+    public List<Paciente> getByNome(String nome) {
         Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.nome LIKE:nome");
-        query.setParameter("nome", "%" + Nome + "%");
+        query.setParameter("nome", "%" + nome + "%");
+
         return query.getResultList();
     }
-    public  List<Paciente> getBySobrenome(String Sobrenome) {
+
+    public List<Paciente> getBySobrenome(String sobrenome) {
         Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.sobrenome LIKE:sobrenome");
-        query.setParameter("sobrenome", "%" + Sobrenome + "%");
+        query.setParameter("sobrenome", "%" + sobrenome + "%");
         return query.getResultList();
     }
 
     @Transactional
-    public void insert(Paciente paciente){em.persist(paciente);}
+    public void insert(Paciente paciente) {
+        em.persist(paciente);
+    }
 
     @Transactional
-    public void update(Paciente paciente){
+    public void update(Paciente paciente) {
         Paciente pacienteEncontrado = getById(paciente);
 
         pacienteEncontrado.setNome(paciente.getNome());
@@ -51,5 +59,7 @@ public class PacienteRepository {
     }
 
     @Transactional
-    public void delete(Paciente paciente){em.remove(paciente.getId());}
+    public void delete(Paciente paciente) {
+        em.remove(paciente.getId());
+    }
 }

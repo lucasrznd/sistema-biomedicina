@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <title>Soroteca Unifio - Listagem de Fenotipagem</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <!-- Incluir menu -->
+            <ui:include src="/menu.xhtml"/>
+
+            <p:panel>
+                <h2>Buscar Fenotipagem</h2>
+                <p:messages id="idMessage" closable="true"/>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid columns="2">
+                    <p:button value="Novo" outcome="/cadastro/fenotipagem"/>
+                    <p:commandButton value="Buscar" action="#{buscarFenotipagemController.buscarFenotipagem()}"
+                                     update="idMessage panelGridCampos dataTable"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid id="panelGridCampos" columns="2">
+
+                    <p:outputLabel value="Digite a tipagem ABO:"/>
+                    <p:inputText maxlength="2" value="#{buscarFenotipagemController.fenotipagem.tipagemAbo}"
+                                 oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
+
+                    <p:outputLabel value="Digite a tipagem RH:"/>
+                    <p:inputText maxlength="1" value="#{buscarFenotipagemController.fenotipagem.tipagemRh}"
+                                 oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <p:dataTable id="dataTable" var="fenotipagem"
+                             value="#{buscarFenotipagemController.fenotipagemList}" paginator="true" rows="3">
+
+                    <p:column headerText="Código">
+                        <h:outputText value="#{fenotipagem.id}"/>
+                    </p:column>
+                    <p:column headerText="Tipagem ABO">
+                        <h:outputText value="#{fenotipagem.tipagemAbo}"/>
+                    </p:column>
+                    <p:column headerText="Tipagem RH">
+                        <h:outputText value="#{fenotipagem.tipagemRh}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <!-- Incluir rodapé -->
+            <ui:include src="/rodape.xhtml"/>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>

@@ -26,4 +26,6 @@ public class Ampola implements Serializable {
     @ManyToOne
     private Paciente paciente;
 
+    private String posicaoAmario;
+
 }

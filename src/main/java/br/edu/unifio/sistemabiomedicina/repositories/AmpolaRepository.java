@@ -16,25 +16,35 @@ public class AmpolaRepository {
     private EntityManager em;
 
 
-    public List<Ampola> getALL(){
+    public List<Ampola> getALL() {
         Query query = em.createQuery("SELECT a FROM Ampola a");
-        return  query.getResultList();
+        return query.getResultList();
     }
 
-    public Ampola getById(Ampola ampola){return em.find(Ampola.class, ampola.getId());}
+    public Ampola getById(Ampola ampola) {
+        return em.find(Ampola.class, ampola.getId());
+    }
 
-    public Ampola getBycodigoInternacao(Ampola ampola){return em.find(Ampola.class, ampola.getAmpolaMl());}
+    public Ampola getBycodigoInternacao(Ampola ampola) {
+        return em.find(Ampola.class, ampola.getAmpolaMl());
+    }
 
-    public Ampola getBydataCadastro(Ampola ampola){return em.find(Ampola.class, ampola.getDataCadastro());}
+    public Ampola getBydataCadastro(Ampola ampola) {
+        return em.find(Ampola.class, ampola.getDataCadastro());
+    }
 
-    public Ampola getBydataValidade(Ampola ampola){return em.find(Ampola.class, ampola.getDataValidade());}
+    public Ampola getBydataValidade(Ampola ampola) {
+        return em.find(Ampola.class, ampola.getDataValidade());
+    }
 
 
     @Transactional
-    public void inserir(Ampola ampola){em.persist(ampola);}
+    public void insert(Ampola ampola) {
+        em.persist(ampola);
+    }
 
     @Transactional
-    public void update(Ampola ampola){
+    public void update(Ampola ampola) {
         Ampola ampolaEncontrada = getById(ampola);
 
         ampolaEncontrada.setCodigoInternacao(ampola.getCodigoInternacao());
@@ -48,8 +58,9 @@ public class AmpolaRepository {
     }
 
     @Transactional
-    public void delete(Ampola ampola){em.remove(ampola.getId());}
-
+    public void delete(Ampola ampola) {
+        em.remove(ampola.getId());
+    }
 
 
 }

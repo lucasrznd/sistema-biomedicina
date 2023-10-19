@@ -5,28 +5,22 @@ import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
-import org.omnifaces.util.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @ViewScoped
 @Data
-public class CadastroFenotipagemController {
+public class ListagemFenotipagemController {
 
     @Autowired
     private FenotipagemRepository fenotipagemRepository;
-    private Fenotipagem fenotipagem;
+    private List<Fenotipagem> fenotipagemList;
 
     @PostConstruct
-    public void novo() {
-        fenotipagem = new Fenotipagem();
-    }
-
-    public void insert() {
-        fenotipagemRepository.insert(fenotipagem);
-
-        /*Retorna uma mensagem na tela para o usuário*/
-        Messages.addFlashGlobalInfo("Fenotipagem salva com sucesso");
+    public void listarFenotipagens() {
+        fenotipagemList = fenotipagemRepository.getAll();
     }
 }

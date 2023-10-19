@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
+    <h:head>
+        <title>Soroteca Unifio - Cadastro de Paciente</title>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <!--Incluir menu-->
+            <ui:include src="../menu.xhtml"/>
+            <p:panel header="Cadastro de Paciente">
+                <p:messages id="idMessage" closable="true"/>
+                <h:panelGrid id="panelGrid" columns="2">
+                    <p:outputLabel value="Nome"/>
+                    <p:inputText value="#{cadastroPacienteController.paciente.nome}" required="true"
+                                 requiredMessage="Campo Nome é obrigatório"/>
+
+                    <p:outputLabel value="Sobrenome"/>
+                    <p:inputText value="#{cadastroPacienteController.paciente.sobrenome}" required="true"
+                                 requiredMessage="Campo Sobrenome é obrigatório"/>
+
+                    <p:outputLabel value="Data de Nascimento"/>
+                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
+                                value="#{cadastroPacienteController.paciente.dataNascimento}" required="true"
+                                requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"/>
+
+                    <p:outputLabel value="CPF"/>
+                    <p:inputMask mask="999.999.999-99" value="#{cadastroPacienteController.paciente.cpf}" required="true"
+                                 requiredMessage="Campo CPF é obrigatório"/>
+
+                    <p:outputLabel value="Selecione a Fenotipagem"/>
+                    <p:selectOneMenu value="#{cadastroPacienteController.paciente.fenotipagem}" converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{cadastroPacienteController.fenotipagemList}" var="fenotipagem"
+                                       itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Anticorpo Identificado"/>
+                    <p:selectOneMenu value="#{cadastroPacienteController.paciente.anticorpoIdentificado}" converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{cadastroPacienteController.anticorposList}" var="anticorpo"
+                        itemLabel="#{anticorpo.anticorpoIdentificado}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Titulo Anticorpo"/>
+                    <p:inputMask mask="99/99" value="#{cadastroPacienteController.paciente.tituloAnticorpo}"
+                                 required="true" requiredMessage="Titulo Anticorpo obrigatório"/>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="4">
+                    <p:commandButton value="Cadastrar" actionListener="#{cadastroPacienteController.insert()}"
+                                     update="idMessage panelGrid"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <!-- Incluir rodapé -->
+            <ui:include src="/rodape.xhtml"/>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>

@@ -24,7 +24,7 @@ public class Paciente implements Serializable {
     private LocalDate dataNascimento;
     private String cpf;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Fenotipagem fenotipagem;
 
     @ManyToOne

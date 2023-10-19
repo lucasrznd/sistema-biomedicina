@@ -15,20 +15,22 @@ public class AnticorpoRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Anticorpo> getAll(){
+    public List<Anticorpo> getAll() {
         Query query = em.createQuery("SELECT an FROM Anticorpo an");
         return query.getResultList();
     }
 
     public Anticorpo getById(Anticorpo anticorpo) {
-        return  em.find(Anticorpo.class, anticorpo.getId());
+        return em.find(Anticorpo.class, anticorpo.getId());
     }
 
     @Transactional
-    public void insert(Anticorpo anticorpo){em.persist(anticorpo);}
+    public void insert(Anticorpo anticorpo) {
+        em.persist(anticorpo);
+    }
 
     @Transactional
-    public void update(Anticorpo anticorpo){
+    public void update(Anticorpo anticorpo) {
         Anticorpo anticorpoEncontrado = getById(anticorpo);
 
         //anticorpoEncontrado.setTituloAnticorpo(anticorpo.getTituloAnticorpo());
@@ -41,4 +43,5 @@ public class AnticorpoRepository {
     public void delete(Anticorpo anticorpo) {
         em.remove(anticorpo.getId());
     }
+
 }

@@ -35,7 +35,7 @@ public class LoginController {
         /* Se o user for diferente de null o usuário está autenticado */
         if (user != null) {
             Messages.addFlashGlobalInfo("Autenticado com sucesso.");
-            Faces.redirect("cadastro-paciente.xhtml");
+            Faces.redirect("/cadastro/paciente.xhtml");
         } else {
             Messages.addFlashGlobalError("Usuário ou senha incorreta.");
         }

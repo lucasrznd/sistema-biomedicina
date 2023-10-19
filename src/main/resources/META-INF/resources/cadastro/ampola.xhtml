@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
+    <h:head>
+        <title>Soroteca Unifio - Cadastro de Ampola</title>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <!--Incluir menu-->
+            <ui:include src="../menu.xhtml"/>
+            <p:panel header="Cadastro de Ampola">
+                <p:messages id="idMessage" closable="true"/>
+                <h:panelGrid id="panelGrid" columns="2">
+                    <p:outputLabel value="Paciente" for="paciente"/>
+                    <p:autoComplete id="paciente" value="#{cadastroAmpolaController.ampola.paciente}" size="30"
+                                    completeMethod="#{cadastroAmpolaController.buscarPaciente}" var="paciente"
+                                    itemLabel="#{paciente.nome}" itemValue="#{paciente}"
+                                    converter="#{pacienteConverter}" forceSelection="true"/>
+
+                    <p:outputLabel value="Código Internação"/>
+                    <p:inputText value="#{cadastroAmpolaController.ampola.codigoInternacao}" required="true" size="30"
+                                 requiredMessage="Campo Código Internação é obrigatório"/>
+
+                    <p:outputLabel value="ML da Ampola"/>
+                    <p:inputText value="#{cadastroAmpolaController.ampola.ampolaMl}" required="true" size="30"
+                                 requiredMessage="Campo ML da Ampola é obrigatório"/>
+
+                    <p:outputLabel value="Data de Cadastro"/>
+                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
+                                value="#{cadastroAmpolaController.ampola.dataCadastro}" required="true"
+                                requiredMessage="Campo Data de Cadastro é obrigatório" showOn="button"/>
+
+                    <p:outputLabel value="Data de Validade"/>
+                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
+                                value="#{cadastroAmpolaController.ampola.dataValidade}" required="true"
+                                requiredMessage="Campo Data de Validade é obrigatório" showOn="button"/>
+
+                    <p:outputLabel value="Posição no Armário"/>
+                    <p:inputText value="#{cadastroAmpolaController.ampola.posicaoAmario}" required="true" size="30"
+                                 requiredMessage="Campo ML da Ampola é obrigatório"/>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="4">
+                    <p:commandButton value="Cadastrar" actionListener="#{cadastroAmpolaController.insert()}"
+                                     update="idMessage panelGrid"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <!-- Incluir rodapé -->
+            <ui:include src="/rodape.xhtml"/>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>
