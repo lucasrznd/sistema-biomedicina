@@ -7,16 +7,48 @@
       xmlns:p="http://primefaces.org/ui">
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
     <h:head>
-        <title>Soroteca Unifio - Listagem de Anticorpos</title>
+        <title>SGS - Buscar Anticorpo</title>
+        <h:outputStylesheet name="css/estilo.css"/>
     </h:head>
+
     <h:body>
         <h:form>
             <!-- Incluir menu -->
-            <ui:include src="../menu.xhtml"/>
+            <ui:include src="/menu.xhtml"/>
 
-            <p:panel header="Anticorpos Cadastrados">
-                <p:dataTable id="dataTable" value="#{listagemAnticorpoController.anticorpoList}" var="anticorpo">
+            <p:panel>
+                <h2>Buscar Anticorpo</h2>
+                <p:messages id="idMessage" closable="true"/>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid columns="2">
+                    <p:button value="Novo" icon="pi pi-plus-circle"
+                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                              outcome="/cadastro/anticorpo"/>
+                    <p:commandButton value="Buscar" icon="pi pi-search"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     action="#{buscarAnticorpoController.buscarAnticorpo()}"
+                                     update="idMessage panelGridCampos dataTable"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid id="panelGridCampos" columns="2">
+                    <p:outputLabel value="Digite o Anticorpo Identificado"/>
+                    <p:inputText maxlength="50" value="#{buscarAnticorpoController.anticorpo.anticorpoIdentificado}"
+                                 required="true"
+                                 requiredMessage="Campo Anticorpo Identificado é obrigatório"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <p:dataTable id="dataTable" value="#{buscarAnticorpoController.anticorpoList}" var="anticorpo">
+                    <p:column headerText="Código">
+                        #{anticorpo.id}
+                    </p:column>
                     <p:column headerText="Anticorpo Identificado">
                         #{anticorpo.anticorpoIdentificado}
                     </p:column>

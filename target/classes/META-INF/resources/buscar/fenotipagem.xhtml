@@ -7,9 +7,15 @@
       xmlns:p="http://primefaces.org/ui">
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
     <h:head>
-        <title>Soroteca Unifio - Listagem de Fenotipagem</title>
+        <title>SGS - Buscar Fenotipagem</title>
+
+        <!-- Favicon e import do CSS -->
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"/>
+        <h:outputStylesheet name="css/estilo.css"/>
     </h:head>
+
     <h:body>
         <h:form>
             <!-- Incluir menu -->
@@ -22,8 +28,12 @@
 
             <p:panel>
                 <h:panelGrid columns="2">
-                    <p:button value="Novo" outcome="/cadastro/fenotipagem"/>
-                    <p:commandButton value="Buscar" action="#{buscarFenotipagemController.buscarFenotipagem()}"
+                    <p:button value="Novo" icon="pi pi-plus-circle"
+                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                              outcome="/cadastro/fenotipagem"/>
+                    <p:commandButton value="Buscar" icon="pi pi-search"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     action="#{buscarFenotipagemController.buscarFenotipagem()}"
                                      update="idMessage panelGridCampos dataTable"/>
                 </h:panelGrid>
             </p:panel>
@@ -33,6 +43,8 @@
 
                     <p:outputLabel value="Digite a tipagem ABO:"/>
                     <p:inputText maxlength="2" value="#{buscarFenotipagemController.fenotipagem.tipagemAbo}"
+                                 required="true"
+                                 requiredMessage="Insira um valor para a busca"
                                  oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
 
                     <p:outputLabel value="Digite a tipagem RH:"/>
@@ -43,8 +55,12 @@
 
             <p:panel>
                 <p:dataTable id="dataTable" var="fenotipagem"
-                             value="#{buscarFenotipagemController.fenotipagemList}" paginator="true" rows="3">
+                             value="#{buscarFenotipagemController.fenotipagemList}"
+                             paginator="true" rows="3"
+                             rowKey="#{fenotipagem.id}"
+                             selection="#{buscarFenotipagemController.fenotipagemSelecionada}">
 
+                    <p:column selectionMode="single" style="width:2%"/>
                     <p:column headerText="Código">
                         <h:outputText value="#{fenotipagem.id}"/>
                     </p:column>
@@ -53,6 +69,12 @@
                     </p:column>
                     <p:column headerText="Tipagem RH">
                         <h:outputText value="#{fenotipagem.tipagemRh}"/>
+                    </p:column>
+
+                    <p:column headerText="Ações">
+                        <p:commandButton value="Editar" action="#{seuBean.editarItem}" update="@form"/>
+                        <p:commandButton type="button"  icon=""
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat" />
                     </p:column>
                 </p:dataTable>
             </p:panel>

@@ -22,7 +22,8 @@ public class BuscarFenotipagemController {
     private FenotipagemRepository fenotipagemRepository;
     private List<Fenotipagem> fenotipagemList = new ArrayList<>();
     private Fenotipagem fenotipagem;
-    private String tipagemAbo;
+
+    private Fenotipagem fenotipagemSelecionada;
 
     @PostConstruct
     public void novo() {

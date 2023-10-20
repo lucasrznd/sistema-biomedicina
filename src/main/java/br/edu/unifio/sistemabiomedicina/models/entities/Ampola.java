@@ -27,5 +27,6 @@ public class Ampola implements Serializable {
     private Paciente paciente;
 
     private String posicaoAmario;
+    private Boolean statusArmazenamento;
 
 }

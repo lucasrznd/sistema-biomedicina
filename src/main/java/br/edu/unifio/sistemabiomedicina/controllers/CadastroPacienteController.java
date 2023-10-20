@@ -32,17 +32,19 @@ public class CadastroPacienteController implements Serializable {
     private FenotipagemRepository fenotipagemRepository;
 
     private List<Fenotipagem> fenotipagemList = new ArrayList<>();
-    private String fenotipagemSelecionada;
 
     /* Repositories e classes da entidade Anticorpo */
     @Autowired
     private AnticorpoRepository anticorpoRepository;
     private List<Anticorpo> anticorposList;
 
+    public void novo() {
+        paciente = new Paciente();
+    }
+
     public void insert() {
         pacienteRepository.insert(paciente);
 
-        paciente = new Paciente();
         /*Retorna uma mensagem na tela para o usuário*/
         Messages.addFlashGlobalInfo("Paciente salvo com sucesso");
     }

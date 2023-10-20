@@ -23,7 +23,7 @@ public class CadastroAnticorpoController {
     private List<Anticorpo> anticorposList;
 
     @PostConstruct
-    public void instanciarAnticorpo() {
+    public void novo() {
         anticorpo = new Anticorpo();
     }
 

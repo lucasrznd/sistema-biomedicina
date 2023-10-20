@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
+    <h:head>
+        <title>SGS - Buscar Ampola</title>
+        <h:outputStylesheet name="css/estilo.css"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <!-- Incluir menu -->
+            <ui:include src="/menu.xhtml"/>
+
+            <p:panel>
+                <h2>Buscar Ampola</h2>
+                <p:messages id="idMessage" closable="true"/>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid columns="2">
+                    <p:button value="Novo" icon="pi pi-plus-circle"
+                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                              outcome="/cadastro/ampola"/>
+                    <p:commandButton value="Buscar" icon="pi pi-search"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     action="#{buscarAmpolaController.buscarAmpola()}"
+                                     update="idMessage panelGridCampos dataTable"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid id="panelGridCampos" columns="2">
+                    <p:outputLabel value="Nome do Paciente"/>
+                    <p:autoComplete id="paciente" value="#{buscarAmpolaController.ampola.paciente}" size="30"
+                                    completeMethod="#{buscarAmpolaController.buscarPaciente}" var="paciente"
+                                    itemLabel="#{paciente.nome}" itemValue="#{paciente}"
+                                    converter="#{pacienteConverter}" forceSelection="true"/>
+
+                    <p:outputLabel value="Código Internação"/>
+                    <p:inputText value="#{buscarAmpolaController.ampola.codigoInternacao}" size="30"/>
+
+                    <p:outputLabel value="ML da Ampola"/>
+                    <p:inputText value="#{buscarAmpolaController.ampola.ampolaMl}" size="30"/>
+
+                    <p:outputLabel value="Data de Cadastro"/>
+                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
+                                value="#{buscarAmpolaController.ampola.dataCadastro}" showOn="button"/>
+
+                    <p:outputLabel value="Data de Validade"/>
+                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
+                                value="#{buscarAmpolaController.ampola.dataValidade}" showOn="button"/>
+
+                    <p:outputLabel value="Posição no Armário"/>
+                    <p:inputText value="#{buscarAmpolaController.ampola.posicaoAmario}" size="30"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <p:dataTable id="dataTable" value="#{buscarAmpolaController.ampolaList}"
+                             var="ampola" paginator="true" rows="3">
+
+                    <p:column headerText="Código">
+                        <h:outputText value="#{ampola.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome do Paciente">
+                        <h:outputText value="#{ampola.paciente.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Código de Internação">
+                        <h:outputText value="#{ampola.codigoInternacao}"/>
+                    </p:column>
+
+                    <p:column headerText="ML da Ampola">
+                        <h:outputText value="#{ampola.ampolaMl}"/>
+                    </p:column>
+
+                    <p:column headerText="Data de Cadastro">
+                        <h:outputText value="#{ampola.dataCadastro}"/>
+                    </p:column>
+
+                    <p:column headerText="Data de Validade">
+                        <h:outputText value="#{ampola.dataValidade}"/>
+                    </p:column>
+
+                    <p:column headerText="Posição no Armário">
+                        <h:outputText value="#{ampola.posicaoAmario}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <!-- Incluir rodapé -->
+            <ui:include src="/rodape.xhtml"/>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>

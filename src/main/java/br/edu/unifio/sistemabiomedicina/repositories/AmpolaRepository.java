@@ -15,9 +15,15 @@ public class AmpolaRepository {
     @PersistenceContext
     private EntityManager em;
 
-
     public List<Ampola> getALL() {
         Query query = em.createQuery("SELECT a FROM Ampola a");
+        return query.getResultList();
+    }
+
+    public List<Ampola> ultimasCadastradas() {
+        /* 3 últimos cadastrados */
+        Query query = em.createQuery("SELECT a FROM Ampola a ORDER BY a.id");
+        query.setMaxResults(3);
         return query.getResultList();
     }
 
@@ -25,18 +31,23 @@ public class AmpolaRepository {
         return em.find(Ampola.class, ampola.getId());
     }
 
-    public Ampola getBycodigoInternacao(Ampola ampola) {
+    public List<Ampola> getByNomePaciente(String nomePaciente) {
+        Query query = em.createQuery("SELECT a FROM Ampola a WHERE a.paciente.nome LIKE:nomePaciente");
+        query.setParameter("nomePaciente", "%" + nomePaciente + "%");
+        return query.getResultList();
+    }
+
+    public Ampola getByCodigoInternacao(Ampola ampola) {
         return em.find(Ampola.class, ampola.getAmpolaMl());
     }
 
-    public Ampola getBydataCadastro(Ampola ampola) {
+    public Ampola getByDataCadastro(Ampola ampola) {
         return em.find(Ampola.class, ampola.getDataCadastro());
     }
 
-    public Ampola getBydataValidade(Ampola ampola) {
+    public Ampola getByDataValidade(Ampola ampola) {
         return em.find(Ampola.class, ampola.getDataValidade());
     }
-
 
     @Transactional
     public void insert(Ampola ampola) {
@@ -54,13 +65,11 @@ public class AmpolaRepository {
         ampolaEncontrada.setDataValidade(ampola.getDataValidade());
 
         em.persist(ampolaEncontrada);
-
     }
 
     @Transactional
     public void delete(Ampola ampola) {
         em.remove(ampola.getId());
     }
-
 
 }

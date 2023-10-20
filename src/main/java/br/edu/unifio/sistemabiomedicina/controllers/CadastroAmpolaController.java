@@ -25,19 +25,15 @@ public class CadastroAmpolaController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @PostConstruct
+    public void novo() {
+        ampola = new Ampola();
+    }
+
     public void insert() {
         ampolaRepository.insert(ampola);
 
         Messages.addFlashGlobalInfo("Ampola armazenada com sucesso");
-    }
-
-    public void imprimirPaciente() {
-        System.out.println(ampola.getPaciente());
-    }
-
-    @PostConstruct
-    public void instanciarAmpola() {
-        ampola = new Ampola();
     }
 
     public List<Paciente> buscarPaciente(String nome) {
@@ -48,4 +44,5 @@ public class CadastroAmpolaController {
         }
         return pacientesEncontrados;
     }
+
 }

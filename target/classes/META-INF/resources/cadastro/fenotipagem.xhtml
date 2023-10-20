@@ -9,7 +9,8 @@
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
 
     <h:head>
-        <title>SGS Unifio - Cadastro de Fenotipagem</title>
+        <title>SGS - Cadastro de Fenotipagem</title>
+        <h:outputStylesheet name="css/estilo.css"/>
     </h:head>
 
     <h:body>
@@ -24,17 +25,20 @@
 
             <p:panel>
                 <h:panelGrid columns="3">
-                    <p:commandButton value="Novo" action="#{cadastroFenotipagemController.novo()}"
+                    <p:commandButton value="Novo" icon="pi pi-plus-circle"
+                                     action="#{cadastroFenotipagemController.novo()}"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      update="idMessage panelGridCampos"/>
-                    <p:commandButton value="Salvar" action="#{cadastroFenotipagemController.insert()}"
+                    <p:commandButton value="Salvar" icon="pi pi-save" action="#{cadastroFenotipagemController.insert()}"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      update="idMessage panelGridCampos"/>
-                    <p:button value="Buscar" outcome="/buscar/fenotipagem" />
+                    <p:button icon="pi pi-search" styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                              value="Buscar" outcome="/buscar/fenotipagem"/>
                 </h:panelGrid>
             </p:panel>
 
             <p:panel>
                 <h:panelGrid id="panelGridCampos" columns="2">
-
                     <p:outputLabel value="Digite a tipagem ABO:"/>
                     <p:inputText maxlength="2" value="#{cadastroFenotipagemController.fenotipagem.tipagemAbo}"
                                  required="true"

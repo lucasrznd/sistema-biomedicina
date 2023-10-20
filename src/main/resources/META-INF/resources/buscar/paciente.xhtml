@@ -7,16 +7,59 @@
       xmlns:p="http://primefaces.org/ui">
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
     <h:head>
-        <title>Soroteca Unifio - Listagem de Pacientes</title>
+        <title>SGS - Buscar Paciente</title>
+        <h:outputStylesheet name="css/estilo.css"/>
     </h:head>
+
     <h:body>
         <h:form>
             <!-- Incluir menu -->
-            <ui:include src="../menu.xhtml"/>
+            <ui:include src="/menu.xhtml"/>
 
-            <p:panel header="Pacientes Cadastrados">
-                <p:dataTable id="dataTable" value="#{listagemPacienteController.pacienteList}" var="paciente">
+            <p:panel>
+                <h2>Buscar Paciente</h2>
+                <p:messages id="idMessage" closable="true"/>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid columns="2">
+                    <p:button value="Novo" icon="pi pi-plus-circle"
+                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                              outcome="/cadastro/paciente"/>
+                    <p:commandButton value="Buscar" icon="pi pi-search"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     action="#{buscarPacienteController.buscarPaciente()}"
+                                     update="idMessage panelGridCampos dataTable"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid id="panelGridCampos" columns="2">
+                    <p:outputLabel value="Nome"/>
+                    <p:inputText value="#{buscarPacienteController.paciente.nome}" required="true"
+                                 requiredMessage="Campo Nome é obrigatório"/>
+
+                    <p:outputLabel value="Sobrenome"/>
+                    <p:inputText value="#{buscarPacienteController.paciente.sobrenome}"/>
+
+                    <p:outputLabel value="Data de Nascimento"/>
+                    <p:calendar styleClass="custom-calendar" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
+                                value="#{buscarPacienteController.paciente.dataNascimento}" showOn="button"/>
+
+                    <p:outputLabel value="CPF"/>
+                    <p:inputMask mask="999.999.999-99" value="#{buscarPacienteController.paciente.cpf}"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <p:dataTable id="dataTable" value="#{buscarPacienteController.pacienteList}" var="paciente"
+                             paginator="true" rows="3">
+                    <p:column headerText="Código">
+                        #{paciente.id}
+                    </p:column>
+
                     <p:column headerText="Nome">
                         #{paciente.nome}
                     </p:column>
@@ -46,11 +89,11 @@
                     </p:column>
 
                     <p:column>
-                        <p:button value="Editar" />
+                        <p:button value="Editar"/>
                     </p:column>
 
                     <p:column>
-                        <p:commandButton value="Excluir" styleClass="ui-button-danger" />
+                        <p:commandButton value="Excluir" styleClass="ui-button-danger"/>
                     </p:column>
                 </p:dataTable>
             </p:panel>

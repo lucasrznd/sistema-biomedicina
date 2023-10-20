@@ -1,0 +1,20 @@
+h2 {
+    color: #db261b;
+}
+
+/* Muda a cor do botão do Calendário */
+.ui-datepicker-trigger {
+    background-color: #db261b !important;
+    border-color: #db261b !important;
+    color: #ffffff !important;
+}
+
+/* Justificar parágrafo */
+.justified {
+    text-align: justify;
+}
+
+
+
+
+

@@ -24,6 +24,12 @@ public class AnticorpoRepository {
         return em.find(Anticorpo.class, anticorpo.getId());
     }
 
+    public List<Anticorpo> getByAnticorpoIdentificado(String anticorpoIdentificado) {
+        Query query = em.createQuery("SELECT an FROM Anticorpo an where an.anticorpoIdentificado LIKE:anticorpoIdentificado");
+        query.setParameter("anticorpoIdentificado", "%" + anticorpoIdentificado + "%");
+        return query.getResultList();
+    }
+
     @Transactional
     public void insert(Anticorpo anticorpo) {
         em.persist(anticorpo);
@@ -33,7 +39,6 @@ public class AnticorpoRepository {
     public void update(Anticorpo anticorpo) {
         Anticorpo anticorpoEncontrado = getById(anticorpo);
 
-        //anticorpoEncontrado.setTituloAnticorpo(anticorpo.getTituloAnticorpo());
         anticorpoEncontrado.setAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
 
         em.persist(anticorpoEncontrado);
