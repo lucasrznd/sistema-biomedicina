@@ -50,8 +50,8 @@ public class FenotipagemRepository {
     public void update(Fenotipagem fenotipagem) {
         Fenotipagem fenotipagemEncontrada = getById(fenotipagem);
 
-        fenotipagemEncontrada.setTipagemRh(fenotipagem.getTipagemRh());
         fenotipagemEncontrada.setTipagemAbo(fenotipagem.getTipagemAbo());
+        fenotipagemEncontrada.setTipagemRh(fenotipagem.getTipagemRh());
 
         em.persist(fenotipagemEncontrada);
     }

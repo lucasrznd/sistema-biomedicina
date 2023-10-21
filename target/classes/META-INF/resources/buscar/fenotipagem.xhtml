@@ -12,12 +12,12 @@
         <title>SGS - Buscar Fenotipagem</title>
 
         <!-- Favicon e import do CSS -->
-        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"/>
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
         <h:outputStylesheet name="css/estilo.css"/>
     </h:head>
 
     <h:body>
-        <h:form>
+        <h:form id="formPrincipal">
             <!-- Incluir menu -->
             <ui:include src="/menu.xhtml"/>
 
@@ -41,14 +41,16 @@
             <p:panel>
                 <h:panelGrid id="panelGridCampos" columns="2">
 
-                    <p:outputLabel value="Digite a tipagem ABO:"/>
-                    <p:inputText maxlength="2" value="#{buscarFenotipagemController.fenotipagem.tipagemAbo}"
+                    <p:outputLabel for="tipagemAbo" value="Digite a tipagem ABO:"/>
+                    <p:inputText id="tipagemAbo" maxlength="2"
+                                 value="#{buscarFenotipagemController.fenotipagem.tipagemAbo}"
                                  required="true"
                                  requiredMessage="Insira um valor para a busca"
                                  oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
 
-                    <p:outputLabel value="Digite a tipagem RH:"/>
-                    <p:inputText maxlength="1" value="#{buscarFenotipagemController.fenotipagem.tipagemRh}"
+                    <p:outputLabel for="tipagemRh" value="Digite a tipagem RH:"/>
+                    <p:inputText id="tipagemRh" maxlength="1"
+                                 value="#{buscarFenotipagemController.fenotipagem.tipagemRh}"
                                  oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
                 </h:panelGrid>
             </p:panel>
@@ -57,31 +59,86 @@
                 <p:dataTable id="dataTable" var="fenotipagem"
                              value="#{buscarFenotipagemController.fenotipagemList}"
                              paginator="true" rows="3"
-                             rowKey="#{fenotipagem.id}"
-                             selection="#{buscarFenotipagemController.fenotipagemSelecionada}">
+                             rowKey="#{fenotipagem.id}">
 
-                    <p:column selectionMode="single" style="width:2%"/>
+                    <p:growl id="message" showDetail="true"/>
                     <p:column headerText="Código">
                         <h:outputText value="#{fenotipagem.id}"/>
                     </p:column>
+
                     <p:column headerText="Tipagem ABO">
                         <h:outputText value="#{fenotipagem.tipagemAbo}"/>
                     </p:column>
+
                     <p:column headerText="Tipagem RH">
                         <h:outputText value="#{fenotipagem.tipagemRh}"/>
                     </p:column>
 
-                    <p:column headerText="Ações">
-                        <p:commandButton value="Editar" action="#{seuBean.editarItem}" update="@form"/>
-                        <p:commandButton type="button"  icon=""
-                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat" />
+                    <p:column headerText="Editar/Excluir">
+                        <!-- Inicio código para botão Editar -->
+                        <p:commandButton icon="pi pi-pencil"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{buscarFenotipagemController.editar()}"
+                                         oncomplete="PF('modalFenotipagem').show()"
+                                         update=":formModal"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{fenotipagem}"
+                                                         target="#{buscarFenotipagemController.fenotipagemSelecionada}"/>
+                        </p:commandButton>
+                        <!-- Fim código para botão Editar -->
+
+                        <!-- Inicio código para botão delete -->
+                        <p:commandButton action="#{buscarFenotipagemController.delete()}" update="message"
+                                         icon="pi pi-trash"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         style="margin-left: 10px">
+                            <p:confirm header="Confirmação" message="Deseja remover este registro?"
+                                       icon="pi pi-info-circle"/>
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true"
+                                         width="350">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
+                        </p:confirmDialog>
+                        <!-- Fim código para botão delete -->
+
                     </p:column>
+
                 </p:dataTable>
             </p:panel>
 
             <!-- Incluir rodapé -->
             <ui:include src="/rodape.xhtml"/>
         </h:form>
+
+        <p:dialog modal="true"
+                  header="Editar Dados" height="200" width="500" widgetVar="modalFenotipagem">
+            <h:form id="formModal">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="tipagemAboModal" value="Digite a tipagem ABO:"/>
+                    <p:inputText id="tipagemAboModal" maxlength="2"
+                                 value="#{buscarFenotipagemController.fenotipagemSelecionada.tipagemAbo}"
+                                 required="true"
+                                 requiredMessage="Insira um valor para a busca"
+                                 oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
+
+                    <p:outputLabel for="tipagemRhModal" value="Digite a tipagem RH:"/>
+                    <p:inputText id="tipagemRhModal" maxlength="1"
+                                 value="#{buscarFenotipagemController.fenotipagemSelecionada.tipagemRh}"
+                                 oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
+                </p:panelGrid>
+
+                <div style="display: flex; justify-content: center">
+                    <p:panelGrid>
+                        <p:commandButton value="Salvar" icon="pi pi-save"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{buscarFenotipagemController.edicao()}"
+                                         process="@form" update="@form :formPrincipal"/>
+                    </p:panelGrid>
+                </div>
+            </h:form>
+        </p:dialog>
     </h:body>
 </f:view>
 
