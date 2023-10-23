@@ -19,7 +19,7 @@
             <ui:include src="/menu.xhtml"/>
 
             <p:panel>
-                <h2>Cadastro de Ampola</h2>
+                <h2>Nova Ampola</h2>
                 <p:messages id="idMessage" closable="true"/>
             </p:panel>
 
@@ -63,12 +63,18 @@
                                 value="#{cadastroAmpolaController.ampola.dataValidade}" required="true"
                                 requiredMessage="Campo Data de Validade é obrigatório" showOn="button"/>
 
-                    <p:outputLabel value="Posição no Armário"/>
-                    <p:inputText value="#{cadastroAmpolaController.ampola.posicaoAmario}" required="true" size="30"
-                                 requiredMessage="Campo ML da Ampola é obrigatório"/>
+                    <p:outputLabel value="Número da Gaveta"/>
+                    <p:inputText value="#{cadastroAmpolaController.armazenamento.numeroGaveta}" required="true"
+                                 requiredMessage="Campo Número da Gaveta é obrigatório"/>
+
+                    <p:outputLabel value="Número da Caixa"/>
+                    <p:inputNumber value="#{cadastroAmpolaController.ampola.armazenamento.numeroCaixa}"
+                                   required="true" size="30" requiredMessage="Campo Número da Caixa é obrigatório"
+                                   min="1" max="50"/>
 
                     <p:outputLabel value="Armazenada"/>
-                    <p:selectBooleanCheckbox styleClass="custom-checkbox" value="#{cadastroAmpolaController.ampola.statusArmazenamento}"/>
+                    <p:selectBooleanCheckbox styleClass="custom-checkbox"
+                                             value="#{cadastroAmpolaController.ampola.statusArmazenamento}"/>
                 </h:panelGrid>
             </p:panel>
 

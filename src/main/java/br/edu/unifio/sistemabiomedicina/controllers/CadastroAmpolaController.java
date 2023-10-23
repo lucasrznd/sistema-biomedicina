@@ -1,6 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
+import br.edu.unifio.sistemabiomedicina.models.entities.Armazenamento;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
 import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
@@ -25,15 +26,20 @@ public class CadastroAmpolaController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    private Armazenamento armazenamento;
+
     @PostConstruct
     public void novo() {
         ampola = new Ampola();
+        armazenamento = new Armazenamento();
     }
 
     public void insert() {
+        ampola.setArmazenamento(armazenamento);
         ampolaRepository.insert(ampola);
 
         Messages.addFlashGlobalInfo("Ampola armazenada com sucesso");
+
     }
 
     public List<Paciente> buscarPaciente(String nome) {
@@ -43,6 +49,10 @@ public class CadastroAmpolaController {
             Messages.addFlashGlobalError("Paciente não encontrado");
         }
         return pacientesEncontrados;
+    }
+
+    public void printarArm() {
+        System.out.println(armazenamento);
     }
 
 }

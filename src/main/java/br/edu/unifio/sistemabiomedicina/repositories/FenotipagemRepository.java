@@ -58,6 +58,6 @@ public class FenotipagemRepository {
 
     @Transactional
     public void delete(Fenotipagem fenotipagem) {
-        em.remove(fenotipagem.getId());
+        em.remove(em.contains(fenotipagem) ? fenotipagem : em.merge(fenotipagem));
     }
 }

@@ -2,6 +2,7 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
 import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
+import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -33,7 +34,6 @@ public class BuscarFenotipagemController implements Serializable {
     }
 
     public void buscarFenotipagem() {
-        System.out.println(fenotipagem.getTipagemAbo());
         if (fenotipagem.getTipagemAbo() != null) {
             fenotipagemList = fenotipagemRepository.getByTipagemAbo(fenotipagem.getTipagemAbo());
             PrimeFaces.current().ajax().update("form:datatable");
@@ -42,31 +42,16 @@ public class BuscarFenotipagemController implements Serializable {
         }
     }
 
-    public void editar() {
-        System.out.println("kadskskaakd");
-        System.out.println(fenotipagemSelecionada);
-        fenotipagem = fenotipagemSelecionada;
-    }
-
     public void edicao() {
-        System.out.println("Objeto foi editado uhuull" + fenotipagemSelecionada.getTipagemAbo()
-                + ", " + fenotipagemSelecionada.getTipagemRh());
-        addMessage(FacesMessage.SEVERITY_INFO, "Info Message", "Message Content");
-    }
-
-    public void update() {
-        //ConfirmView.confirmar();
         fenotipagemRepository.update(fenotipagemSelecionada);
     }
 
     public void delete() {
-        //ConfirmView.delete();
-        System.out.println("Item excluído com sucesso.");
-    }
+        //GrowlView.delete();
+        fenotipagemRepository.delete(fenotipagemSelecionada);
 
-    public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
-        FacesContext.getCurrentInstance().
-                addMessage(null, new FacesMessage(severity, summary, detail));
+        /* Remover objeto do arrayList */
+        fenotipagemList.remove(fenotipagemSelecionada);
     }
 
 }

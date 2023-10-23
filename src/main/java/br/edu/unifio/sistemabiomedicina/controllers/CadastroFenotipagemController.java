@@ -27,6 +27,6 @@ public class CadastroFenotipagemController {
         fenotipagemRepository.insert(fenotipagem);
 
         /*Retorna uma mensagem na tela para o usuário*/
-        Messages.addFlashGlobalInfo("Fenotipagem salva com sucesso");
+        Messages.addFlashGlobalInfo("Registro armazenado com sucesso.");
     }
 }

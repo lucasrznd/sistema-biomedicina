@@ -46,7 +46,7 @@ public class AnticorpoRepository {
 
     @Transactional
     public void delete(Anticorpo anticorpo) {
-        em.remove(anticorpo.getId());
+        em.remove(em.contains(anticorpo) ? anticorpo : em.merge(anticorpo));
     }
 
 }

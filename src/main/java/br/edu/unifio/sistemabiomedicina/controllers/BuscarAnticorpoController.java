@@ -5,6 +5,8 @@ import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.annotation.View;
 import lombok.Data;
+import org.omnifaces.util.Faces;
+import org.omnifaces.util.Messages;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,18 +24,33 @@ public class BuscarAnticorpoController {
     private Anticorpo anticorpo;
     private List<Anticorpo> anticorpoList = new ArrayList<>();
 
+    private Anticorpo anticorpoSelecionado;
+
     @PostConstruct
     public void novo() {
         anticorpo = new Anticorpo();
+        anticorpoSelecionado = new Anticorpo();
     }
 
     public void buscarAnticorpo() {
         if (anticorpo.getAnticorpoIdentificado() != null) {
             anticorpoList = anticorpoRepository.getByAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
             PrimeFaces.current().ajax().update("form:datatable");
-        } else {
-            // Adicione um método semelhante para buscar por tipagemRh, se necessário
         }
+    }
+
+    public void update() {
+        anticorpoRepository.update(anticorpoSelecionado);
+
+        Messages.addFlashGlobalWarn("Registro editado com sucesso.");
+    }
+
+    public void delete() {
+        anticorpoRepository.delete(anticorpoSelecionado);
+        /* Remover objeto do arrayList */
+        anticorpoList.remove(anticorpoSelecionado);
+
+        Messages.addFlashGlobalWarn("Registro removido com sucesso.");
     }
 
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -26,7 +27,9 @@ public class Ampola implements Serializable {
     @ManyToOne
     private Paciente paciente;
 
-    private String posicaoAmario;
+    @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private Armazenamento armazenamento;
     private Boolean statusArmazenamento;
 
 }

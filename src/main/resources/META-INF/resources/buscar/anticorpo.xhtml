@@ -14,7 +14,7 @@
     </h:head>
 
     <h:body>
-        <h:form>
+        <h:form id="formPrincipal">
             <!-- Incluir menu -->
             <ui:include src="/menu.xhtml"/>
 
@@ -45,16 +45,77 @@
             </p:panel>
 
             <p:panel>
-                <p:dataTable id="dataTable" value="#{buscarAnticorpoController.anticorpoList}" var="anticorpo">
+                <p:dataTable id="dataTable" value="#{buscarAnticorpoController.anticorpoList}"
+                             var="anticorpo"
+                             paginator="true" rows="3"
+                             rowKey="#{anticorpo.id}">
+
+                    <p:growl id="message" showDetail="true"/>
                     <p:column headerText="Código">
                         #{anticorpo.id}
                     </p:column>
+
                     <p:column headerText="Anticorpo Identificado">
                         #{anticorpo.anticorpoIdentificado}
+                    </p:column>
+
+                    <p:column headerText="Editar/Excluir">
+                        <!-- Inicio código para botão Editar -->
+                        <p:commandButton icon="pi pi-pencil"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         oncomplete="PF('modal').show()"
+                                         update=":formModal"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{anticorpo}"
+                                                         target="#{buscarAnticorpoController.anticorpoSelecionado}"/>
+                        </p:commandButton>
+                        <!-- Fim código para botão Editar -->
+
+                        <!-- Inicio código para botão delete -->
+                        <p:commandButton action="#{buscarAnticorpoController.delete()}" update="message dataTable"
+                                         icon="pi pi-trash"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         style="margin-left: 10px">
+                            <p:confirm header="Confirmação" message="Deseja remover este registro?"
+                                       icon="pi pi-info-circle"/>
+                            <f:setPropertyActionListener
+                                    target="#{buscarAnticorpoController.anticorpoSelecionado}"
+                                    value="#{anticorpo}"/>
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true"
+                                         width="350">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"
+                                             process="@this"/>
+                        </p:confirmDialog>
+                        <!-- Fim código para botão delete -->
                     </p:column>
                 </p:dataTable>
             </p:panel>
         </h:form>
+
+        <p:dialog modal="true"
+                  header="Editar Dados" height="200" width="500" widgetVar="modal">
+            <h:form id="formModal">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Digite o Anticorpo Identificado"/>
+                    <p:inputText maxlength="50"
+                                 value="#{buscarAnticorpoController.anticorpoSelecionado.anticorpoIdentificado}"
+                                 required="true"
+                                 requiredMessage="Campo Anticorpo Identificado é obrigatório"/>
+                </p:panelGrid>
+
+                <div style="display: flex; justify-content: center">
+                    <p:panelGrid>
+                        <p:commandButton value="Salvar" icon="pi pi-save"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{buscarAnticorpoController.update()}"
+                                         process="@form" update="@form :formPrincipal"/>
+                    </p:panelGrid>
+                </div>
+            </h:form>
+        </p:dialog>
 
         <!-- Incluir rodapé -->
         <ui:include src="/rodape.xhtml"/>
