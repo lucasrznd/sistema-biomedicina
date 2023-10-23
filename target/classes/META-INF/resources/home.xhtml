@@ -55,12 +55,11 @@
                             <h:outputText value="#{ampola.dataValidade}"/>
                         </p:column>
 
-                        <p:column headerText="Posição no Armário">
-                            <h:outputText value="#{ampola.posicaoAmario}"/>
+                        <p:column headerText="Gaveta/Caixa">
+                            <h:outputText value="#{ampola.armazenamento.posicaoFreezer()}"/>
                         </p:column>
                     </p:dataTable>
                 </p:panel>
-
             </div>
 
             <!-- Incluir rodapé -->

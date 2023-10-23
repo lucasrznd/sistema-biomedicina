@@ -47,7 +47,6 @@ public class BuscarFenotipagemController implements Serializable {
     }
 
     public void delete() {
-        //GrowlView.delete();
         fenotipagemRepository.delete(fenotipagemSelecionada);
 
         /* Remover objeto do arrayList */

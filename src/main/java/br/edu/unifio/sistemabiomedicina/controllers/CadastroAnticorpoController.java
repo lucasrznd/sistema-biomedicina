@@ -33,7 +33,7 @@ public class CadastroAnticorpoController {
         anticorpo = new Anticorpo();
 
         /*Retorna uma mensagem na tela para o usuário*/
-        Messages.addFlashGlobalInfo("Anticorpo salvo com sucesso");
+        Messages.addFlashGlobalInfo("Registro salvo com sucesso");
 
         /*Atualiza a tabela*/
         listarAnticorpos();

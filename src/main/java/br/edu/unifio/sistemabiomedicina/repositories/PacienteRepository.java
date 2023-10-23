@@ -60,6 +60,6 @@ public class PacienteRepository {
 
     @Transactional
     public void delete(Paciente paciente) {
-        em.remove(paciente.getId());
+        em.remove(em.contains(paciente) ? paciente : em.merge(paciente));
     }
 }
