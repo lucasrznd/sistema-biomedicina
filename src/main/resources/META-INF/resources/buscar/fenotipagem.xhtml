@@ -56,25 +56,25 @@
             </p:panel>
 
             <p:panel>
-                <p:dataTable id="dataTable" var="fenotipagem"
+                <p:dataTable id="dataTable" var="fenotipagem" showGridlines="true"
                              value="#{buscarFenotipagemController.fenotipagemList}"
                              paginator="true" rows="3"
                              rowKey="#{fenotipagem.id}">
 
                     <p:growl id="message" showDetail="true"/>
-                    <p:column headerText="Código">
+                    <p:column headerText="Código" style="text-align: center;">
                         <h:outputText value="#{fenotipagem.id}"/>
                     </p:column>
 
-                    <p:column headerText="Tipagem ABO">
+                    <p:column headerText="Tipagem ABO" style="text-align: center;">
                         <h:outputText value="#{fenotipagem.tipagemAbo}"/>
                     </p:column>
 
-                    <p:column headerText="Tipagem RH">
+                    <p:column headerText="Tipagem RH" style="text-align: center;">
                         <h:outputText value="#{fenotipagem.tipagemRh}"/>
                     </p:column>
 
-                    <p:column headerText="Editar/Excluir">
+                    <p:column headerText="Editar/Excluir" style="text-align: center;">
                         <!-- Inicio código para botão Editar -->
                         <p:commandButton icon="pi pi-pencil"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
@@ -137,8 +137,8 @@
                     <p:panelGrid>
                         <p:commandButton value="Salvar" icon="pi pi-save"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                         action="#{buscarFenotipagemController.edicao()}"
-                                         process="@form" update="@form :formPrincipal"/>
+                                         action="#{buscarFenotipagemController.update()}"
+                                         process="@form" update="@form :formPrincipal:dataTable"/>
                     </p:panelGrid>
                 </div>
             </h:form>

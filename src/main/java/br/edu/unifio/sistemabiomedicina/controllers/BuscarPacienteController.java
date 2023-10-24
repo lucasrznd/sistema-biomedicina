@@ -6,9 +6,11 @@ import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
 import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
+import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
+import org.omnifaces.util.Faces;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,6 +44,14 @@ public class BuscarPacienteController {
         pacienteSelecionado = new Paciente();
     }
 
+    public void redirect() {
+        paciente = new Paciente();
+        pacienteSelecionado = new Paciente();
+        pacienteList = new ArrayList<>();
+
+        Faces.redirect("/cadastro/paciente.xhtml");
+    }
+
     public void buscarPaciente() {
         pacienteList = pacienteRepository.getByNome(paciente.getNome());
         PrimeFaces.current().ajax().update("form:datatable");
@@ -49,10 +59,14 @@ public class BuscarPacienteController {
 
     public void update() {
         pacienteRepository.update(pacienteSelecionado);
+
+        GrowlView.showInfo("Sucesso", "Registro editado com sucesso.");
     }
 
     public void delete() {
         pacienteRepository.delete(pacienteSelecionado);
+
+        GrowlView.showWarn("Removido", "Registro removido com sucesso.");
     }
 
     @PostConstruct

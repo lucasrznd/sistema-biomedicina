@@ -38,8 +38,8 @@ public class CadastroAmpolaController {
         ampola.setArmazenamento(armazenamento);
         ampolaRepository.insert(ampola);
 
-        Messages.addFlashGlobalInfo("Ampola armazenada com sucesso");
-
+        /*Retorna uma mensagem na tela para o usuário*/
+        Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
     }
 
     public List<Paciente> buscarPaciente(String nome) {
@@ -49,10 +49,6 @@ public class CadastroAmpolaController {
             Messages.addFlashGlobalError("Paciente não encontrado");
         }
         return pacientesEncontrados;
-    }
-
-    public void printarArm() {
-        System.out.println(armazenamento);
     }
 
 }

@@ -14,6 +14,7 @@
         <!-- Favicon e import do CSS -->
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
         <h:outputStylesheet name="css/estilo.css"/>
+        <h:outputScript name="primefaces/locales/locale-pt.js"/>
     </h:head>
 
     <h:body>
@@ -55,7 +56,8 @@
                     <p:outputLabel value="Data de Nascimento"/>
                     <p:calendar styleClass="custom-calendar" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
                                 value="#{cadastroPacienteController.paciente.dataNascimento}" required="true"
-                                requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"/>
+                                requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"
+                                navigator="true"/>
 
                     <p:outputLabel value="CPF"/>
                     <p:inputMask mask="999.999.999-99" value="#{cadastroPacienteController.paciente.cpf}"

@@ -5,26 +5,27 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<body>
-<p:menubar>
-    <p:menuitem>
-        <p:graphicImage library="img" name="logo.png" style="width: 80px; height: 50px;" />
-    </p:menuitem>
 
-    <p:submenu label="Cadastro" >
-        <p:menuitem value="Paciente"    outcome="/cadastro/paciente.xhtml" />
-        <p:menuitem value="Ampola"      outcome="/cadastro/ampola.xhtml"/>
-        <p:menuitem value="Anticorpo"   outcome="/cadastro/anticorpo.xhtml"/>
-        <p:menuitem value="Fenotipagem" outcome="/cadastro/fenotipagem.xhtml" />
-    </p:submenu>
+<h:body>
+    <p:menubar>
+        <p:menuitem>
+            <p:graphicImage library="img" name="logo.png" style="width: 80px; height: 50px;" />
+        </p:menuitem>
 
-    <p:submenu label="Buscar" >
-        <p:menuitem value="Paciente"    outcome="/buscar/paciente.xhtml"/>
-        <p:menuitem value="Ampola"      outcome="/buscar/ampola.xhtml"/>
-        <p:menuitem value="Fenotipagem" outcome="/buscar/fenotipagem.xhtml"/>
-        <p:menuitem value="Anticorpo"   outcome="/buscar/anticorpo.xhtml"/>
-    </p:submenu>
-</p:menubar>
-</body>
+        <p:submenu label="Cadastro">
+            <p:menuitem value="Paciente"    outcome="/cadastro/paciente.xhtml"/>
+            <p:menuitem value="Ampola"      outcome="/cadastro/ampola.xhtml"/>
+            <p:menuitem value="Anticorpo"   outcome="/cadastro/anticorpo.xhtml"/>
+            <p:menuitem value="Fenotipagem" outcome="/cadastro/fenotipagem.xhtml"/>
+        </p:submenu>
+
+        <p:submenu label="Buscar">
+            <p:menuitem value="Paciente"    outcome="/buscar/paciente.xhtml"/>
+            <p:menuitem value="Ampola"      outcome="/buscar/ampola.xhtml"/>
+            <p:menuitem value="Fenotipagem" outcome="/buscar/fenotipagem.xhtml"/>
+            <p:menuitem value="Anticorpo"   outcome="/buscar/anticorpo.xhtml"/>
+        </p:submenu>
+    </p:menubar>
+</h:body>
 
 </html>

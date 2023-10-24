@@ -2,11 +2,11 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
 import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
+import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.annotation.View;
 import lombok.Data;
 import org.omnifaces.util.Faces;
-import org.omnifaces.util.Messages;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +32,14 @@ public class BuscarAnticorpoController {
         anticorpoSelecionado = new Anticorpo();
     }
 
+    public void redirect() {
+        anticorpo = new Anticorpo();
+        anticorpoSelecionado = new Anticorpo();
+        anticorpoList = new ArrayList<>();
+
+        Faces.redirect("/cadastro/anticorpo.xhtml");
+    }
+
     public void buscarAnticorpo() {
         if (anticorpo.getAnticorpoIdentificado() != null) {
             anticorpoList = anticorpoRepository.getByAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
@@ -42,15 +50,14 @@ public class BuscarAnticorpoController {
     public void update() {
         anticorpoRepository.update(anticorpoSelecionado);
 
-        Messages.addFlashGlobalWarn("Registro editado com sucesso.");
+        GrowlView.showInfo("Sucesso", "Registro editado com sucesso.");
     }
 
     public void delete() {
         anticorpoRepository.delete(anticorpoSelecionado);
-        /* Remover objeto do arrayList */
-        anticorpoList.remove(anticorpoSelecionado);
+        anticorpoList = anticorpoRepository.getAll();
 
-        Messages.addFlashGlobalWarn("Registro removido com sucesso.");
+        GrowlView.showWarn("Removido", "Registro removido com sucesso.");
     }
 
 }

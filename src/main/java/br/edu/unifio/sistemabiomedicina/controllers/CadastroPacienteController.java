@@ -46,7 +46,7 @@ public class CadastroPacienteController implements Serializable {
         pacienteRepository.insert(paciente);
 
         /*Retorna uma mensagem na tela para o usuário*/
-        Messages.addFlashGlobalInfo("Paciente salvo com sucesso");
+        Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
     }
 
     public void imprimirAnticorpos() {

@@ -28,9 +28,9 @@
 
             <p:panel>
                 <h:panelGrid columns="2">
-                    <p:button value="Novo" icon="pi pi-plus-circle"
-                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                              outcome="/cadastro/paciente"/>
+                    <p:commandButton value="Novo" icon="pi pi-plus-circle"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     actionListener="#{buscarPacienteController.redirect()}"/>
                     <p:commandButton value="Buscar" icon="pi pi-search"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      action="#{buscarPacienteController.buscarPaciente()}"
@@ -56,41 +56,44 @@
             </p:panel>
 
             <p:panel>
-                <p:dataTable id="dataTable" value="#{buscarPacienteController.pacienteList}" var="paciente"
+                <p:dataTable id="dataTable" value="#{buscarPacienteController.pacienteList}"
+                             showGridlines="true" var="paciente"
                              paginator="true" rows="3">
-                    <p:column headerText="Código">
-                        #{paciente.id}
+                    <p:column headerText="Código" style="text-align: center;">
+                        <h:outputText value="#{paciente.id}" />
                     </p:column>
 
-                    <p:column headerText="Nome">
-                        #{paciente.nome}
+                    <p:column headerText="Nome" style="text-align: center;">
+                        <h:outputText value="#{paciente.nome}" />
                     </p:column>
 
-                    <p:column headerText="Sobrenome">
-                        #{paciente.sobrenome}
+                    <p:column headerText="Sobrenome" style="text-align: center;">
+                        <h:outputText value="#{paciente.sobrenome}" />
                     </p:column>
 
-                    <p:column headerText="Data de Nascimento">
-                        #{paciente.dataNascimento}
+                    <p:column headerText="Data de Nascimento" style="text-align: center;">
+                        <h:outputText value="#{paciente.dataNascimento}" >
+                            <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate" />
+                        </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Cpf">
-                        #{paciente.cpf}
+                    <p:column headerText="CPF" style="text-align: center;">
+                        <h:outputText value="#{paciente.cpf}" />
                     </p:column>
 
-                    <p:column headerText="Fenotipagem">
-                        #{paciente.fenotipagem.fenotipagemCompleta}
+                    <p:column headerText="Fenotipagem" style="text-align: center;">
+                        <h:outputText value="#{paciente.fenotipagem.fenotipagemCompleta}" />
                     </p:column>
 
-                    <p:column headerText="Anticorpo Identificado">
-                        #{paciente.anticorpoIdentificado.anticorpoIdentificado}
+                    <p:column headerText="Anticorpo Identificado" style="text-align: center;">
+                        <h:outputText value="#{paciente.anticorpoIdentificado.anticorpoIdentificado}" />
                     </p:column>
 
-                    <p:column headerText="Título do Anticorpo">
-                        #{paciente.tituloAnticorpo}
+                    <p:column headerText="Título do Anticorpo" style="text-align: center;">
+                        <h:outputText value="#{paciente.tituloAnticorpo}" />
                     </p:column>
 
-                    <p:column headerText="Editar/Excluir">
+                    <p:column headerText="Editar/Excluir" style="text-align: center;">
                         <!-- Inicio código para botão Editar -->
                         <p:commandButton icon="pi pi-pencil"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
@@ -135,6 +138,8 @@
         <p:dialog modal="true"
                   header="Editar Dados" height="500" width="600" widgetVar="modal">
             <h:form id="formModal">
+
+                <p:growl id="message" showDetail="true"/>
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Nome"/>
                     <p:inputText value="#{buscarPacienteController.pacienteSelecionado.nome}" required="true"
@@ -184,7 +189,7 @@
                         <p:commandButton value="Salvar" icon="pi pi-save"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                          action="#{buscarPacienteController.update()}"
-                                         process="@form" update="@form :formPrincipal"/>
+                                         process="@form" update="@form :formPrincipal:dataTable message"/>
                     </p:panelGrid>
                 </div>
             </h:form>

@@ -51,11 +51,15 @@
                         </p:column>
 
                         <p:column headerText="Data de Cadastro">
-                            <h:outputText value="#{ampola.dataCadastro}"/>
+                            <h:outputText value="#{ampola.dataCadastro}">
+                                <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
+                            </h:outputText>
                         </p:column>
 
                         <p:column headerText="Data de Validade">
-                            <h:outputText value="#{ampola.dataValidade}"/>
+                            <h:outputText value="#{ampola.dataValidade}">
+                                <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
+                            </h:outputText>
                         </p:column>
 
                         <p:column headerText="Gaveta/Caixa">

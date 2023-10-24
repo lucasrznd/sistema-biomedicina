@@ -28,9 +28,9 @@
 
             <p:panel>
                 <h:panelGrid columns="2">
-                    <p:button value="Novo" icon="pi pi-plus-circle"
-                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                              outcome="/cadastro/anticorpo"/>
+                    <p:commandButton value="Novo" icon="pi pi-plus-circle"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     actionListener="#{buscarAnticorpoController.redirect()}"/>
                     <p:commandButton value="Buscar" icon="pi pi-search"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      action="#{buscarAnticorpoController.buscarAnticorpo()}"
@@ -40,29 +40,29 @@
 
             <p:panel>
                 <h:panelGrid id="panelGridCampos" columns="2">
-                    <p:outputLabel value="Digite o Anticorpo Identificado"/>
-                    <p:inputText maxlength="50" value="#{buscarAnticorpoController.anticorpo.anticorpoIdentificado}"
+                    <p:outputLabel for="anticorpoIdentificado" value="Digite o Anticorpo Identificado"/>
+                    <p:inputText id="anticorpoIdentificado" maxlength="50"
+                                 value="#{buscarAnticorpoController.anticorpo.anticorpoIdentificado}"
                                  required="true"
-                                 requiredMessage="Campo Anticorpo Identificado é obrigatório"/>
+                                 requiredMessage="Campo Anticorpo Identificado é obrigatório."/>
                 </h:panelGrid>
             </p:panel>
 
             <p:panel>
                 <p:dataTable id="dataTable" value="#{buscarAnticorpoController.anticorpoList}"
-                             var="anticorpo"
+                             var="anticorpo" showGridlines="true"
                              paginator="true" rows="3"
                              rowKey="#{anticorpo.id}">
 
-                    <p:growl id="message" showDetail="true"/>
-                    <p:column headerText="Código">
+                    <p:column headerText="Código" style="text-align: center;">
                         #{anticorpo.id}
                     </p:column>
 
-                    <p:column headerText="Anticorpo Identificado">
+                    <p:column headerText="Anticorpo Identificado" style="text-align: center;">
                         #{anticorpo.anticorpoIdentificado}
                     </p:column>
 
-                    <p:column headerText="Editar/Excluir">
+                    <p:column headerText="Editar/Excluir" style="text-align: center;">
                         <!-- Inicio código para botão Editar -->
                         <p:commandButton icon="pi pi-pencil"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
@@ -75,7 +75,7 @@
                         <!-- Fim código para botão Editar -->
 
                         <!-- Inicio código para botão delete -->
-                        <p:commandButton action="#{buscarAnticorpoController.delete()}" update="message dataTable"
+                        <p:commandButton action="#{buscarAnticorpoController.delete()}" update="dataTable"
                                          icon="pi pi-trash"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                          style="margin-left: 10px">
@@ -101,12 +101,14 @@
         <p:dialog modal="true"
                   header="Editar Dados" height="200" width="500" widgetVar="modal">
             <h:form id="formModal">
+
+                <p:growl id="message" showDetail="true"/>
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Digite o Anticorpo Identificado"/>
                     <p:inputText maxlength="50"
                                  value="#{buscarAnticorpoController.anticorpoSelecionado.anticorpoIdentificado}"
                                  required="true"
-                                 requiredMessage="Campo Anticorpo Identificado é obrigatório"/>
+                                 requiredMessage="Campo Anticorpo Identificado é obrigatório."/>
                 </p:panelGrid>
 
                 <div style="display: flex; justify-content: center">
@@ -114,7 +116,7 @@
                         <p:commandButton value="Salvar" icon="pi pi-save"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                          action="#{buscarAnticorpoController.update()}"
-                                         process="@form" update="@form :formPrincipal"/>
+                                         process="@form" update="@form :formPrincipal:dataTable message"/>
                     </p:panelGrid>
                 </div>
             </h:form>

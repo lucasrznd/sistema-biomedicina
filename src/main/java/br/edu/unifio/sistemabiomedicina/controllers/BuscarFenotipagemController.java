@@ -4,8 +4,6 @@ import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
 import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
 import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import jakarta.annotation.PostConstruct;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.PrimeFaces;
@@ -42,8 +40,10 @@ public class BuscarFenotipagemController implements Serializable {
         }
     }
 
-    public void edicao() {
+    public void update() {
         fenotipagemRepository.update(fenotipagemSelecionada);
+
+        GrowlView.showInfo("Sucesso", "Registro editado com sucesso.");
     }
 
     public void delete() {
@@ -51,6 +51,8 @@ public class BuscarFenotipagemController implements Serializable {
 
         /* Remover objeto do arrayList */
         fenotipagemList.remove(fenotipagemSelecionada);
+
+        GrowlView.showWarn("Removido", "Registro removido com sucesso.");
     }
 
 }

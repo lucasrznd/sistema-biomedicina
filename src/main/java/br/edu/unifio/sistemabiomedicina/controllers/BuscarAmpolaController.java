@@ -4,6 +4,7 @@ import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
 import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
+import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
@@ -24,6 +25,7 @@ public class BuscarAmpolaController {
     private AmpolaRepository ampolaRepository;
     private Ampola ampola;
     private List<Ampola> ampolaList = new ArrayList<>();
+    private Ampola ampolaSelecionada;
 
     @Autowired
     private PacienteRepository pacienteRepository;
@@ -31,6 +33,7 @@ public class BuscarAmpolaController {
     @PostConstruct
     public void novo() {
         ampola = new Ampola();
+        ampolaSelecionada = new Ampola();
     }
 
     public void buscarAmpola() {
@@ -47,6 +50,18 @@ public class BuscarAmpolaController {
             Messages.addFlashGlobalError("Paciente não encontrado");
         }
         return pacientesEncontrados;
+    }
+
+    public void update() {
+        ampolaRepository.update(ampolaSelecionada);
+
+        GrowlView.showInfo("Conclúido", "Registro editado com sucesso.");
+    }
+
+    public void delete() {
+        ampolaRepository.delete(ampolaSelecionada);
+
+        GrowlView.showWarn("Removido", "Registro removido com sucesso.");
     }
 
 }

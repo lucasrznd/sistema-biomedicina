@@ -32,4 +32,12 @@ public class Ampola implements Serializable {
     private Armazenamento armazenamento;
     private Boolean statusArmazenamento;
 
+    /* Metódo que retorna o booleano em sim ou não*/
+    public String statusDeArmazenamento() {
+        if (statusArmazenamento) {
+            return "Sim";
+        }
+        return "Não";
+    }
+
 }

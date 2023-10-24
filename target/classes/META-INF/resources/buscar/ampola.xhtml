@@ -17,7 +17,7 @@
     </h:head>
 
     <h:body>
-        <h:form>
+        <h:form id="formPrincipal">
             <!-- Incluir menu -->
             <ui:include src="/menu.xhtml"/>
 
@@ -65,38 +65,139 @@
 
             <p:panel>
                 <p:dataTable id="dataTable" value="#{buscarAmpolaController.ampolaList}"
+                             showGridlines="true" styleClass="centered-table"
                              var="ampola" paginator="true" rows="3">
 
-                    <p:column headerText="Código">
+                    <p:column headerText="Código" style="text-align: center;">
                         <h:outputText value="#{ampola.id}"/>
                     </p:column>
 
-                    <p:column headerText="Nome do Paciente">
+                    <p:column headerText="Nome do Paciente" style="text-align: center;">
                         <h:outputText value="#{ampola.paciente.nome}"/>
                     </p:column>
 
-                    <p:column headerText="Código de Internação">
+                    <p:column headerText="Código de Internação" style="text-align: center;">
                         <h:outputText value="#{ampola.codigoInternacao}"/>
                     </p:column>
 
-                    <p:column headerText="ML da Ampola">
+                    <p:column headerText="ML da Ampola" style="text-align: center;">
                         <h:outputText value="#{ampola.ampolaMl}"/>
                     </p:column>
 
-                    <p:column headerText="Data de Cadastro">
-                        <h:outputText value="#{ampola.dataCadastro}"/>
+                    <p:column headerText="Data de Cadastro" style="text-align: center;">
+                        <h:outputText value="#{ampola.dataCadastro}">
+                            <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
+                        </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Data de Validade">
-                        <h:outputText value="#{ampola.dataValidade}"/>
+                    <p:column headerText="Data de Validade" style="text-align: center;">
+                        <h:outputText value="#{ampola.dataValidade}">
+                            <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Gaveta/Caixa" style="text-align: center;">
+                        <h:outputText value="#{ampola.armazenamento.posicaoFreezer()}"/>
+                    </p:column>
+
+                    <p:column headerText="Armazenada" style="text-align: center;">
+                        <h:outputText value="#{ampola.statusDeArmazenamento()}"/>
+                    </p:column>
+
+                    <p:column headerText="Editar/Excluir" style="text-align: center;">
+                        <!-- Inicio código para botão Editar -->
+                        <p:commandButton icon="pi pi-pencil"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         oncomplete="PF('modal').show()"
+                                         update=":formModal"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{ampola}"
+                                                         target="#{buscarAmpolaController.ampolaSelecionada}"/>
+                        </p:commandButton>
+                        <!-- Fim código para botão Editar -->
+
+                        <!-- Inicio código para botão delete -->
+                        <p:commandButton action="#{buscarAmpolaController.delete()}" update="dataTable"
+                                         icon="pi pi-trash"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         style="margin-left: 10px">
+                            <p:confirm header="Confirmação" message="Deseja remover este registro?"
+                                       icon="pi pi-info-circle"/>
+                            <f:setPropertyActionListener
+                                    target="#{buscarAmpolaController.ampolaSelecionada}"
+                                    value="#{ampola}"/>
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true"
+                                         width="350">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"
+                                             process="@this"/>
+                        </p:confirmDialog>
+                        <!-- Fim código para botão delete -->
                     </p:column>
 
                 </p:dataTable>
             </p:panel>
-
-            <!-- Incluir rodapé -->
-            <ui:include src="/rodape.xhtml"/>
         </h:form>
+
+        <p:dialog modal="true"
+                  header="Editar Dados" height="550" width="850" widgetVar="modal">
+            <h:form id="formModal">
+
+                <p:growl id="message" showDetail="true"/>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Nome do Paciente"/>
+                    <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.paciente.nome}" readonly="true"
+                                 size="30"/>
+
+                    <p:outputLabel value="Código Internação"/>
+                    <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.codigoInternacao}" required="true"
+                                 size="30"
+                                 requiredMessage="Campo Código Internação é obrigatório"/>
+
+                    <p:outputLabel value="ML da Ampola"/>
+                    <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.ampolaMl}" required="true" size="30"
+                                 requiredMessage="Campo ML da Ampola é obrigatório"/>
+
+                    <p:outputLabel value="Data de Cadastro"/>
+                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
+                                value="#{buscarAmpolaController.ampolaSelecionada.dataCadastro}" required="true"
+                                requiredMessage="Campo Data de Cadastro é obrigatório" showOn="button"/>
+
+                    <p:outputLabel value="Data de Validade"/>
+                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
+                                value="#{buscarAmpolaController.ampolaSelecionada.dataValidade}" required="true"
+                                requiredMessage="Campo Data de Validade é obrigatório" showOn="button"/>
+
+                    <p:outputLabel value="Número da Gaveta"/>
+                    <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.armazenamento.numeroGaveta}"
+                                 size="30" required="true"
+                                 requiredMessage="Campo Número da Gaveta é obrigatório"/>
+
+                    <p:outputLabel value="Número da Caixa"/>
+                    <p:inputNumber value="#{buscarAmpolaController.ampolaSelecionada.armazenamento.numeroCaixa}"
+                                   size="30" required="true" requiredMessage="Campo Número da Caixa é obrigatório"
+                                   min="1" max="50"/>
+
+                    <p:outputLabel value="Armazenada"/>
+                    <p:selectBooleanCheckbox styleClass="custom-checkbox"
+                                             value="#{buscarAmpolaController.ampolaSelecionada.statusArmazenamento}"/>
+                </p:panelGrid>
+
+                <div style="display: flex; justify-content: center">
+                    <p:panelGrid>
+                        <p:commandButton value="Salvar" icon="pi pi-save"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{buscarAmpolaController.update()}"
+                                         process="@form" update="@form :formPrincipal:dataTable message"/>
+                    </p:panelGrid>
+                </div>
+            </h:form>
+        </p:dialog>
+
+        <!-- Incluir rodapé -->
+        <ui:include src="/rodape.xhtml"/>
     </h:body>
 </f:view>
 
