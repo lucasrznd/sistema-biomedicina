@@ -6,11 +6,13 @@ import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
+import org.omnifaces.util.Faces;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -31,12 +33,21 @@ public class BuscarFenotipagemController implements Serializable {
         fenotipagemSelecionada = new Fenotipagem();
     }
 
+    public void redirect() {
+        fenotipagem = new Fenotipagem();
+        fenotipagemSelecionada = new Fenotipagem();
+        fenotipagemList = new ArrayList<>();
+
+        Faces.redirect("/cadastro/fenotipagem.xhtml");
+    }
+
     public void buscarFenotipagem() {
-        if (fenotipagem.getTipagemAbo() != null) {
+        if (!fenotipagem.getTipagemRh().equals("")) {
+            fenotipagemList = fenotipagemRepository.getByFenotipagemCompleta(fenotipagem.getTipagemAbo(),
+                    fenotipagem.getTipagemRh());
+        } else {
             fenotipagemList = fenotipagemRepository.getByTipagemAbo(fenotipagem.getTipagemAbo());
             PrimeFaces.current().ajax().update("form:datatable");
-        } else {
-            // Adicione um método semelhante para buscar por tipagemRh, se necessário
         }
     }
 

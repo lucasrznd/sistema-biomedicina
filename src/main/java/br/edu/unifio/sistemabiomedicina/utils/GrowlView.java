@@ -17,6 +17,10 @@ public class GrowlView {
         addMessage(FacesMessage.SEVERITY_WARN, summary, message);
     }
 
+    public void showError(String summary, String message) {
+        addMessage(FacesMessage.SEVERITY_ERROR, summary, message);
+    }
+
     public static void addMessage(FacesMessage.Severity severity, String summary, String detail) {
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(severity, summary, detail));

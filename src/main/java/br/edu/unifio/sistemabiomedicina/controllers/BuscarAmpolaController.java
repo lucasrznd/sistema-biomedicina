@@ -8,18 +8,20 @@ import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @ViewScoped
 @Data
-public class BuscarAmpolaController {
+public class BuscarAmpolaController implements Serializable {
 
     @Autowired
     private AmpolaRepository ampolaRepository;
@@ -36,18 +38,72 @@ public class BuscarAmpolaController {
         ampolaSelecionada = new Ampola();
     }
 
+    public void redirect() {
+        ampola = new Ampola();
+        ampolaSelecionada = new Ampola();
+        ampolaList = new ArrayList<>();
+
+        Faces.redirect("/cadastro/ampola.xhtml");
+    }
+
     public void buscarAmpola() {
-        if (ampola.getPaciente().getNome() != null) {
-            ampolaList = ampolaRepository.getByNomePaciente(ampola.getPaciente().getNome());
-            PrimeFaces.current().ajax().update("form:datatable");
+        if (camposDeBuscaVazios()) {
+            Messages.addFlashGlobalError("Preencha um dos campos para busca.");
+        } else if (ampola.getPaciente() != null) {
+            buscarPorNomePaciente();
+        } else if (ampola.getCodigoInternacao() != null) {
+            buscarPorCodigoInternacao();
+        } else if (ampola.getAmpolaMl() != null) {
+            buscarPorMlAmpola();
+        } else if (ampola.getDataCadastro() != null) {
+            buscarPorDataCadastro();
+        } else if (ampola.getDataValidade() != null) {
+            buscarPorDataValidade();
         }
+    }
+
+    private boolean camposDeBuscaVazios() {
+        return ampola.getPaciente() == null && ampola.getCodigoInternacao() == null
+                && ampola.getAmpolaMl() == null && ampola.getDataCadastro() == null
+                && ampola.getDataValidade() == null;
+    }
+
+    private void buscarPorNomePaciente() {
+        ampolaList = ampolaRepository.getByNomePaciente(ampola.getPaciente().getNome());
+
+        verificaTamanhoLista(ampolaList);
+        PrimeFaces.current().ajax().update("form:datatable");
+    }
+
+    private void buscarPorCodigoInternacao() {
+        ampolaList = ampolaRepository.getByCodigoInternacao(ampola.getCodigoInternacao());
+
+        verificaTamanhoLista(ampolaList);
+    }
+
+    private void buscarPorMlAmpola() {
+        ampolaList = ampolaRepository.getByAmpolaMl(ampola.getAmpolaMl());
+
+        verificaTamanhoLista(ampolaList);
+    }
+
+    private void buscarPorDataCadastro() {
+        ampolaList = ampolaRepository.getByDataCadastro(ampola.getDataCadastro());
+
+        verificaTamanhoLista(ampolaList);
+    }
+
+    private void buscarPorDataValidade() {
+        ampolaList = ampolaRepository.getByDataValidade(ampola.getDataValidade());
+
+        verificaTamanhoLista(ampolaList);
     }
 
     public List<Paciente> buscarPaciente(String nome) {
         List<Paciente> pacientesEncontrados = pacienteRepository.getByNome(nome);
 
-        if (pacientesEncontrados.size() == 0) {
-            Messages.addFlashGlobalError("Paciente não encontrado");
+        if (pacientesEncontrados.isEmpty()) {
+            Messages.addFlashGlobalWarn("Nenhum registro encontrado.");
         }
         return pacientesEncontrados;
     }
@@ -62,6 +118,20 @@ public class BuscarAmpolaController {
         ampolaRepository.delete(ampolaSelecionada);
 
         GrowlView.showWarn("Removido", "Registro removido com sucesso.");
+    }
+
+    public void darBaixa(Ampola ampolaSelecionada) {
+        // Armazena o objeto no escopo do Flash
+        Faces.setFlashAttribute("ampolaSelecionada", ampolaSelecionada);
+
+        // Redireciona para a página de dar baixa
+        Faces.redirect("/baixa/ampola.xhtml");
+    }
+
+    public void verificaTamanhoLista(List<Ampola> ampolaList) {
+        if (ampolaList.isEmpty()) {
+            Messages.addFlashGlobalWarn("Nenhum registro encontrado.");
+        }
     }
 
 }

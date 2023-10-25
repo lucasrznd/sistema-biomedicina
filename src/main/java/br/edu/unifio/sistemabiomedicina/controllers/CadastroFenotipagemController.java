@@ -9,10 +9,12 @@ import org.omnifaces.util.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 @Component
 @ViewScoped
 @Data
-public class CadastroFenotipagemController {
+public class CadastroFenotipagemController implements Serializable {
 
     @Autowired
     private FenotipagemRepository fenotipagemRepository;

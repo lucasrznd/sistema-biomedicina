@@ -7,6 +7,7 @@ import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -37,12 +38,28 @@ public class AmpolaRepository {
         return query.getResultList();
     }
 
-    public Ampola getByCodigoInternacao(Ampola ampola) {
-        return em.find(Ampola.class, ampola.getAmpolaMl());
+    public List<Ampola> getByCodigoInternacao(Long codigoInternacao) {
+        Query query = em.createQuery("SELECT a FROM Ampola a WHERE a.codigoInternacao = :codigoInternacao");
+        query.setParameter("codigoInternacao", codigoInternacao);
+        return query.getResultList();
     }
 
-    public Ampola getByDataCadastro(Ampola ampola) {
-        return em.find(Ampola.class, ampola.getDataCadastro());
+    public List<Ampola> getByAmpolaMl(Integer ampolaMl) {
+        Query query = em.createQuery("SELECT a FROM Ampola a WHERE a.ampolaMl = :ampolaMl");
+        query.setParameter("ampolaMl", ampolaMl);
+        return query.getResultList();
+    }
+
+    public List<Ampola> getByDataCadastro(LocalDate dataCadastro) {
+        Query query = em.createQuery("SELECT a FROM Ampola a WHERE a.dataCadastro = :dataCadastro");
+        query.setParameter("dataCadastro", dataCadastro);
+        return query.getResultList();
+    }
+
+    public List<Ampola> getByDataValidade(LocalDate dataValidade) {
+        Query query = em.createQuery("SELECT a FROM Ampola a WHERE a.dataValidade = :dataValidade");
+        query.setParameter("dataValidade", dataValidade);
+        return query.getResultList();
     }
 
     public Ampola getByDataValidade(Ampola ampola) {

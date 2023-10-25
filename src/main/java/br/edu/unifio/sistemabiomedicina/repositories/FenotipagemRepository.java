@@ -34,6 +34,13 @@ public class FenotipagemRepository {
         return query.getResultList();
     }
 
+    public List<Fenotipagem> getByFenotipagemCompleta(String tipagemAbo, String tipagemRh) {
+        Query query = em.createQuery("SELECT f FROM Fenotipagem f WHERE f.tipagemAbo = :tipagemAbo AND f.tipagemRh = :tipagemRh");
+        query.setParameter("tipagemAbo", tipagemAbo);
+        query.setParameter("tipagemRh", tipagemRh);
+        return query.getResultList();
+    }
+
     public List<Fenotipagem> getByTipagemRh(Character tipagemRh) {
         Query query = em.createQuery("SELECT f FROM Fenotipagem f where f.tipagemRh LIKE:tipagemRh");
         query.setParameter("tipagemRh", "%" + tipagemRh + "%");

@@ -28,9 +28,9 @@
 
             <p:panel>
                 <h:panelGrid columns="2">
-                    <p:button value="Novo" icon="pi pi-plus-circle"
-                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                              outcome="/cadastro/fenotipagem"/>
+                    <p:commandButton value="Novo" icon="pi pi-plus-circle"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     actionListener="#{buscarFenotipagemController.redirect()}"/>
                     <p:commandButton value="Buscar" icon="pi pi-search"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      action="#{buscarFenotipagemController.buscarFenotipagem()}"

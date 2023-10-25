@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
+    <h:head>
+        <title>SGS - Baixa de Ampola</title>
+
+        <!-- Favicon e import do CSS -->
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
+        <h:outputStylesheet name="css/estilo.css"/>
+        <h:outputScript name="primefaces/locales/locale-pt.js"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <!--Incluir menu-->
+            <ui:include src="/menu.xhtml"/>
+
+            <p:panel>
+                <h2>Baixa de Ampola</h2>
+                <p:messages id="idMessage" closable="true"/>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid columns="3">
+                    <p:commandButton value="Dar Baixa" icon="pi pi-check"
+                                     action="#{baixaAmpolaController.darBaixa()}"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     update="idMessage panelGridCampos"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid id="panelGridCampos" columns="2">
+                    <p:outputLabel value="Nome do Paciente"/>
+                    <p:autoComplete value="#{baixaAmpolaController.ampola.paciente.nome}" size="30"
+                                    readonly="true"/>
+
+                    <p:outputLabel value="Código Internação"/>
+                    <p:inputText value="#{baixaAmpolaController.ampola.codigoInternacao}" size="30"
+                                 readonly="true"/>
+
+                    <p:outputLabel value="ML da Ampola"/>
+                    <p:inputText value="#{baixaAmpolaController.ampola.ampolaMl}" size="30"
+                                 readonly="true"/>
+
+                    <p:outputLabel value="Data de Cadastro"/>
+                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
+                                value="#{baixaAmpolaController.ampola.dataCadastro}" readonly="true"/>
+
+                    <p:outputLabel value="Data de Validade"/>
+                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
+                                value="#{baixaAmpolaController.ampola.dataValidade}" readonly="true"/>
+
+                    <p:outputLabel value="Número da Gaveta"/>
+                    <p:inputNumber value="#{baixaAmpolaController.ampola.armazenamento.numeroGaveta}"
+                                   readonly="true"/>
+
+                    <p:outputLabel value="Número da Caixa"/>
+                    <p:inputNumber value="#{baixaAmpolaController.ampola.armazenamento.numeroCaixa}"
+                                   readonly="true"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <!-- Incluir rodapé -->
+            <ui:include src="/rodape.xhtml"/>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>

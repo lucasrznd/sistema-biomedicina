@@ -12,12 +12,13 @@ import org.omnifaces.util.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Component
 @ViewScoped
 @Data
-public class CadastroAmpolaController {
+public class CadastroAmpolaController implements Serializable {
 
     @Autowired
     private AmpolaRepository ampolaRepository;

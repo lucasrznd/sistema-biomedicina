@@ -11,17 +11,19 @@ import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
+import org.omnifaces.util.Messages;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @ViewScoped
 @Data
-public class BuscarPacienteController {
+public class BuscarPacienteController implements Serializable {
 
     @Autowired
     private PacienteRepository pacienteRepository;
@@ -53,8 +55,18 @@ public class BuscarPacienteController {
     }
 
     public void buscarPaciente() {
-        pacienteList = pacienteRepository.getByNome(paciente.getNome());
-        PrimeFaces.current().ajax().update("form:datatable");
+        if (paciente.getNome().isEmpty() && paciente.getSobrenome().isEmpty() &&
+                paciente.getDataNascimento() == null && paciente.getCpf().isEmpty()) {
+            Messages.addFlashGlobalError("Preencha pelo menos um campo para busca.");
+        } else if (!paciente.getNome().isEmpty()) {
+            pacienteList = pacienteRepository.getByNome(paciente.getNome());
+            PrimeFaces.current().ajax().update("form:datatable");
+        } else if (!paciente.getSobrenome().isEmpty()) {
+            pacienteList = pacienteRepository.getBySobrenome(paciente.getSobrenome());
+            PrimeFaces.current().ajax().update("form:datatable");
+        } else if (paciente.getDataNascimento() != null) {
+            pacienteList = pacienteRepository.getByDataNascimento(paciente.getDataNascimento());
+        }
     }
 
     public void update() {

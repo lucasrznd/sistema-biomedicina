@@ -11,13 +11,14 @@ import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @View
 @Data
-public class BuscarAnticorpoController {
+public class BuscarAnticorpoController implements Serializable {
 
     @Autowired
     private AnticorpoRepository anticorpoRepository;

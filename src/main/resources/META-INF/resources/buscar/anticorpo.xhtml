@@ -41,7 +41,7 @@
             <p:panel>
                 <h:panelGrid id="panelGridCampos" columns="2">
                     <p:outputLabel for="anticorpoIdentificado" value="Digite o Anticorpo Identificado"/>
-                    <p:inputText id="anticorpoIdentificado" maxlength="50"
+                    <p:inputText id="anticorpoIdentificado" maxlength="50" forceSelection="true"
                                  value="#{buscarAnticorpoController.anticorpo.anticorpoIdentificado}"
                                  required="true"
                                  requiredMessage="Campo Anticorpo Identificado é obrigatório."/>

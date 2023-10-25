@@ -7,6 +7,7 @@ import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -37,6 +38,12 @@ public class PacienteRepository {
     public List<Paciente> getBySobrenome(String sobrenome) {
         Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.sobrenome LIKE:sobrenome");
         query.setParameter("sobrenome", "%" + sobrenome + "%");
+        return query.getResultList();
+    }
+
+    public List<Paciente> getByDataNascimento(LocalDate dataNascimento) {
+        Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.dataNascimento = :dataNascimento");
+        query.setParameter("dataNascimento", dataNascimento);
         return query.getResultList();
     }
 
