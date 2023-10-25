@@ -23,7 +23,7 @@ public class AmpolaRepository {
 
     public List<Ampola> ultimasCadastradas() {
         /* 3 últimos cadastrados */
-        Query query = em.createQuery("SELECT a FROM Ampola a ORDER BY a.id");
+        Query query = em.createQuery("SELECT a FROM Ampola a ORDER BY a.id DESC");
         query.setMaxResults(3);
         return query.getResultList();
     }

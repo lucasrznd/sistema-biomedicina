@@ -128,7 +128,7 @@ public class BuscarAmpolaController implements Serializable {
         Faces.redirect("/baixa/ampola.xhtml");
     }
 
-    public void verificaTamanhoLista(List<Ampola> ampolaList) {
+    private void verificaTamanhoLista(List<Ampola> ampolaList) {
         if (ampolaList.isEmpty()) {
             Messages.addFlashGlobalWarn("Nenhum registro encontrado.");
         }

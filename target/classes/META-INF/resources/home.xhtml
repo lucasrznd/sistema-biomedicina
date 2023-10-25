@@ -36,33 +36,34 @@
 
                 <p:panel header="Últimos cadastros" style="width: 55%; float: right">
                     <p:dataTable id="dataTable" value="#{homeController.ampolaList}"
+                                 showGridlines="true"
                                  var="ampola">
 
-                        <p:column headerText="Nome do Paciente">
+                        <p:column headerText="Nome do Paciente" style="text-align: center;">
                             <h:outputText value="#{ampola.paciente.nome}"/>
                         </p:column>
 
-                        <p:column headerText="Código de Internação">
+                        <p:column headerText="Código de Internação" style="text-align: center;">
                             <h:outputText value="#{ampola.codigoInternacao}"/>
                         </p:column>
 
-                        <p:column headerText="ML da Ampola">
+                        <p:column headerText="ML da Ampola" style="text-align: center;">
                             <h:outputText value="#{ampola.ampolaMl}"/>
                         </p:column>
 
-                        <p:column headerText="Data de Cadastro">
+                        <p:column headerText="Data de Cadastro" style="text-align: center;">
                             <h:outputText value="#{ampola.dataCadastro}">
                                 <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Data de Validade">
+                        <p:column headerText="Data de Validade" style="text-align: center;">
                             <h:outputText value="#{ampola.dataValidade}">
                                 <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Gaveta/Caixa">
+                        <p:column headerText="Gaveta/Caixa" style="text-align: center;">
                             <h:outputText value="#{ampola.armazenamento.posicaoFreezer()}"/>
                         </p:column>
                     </p:dataTable>

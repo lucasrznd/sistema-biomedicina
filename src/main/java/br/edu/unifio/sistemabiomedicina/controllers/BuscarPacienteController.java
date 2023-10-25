@@ -55,18 +55,41 @@ public class BuscarPacienteController implements Serializable {
     }
 
     public void buscarPaciente() {
-        if (paciente.getNome().isEmpty() && paciente.getSobrenome().isEmpty() &&
-                paciente.getDataNascimento() == null && paciente.getCpf().isEmpty()) {
+        if (camposDeBuscaVazios()) {
             Messages.addFlashGlobalError("Preencha pelo menos um campo para busca.");
         } else if (!paciente.getNome().isEmpty()) {
-            pacienteList = pacienteRepository.getByNome(paciente.getNome());
-            PrimeFaces.current().ajax().update("form:datatable");
+            buscaPorNome();
         } else if (!paciente.getSobrenome().isEmpty()) {
-            pacienteList = pacienteRepository.getBySobrenome(paciente.getSobrenome());
-            PrimeFaces.current().ajax().update("form:datatable");
+            buscaPorSobrenome();
         } else if (paciente.getDataNascimento() != null) {
-            pacienteList = pacienteRepository.getByDataNascimento(paciente.getDataNascimento());
+            buscarPorDataNascimento();
         }
+    }
+
+    private boolean camposDeBuscaVazios() {
+        return paciente.getNome().isEmpty() && paciente.getSobrenome().isEmpty() &&
+                paciente.getDataNascimento() == null && paciente.getCpf().isEmpty();
+    }
+
+    private void buscaPorNome() {
+        pacienteList = pacienteRepository.getByNome(paciente.getNome());
+
+        verificaTamanhoLista(pacienteList);
+        PrimeFaces.current().ajax().update("form:datatable");
+    }
+
+    private void buscaPorSobrenome() {
+        pacienteList = pacienteRepository.getBySobrenome(paciente.getSobrenome());
+
+        verificaTamanhoLista(pacienteList);
+        PrimeFaces.current().ajax().update("form:datatable");
+    }
+
+    private void buscarPorDataNascimento() {
+        pacienteList = pacienteRepository.getByDataNascimento(paciente.getDataNascimento());
+
+        verificaTamanhoLista(pacienteList);
+        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     public void update() {
@@ -78,20 +101,25 @@ public class BuscarPacienteController implements Serializable {
     public void delete() {
         pacienteRepository.delete(pacienteSelecionado);
 
+        /* Remover objeto do arrayList */
+        pacienteList.remove(pacienteSelecionado);
         GrowlView.showWarn("Removido", "Registro removido com sucesso.");
     }
 
     @PostConstruct
     public void listarAnticorpos() {
         anticorposList = anticorpoRepository.getAll();
-
-        /* Remover objeto do arrayList */
-        pacienteList.remove(pacienteSelecionado);
     }
 
     @PostConstruct
     public void listarFenotipagens () {
         fenotipagemList = fenotipagemRepository.getAll();
+    }
+
+    private void verificaTamanhoLista(List<Paciente> pacienteList) {
+        if (pacienteList.isEmpty()) {
+            Messages.addFlashGlobalWarn("Nenhum registro encontrado.");
+        }
     }
 
 }

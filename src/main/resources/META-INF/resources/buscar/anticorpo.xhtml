@@ -33,7 +33,7 @@
                                      actionListener="#{buscarAnticorpoController.redirect()}"/>
                     <p:commandButton value="Buscar" icon="pi pi-search"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                     action="#{buscarAnticorpoController.buscarAnticorpo()}"
+                                     action="#{buscarAnticorpoController.buscarPorAnticorpoIdentificado()}"
                                      update="idMessage panelGridCampos dataTable"/>
                 </h:panelGrid>
             </p:panel>
@@ -51,8 +51,7 @@
             <p:panel>
                 <p:dataTable id="dataTable" value="#{buscarAnticorpoController.anticorpoList}"
                              var="anticorpo" showGridlines="true"
-                             paginator="true" rows="3"
-                             rowKey="#{anticorpo.id}">
+                             paginator="true" rows="3">
 
                     <p:column headerText="Código" style="text-align: center;">
                         #{anticorpo.id}

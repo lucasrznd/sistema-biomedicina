@@ -41,11 +41,9 @@ public class BuscarAnticorpoController implements Serializable {
         Faces.redirect("/cadastro/anticorpo.xhtml");
     }
 
-    public void buscarAnticorpo() {
-        if (anticorpo.getAnticorpoIdentificado() != null) {
-            anticorpoList = anticorpoRepository.getByAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
-            PrimeFaces.current().ajax().update("form:datatable");
-        }
+    public void buscarPorAnticorpoIdentificado() {
+        anticorpoList = anticorpoRepository.getByAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
+        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     public void update() {
