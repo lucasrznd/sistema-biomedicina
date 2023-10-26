@@ -28,10 +28,11 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="5">
                     <p:commandButton value="Novo" icon="pi pi-plus-circle"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      actionListener="#{buscarPacienteController.redirect()}"/>
+                    <i class="pi pi-ellipsis-v mr-2"/>
                     <p:commandButton value="Buscar" icon="pi pi-search"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      action="#{buscarPacienteController.buscarPaciente()}"
@@ -40,21 +41,45 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid id="panelGridCampos" columns="2">
-                    <p:outputLabel value="Nome"/>
-                    <p:inputText value="#{buscarPacienteController.paciente.nome}"/>
+                <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Nome:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{buscarPacienteController.paciente.nome}"
+                                         style="text-transform: uppercase"/>
+                        </p:column>
 
-                    <p:outputLabel value="Sobrenome"/>
-                    <p:inputText value="#{buscarPacienteController.paciente.sobrenome}"/>
+                        <p:column>
+                            <p:outputLabel value="Sobrenome:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{buscarPacienteController.paciente.sobrenome}"
+                                         style="text-transform: uppercase"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Data de Nascimento"/>
-                    <p:calendar styleClass="custom-calendar" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
-                                value="#{buscarPacienteController.paciente.dataNascimento}" showOn="button"
-                                navigator="true"/>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Data de Nascimento:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar styleClass="custom-calendar" locale="pt" pattern="dd/MM/yyyy"
+                                        readonlyInput="true"
+                                        value="#{buscarPacienteController.paciente.dataNascimento}" showOn="button"
+                                        navigator="true"
+                                        size="16"/>
+                        </p:column>
 
-                    <p:outputLabel value="CPF"/>
-                    <p:inputMask mask="999.999.999-99" value="#{buscarPacienteController.paciente.cpf}"/>
-                </h:panelGrid>
+                        <p:column>
+                            <p:outputLabel value="CPF:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputMask mask="999.999.999-99" value="#{buscarPacienteController.paciente.cpf}"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
 
             <p:panel>

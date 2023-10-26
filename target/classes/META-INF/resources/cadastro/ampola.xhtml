@@ -28,69 +28,123 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid columns="3">
-                    <p:commandButton value="Novo" icon="pi pi-plus-circle"
-                                     action="#{cadastroAmpolaController.novo()}"
-                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                     update="idMessage panelGridCampos"/>
-                    <p:commandButton value="Salvar" icon="pi pi-save" action="#{cadastroAmpolaController.insert()}"
-                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                     update="idMessage panelGridCampos"/>
-                    <p:button icon="pi pi-search" styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                              value="Buscar" outcome="/buscar/ampola"/>
+                <h:panelGrid style="width: 100%" columns="5">
+                    <p:row>
+                        <p:commandButton value="Novo" icon="pi pi-plus-circle"
+                                         action="#{cadastroAmpolaController.novo()}"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         update="idMessage panelGridCampos"/>
+                        <i class="pi pi-ellipsis-v mr-2"/>
+                        <p:commandButton value="Salvar" icon="pi pi-check-circle"
+                                         action="#{cadastroAmpolaController.insert()}"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         update="idMessage panelGridCampos"
+                                         style="margin-left: 6px"/>
+                        <p:button icon="pi pi-search" styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                  value="Buscar" outcome="/buscar/ampola"
+                                  style="float: right"/>
+                    </p:row>
                 </h:panelGrid>
             </p:panel>
 
             <p:panel>
-                <h:panelGrid id="panelGridCampos" columns="2">
-                    <p:outputLabel value="Nome do Paciente" for="paciente"/>
-                    <p:autoComplete id="paciente" value="#{cadastroAmpolaController.ampola.paciente}" size="30"
-                                    completeMethod="#{cadastroAmpolaController.buscarPaciente}" var="paciente"
-                                    itemLabel="#{paciente.nome}" itemValue="#{paciente}"
-                                    converter="#{pacienteConverter}" forceSelection="true"/>
+                <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="nomePaciente" value="Nome do Paciente:"/>
+                        </p:column>
+                        <p:column>
+                            <p:autoComplete id="nomePaciente" value="#{cadastroAmpolaController.ampola.paciente}"
+                                            size="25"
+                                            completeMethod="#{cadastroAmpolaController.buscarPaciente}" var="paciente"
+                                            itemLabel="#{paciente.nome}" itemValue="#{paciente}"
+                                            converter="#{pacienteConverter}" forceSelection="true"
+                                            style="text-transform: uppercase"/>
+                        </p:column>
 
-                    <p:outputLabel value="Código Internação"/>
-                    <p:inputText value="#{cadastroAmpolaController.ampola.codigoInternacao}" required="true" size="30"
-                                 requiredMessage="Campo Código Internação é obrigatório"/>
+                        <p:column>
+                            <p:outputLabel for="codigoInternacao" value="Código Internação:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="codigoInternacao"
+                                         value="#{cadastroAmpolaController.ampola.codigoInternacao}" required="true"
+                                         size="15"
+                                         requiredMessage="Campo Código Internação é obrigatório"/>
+                        </p:column>
 
-                    <p:outputLabel value="ML da Ampola"/>
-                    <p:inputText value="#{cadastroAmpolaController.ampola.ampolaMl}" required="true" size="30"
-                                 requiredMessage="Campo ML da Ampola é obrigatório"/>
+                        <p:column>
+                            <p:outputLabel for="ampolaMl" value="ML da Ampola:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="ampolaMl" value="#{cadastroAmpolaController.ampola.ampolaMl}"
+                                         required="true" size="10"
+                                         requiredMessage="Campo ML da Ampola é obrigatório"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Data de Cadastro"/>
-                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
-                                value="#{cadastroAmpolaController.ampola.dataCadastro}" required="true"
-                                requiredMessage="Campo Data de Cadastro é obrigatório" showOn="button"
-                                navigator="true"/>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="dataCadastro" value="Data de Cadastro:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="dataCadastro" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
+                                        size="20"
+                                        value="#{cadastroAmpolaController.ampola.dataCadastro}" required="true"
+                                        requiredMessage="Campo Data de Cadastro é obrigatório" showOn="button"
+                                        navigator="true"/>
+                        </p:column>
 
-                    <p:outputLabel value="Data de Validade"/>
-                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
-                                value="#{cadastroAmpolaController.ampola.dataValidade}" required="true"
-                                requiredMessage="Campo Data de Validade é obrigatório" showOn="button"
-                                navigator="true"/>
+                        <p:column>
+                            <p:outputLabel for="dataValidade" value="Data de Validade:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="dataValidade" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
+                                        size="11"
+                                        value="#{cadastroAmpolaController.ampola.dataValidade}" required="true"
+                                        requiredMessage="Campo Data de Validade é obrigatório" showOn="button"
+                                        navigator="true"/>
+                        </p:column>
 
-                    <p:outputLabel value="Número da Gaveta"/>
-                    <p:inputText type="number" maxlength="3"
-                                 value="#{cadastroAmpolaController.armazenamento.numeroGaveta}" required="true"
-                                 requiredMessage="Campo Número da Gaveta é obrigatório"
-                                 converterMessage="Campo Número da Gaveta aceita somente números inteiros"
-                                 validatorMessage="Campo Número da Gaveta não pode ser menor que 1 ou maior que 5.">
-                        <f:validateLongRange minimum="1" maximum="5"/>
-                    </p:inputText>
+                        <p:column>
+                            <p:outputLabel for="numeroGaveta" value="Número da Gaveta:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="numeroGaveta" type="number" maxlength="3"
+                                         value="#{cadastroAmpolaController.armazenamento.numeroGaveta}" required="true"
+                                         requiredMessage="Campo Número da Gaveta é obrigatório"
+                                         converterMessage="Campo Número da Gaveta aceita somente números inteiros"
+                                         validatorMessage="Campo Número da Gaveta não pode ser menor que 1 ou maior que 5."
+                                         style="width: 7rem">
+                                <f:validateLongRange minimum="1" maximum="5"/>
+                            </p:inputText>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Número da Caixa"/>
-                    <p:inputText type="number" maxlength="3"
-                                 value="#{cadastroAmpolaController.armazenamento.numeroCaixa}" required="true"
-                                 requiredMessage="Campo Número da Caixa é obrigatório"
-                                 converterMessage="Campo Número da Caixa aceita somente números inteiros"
-                                 validatorMessage="Número da Caixa não pode ser menor que 1 ou maior que 50.">
-                        <f:validateLongRange minimum="1" maximum="50"/>
-                    </p:inputText>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="numeroCaixa" value="Número da Caixa:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="numeroCaixa" type="number" maxlength="3"
+                                         value="#{cadastroAmpolaController.armazenamento.numeroCaixa}" required="true"
+                                         requiredMessage="Campo Número da Caixa é obrigatório"
+                                         converterMessage="Campo Número da Caixa aceita somente números inteiros"
+                                         validatorMessage="Número da Caixa não pode ser menor que 1 ou maior que 50."
+                                         style="width: 7rem">
+                                <f:validateLongRange minimum="1" maximum="50"/>
+                            </p:inputText>
+                        </p:column>
 
-                    <p:outputLabel value="Armazenada"/>
-                    <p:selectBooleanCheckbox styleClass="custom-checkbox"
-                                             value="#{cadastroAmpolaController.ampola.statusArmazenamento}"/>
-                </h:panelGrid>
+                        <p:column>
+                            <p:outputLabel for="statusArmazenamento" value="Armazenada:"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox id="statusArmazenamento" styleClass="custom-checkbox"
+                                                     value="#{cadastroAmpolaController.ampola.statusArmazenamento}"/>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
             </p:panel>
 
             <!-- Incluir rodapé -->

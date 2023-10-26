@@ -9,7 +9,7 @@
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
 
     <h:head>
-        <title>Soroteca Unifio - Cadastro de Anticorpo</title>
+        <title>SGS - Cadastro de Anticorpo</title>
 
         <!-- Favicon e import do CSS -->
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
@@ -27,28 +27,41 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid columns="3">
-                    <p:commandButton value="Novo" icon="pi pi-plus-circle"
-                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                     action="#{cadastroAnticorpoController.novo()}"
-                                     update="idMessage panelGridCampos"/>
-                    <p:commandButton value="Salvar" icon="pi pi-save"
-                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                     action="#{cadastroAnticorpoController.insert()}"
-                                     update="idMessage panelGridCampos"/>
-                    <p:button value="Buscar" icon="pi pi-search"
-                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                              outcome="/buscar/anticorpo"/>
+                <h:panelGrid style="width: 100%" columns="5">
+                    <p:row>
+                        <p:commandButton value="Novo" icon="pi pi-plus-circle"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{cadastroAnticorpoController.novo()}"
+                                         update="idMessage panelGridCampos"/>
+                        <i class="pi pi-ellipsis-v mr-2"/>
+                        <p:commandButton value="Salvar" icon="pi pi-check-circle"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{cadastroAnticorpoController.insert()}"
+                                         update="idMessage panelGridCampos"
+                                         style="margin-left: 6px"/>
+                        <p:button value="Buscar" icon="pi pi-search"
+                                  styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                  outcome="/buscar/anticorpo"
+                                  style="float: right"/>
+                    </p:row>
                 </h:panelGrid>
             </p:panel>
 
             <p:panel>
-                <h:panelGrid id="panelGridCampos" columns="2">
-                    <p:outputLabel for="anticorpoIdentificado" value="Digite o Anticorpo Identificado"/>
-                    <p:inputText id="anticorpoIdentificado" maxlength="50" value="#{cadastroAnticorpoController.anticorpo.anticorpoIdentificado}"
-                                 required="true"
-                                 requiredMessage="Campo Anticorpo Identificado é obrigatório."/>
-                </h:panelGrid>
+                <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column style="width: 50%">
+                            <p:outputLabel for="anticorpoIdentificado" value="Anticorpo Identificado:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="anticorpoIdentificado" maxlength="50"
+                                         value="#{cadastroAnticorpoController.anticorpo.anticorpoIdentificado}"
+                                         required="true"
+                                         requiredMessage="Campo Anticorpo Identificado é obrigatório."
+                                         style="text-transform: uppercase"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
 
             <!-- Incluir rodapé -->

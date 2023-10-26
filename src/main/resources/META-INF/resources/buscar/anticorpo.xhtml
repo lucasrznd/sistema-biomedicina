@@ -27,10 +27,11 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="5">
                     <p:commandButton value="Novo" icon="pi pi-plus-circle"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      actionListener="#{buscarAnticorpoController.redirect()}"/>
+                    <i class="pi pi-ellipsis-v mr-2"/>
                     <p:commandButton value="Buscar" icon="pi pi-search"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      action="#{buscarAnticorpoController.buscarPorAnticorpoIdentificado()}"
@@ -39,13 +40,20 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid id="panelGridCampos" columns="2">
-                    <p:outputLabel for="anticorpoIdentificado" value="Digite o Anticorpo Identificado"/>
-                    <p:inputText id="anticorpoIdentificado" maxlength="50" forceSelection="true"
-                                 value="#{buscarAnticorpoController.anticorpo.anticorpoIdentificado}"
-                                 required="true"
-                                 requiredMessage="Campo Anticorpo Identificado é obrigatório."/>
-                </h:panelGrid>
+                <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column style="width: 50%">
+                            <p:outputLabel for="anticorpoIdentificado" value="Anticorpo Identificado:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="anticorpoIdentificado" maxlength="50" forceSelection="true"
+                                         value="#{buscarAnticorpoController.anticorpo.anticorpoIdentificado}"
+                                         required="true"
+                                         requiredMessage="Campo Anticorpo Identificado é obrigatório."
+                                         style="text-transform: uppercase"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
 
             <p:panel>

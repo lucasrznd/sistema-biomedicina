@@ -27,10 +27,11 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="5">
                     <p:commandButton value="Novo" icon="pi pi-plus-circle"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      actionListener="#{buscarFenotipagemController.redirect()}"/>
+                    <i class="pi pi-ellipsis-v mr-2"/>
                     <p:commandButton value="Buscar" icon="pi pi-search"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      action="#{buscarFenotipagemController.buscarFenotipagem()}"
@@ -39,20 +40,32 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid id="panelGridCampos" columns="2">
+                <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column style="width: 50%">
+                            <p:outputLabel for="tipagemAbo" value="Tipagem ABO:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="tipagemAbo" maxlength="2"
+                                         value="#{buscarFenotipagemController.fenotipagem.tipagemAbo}"
+                                         required="true"
+                                         requiredMessage="Insira um valor para a busca"
+                                         oninput="this.value = this.value.replace(/[^a-z,A-Z]/g, '');"
+                                         style="text-transform: uppercase"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel for="tipagemAbo" value="Digite a tipagem ABO:"/>
-                    <p:inputText id="tipagemAbo" maxlength="2"
-                                 value="#{buscarFenotipagemController.fenotipagem.tipagemAbo}"
-                                 required="true"
-                                 requiredMessage="Insira um valor para a busca"
-                                 oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
-
-                    <p:outputLabel for="tipagemRh" value="Digite a tipagem RH:"/>
-                    <p:inputText id="tipagemRh" maxlength="1"
-                                 value="#{buscarFenotipagemController.fenotipagem.tipagemRh}"
-                                 oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
-                </h:panelGrid>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="tipagemRh" value="Tipagem RH:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="tipagemRh" maxlength="1"
+                                         value="#{buscarFenotipagemController.fenotipagem.tipagemRh}"
+                                         oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
 
             <p:panel>

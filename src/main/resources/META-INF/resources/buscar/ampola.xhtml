@@ -28,10 +28,11 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="5">
                     <p:commandButton value="Novo" icon="pi pi-plus-circle"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      actionListener="#{buscarAmpolaController.redirect()}"/>
+                    <i class="pi pi-ellipsis-v mr-2"/>
                     <p:commandButton value="Buscar" icon="pi pi-search"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                      action="#{buscarAmpolaController.buscarAmpola()}"
@@ -40,28 +41,53 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid id="panelGridCampos" columns="2">
-                    <p:outputLabel value="Nome do Paciente"/>
-                    <p:autoComplete id="paciente" value="#{buscarAmpolaController.ampola.paciente}" size="30"
-                                    completeMethod="#{buscarAmpolaController.buscarPaciente}" var="paciente"
-                                    itemLabel="#{paciente.nome}" itemValue="#{paciente}"
-                                    converter="#{pacienteConverter}" forceSelection="true"/>
+                <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Nome do Paciente:"/>
+                        </p:column>
+                        <p:column>
+                            <p:autoComplete id="paciente" value="#{buscarAmpolaController.ampola.paciente}" size="30"
+                                            completeMethod="#{buscarAmpolaController.buscarPaciente}" var="paciente"
+                                            itemLabel="#{paciente.nome}" itemValue="#{paciente}"
+                                            converter="#{pacienteConverter}" forceSelection="true"/>
+                        </p:column>
 
-                    <p:outputLabel value="Código Internação"/>
-                    <p:inputText value="#{buscarAmpolaController.ampola.codigoInternacao}" size="30"/>
+                        <p:column>
+                            <p:outputLabel value="Código Internação:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{buscarAmpolaController.ampola.codigoInternacao}" size="30"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="ML da Ampola"/>
-                    <p:inputText value="#{buscarAmpolaController.ampola.ampolaMl}" size="30"/>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="ML da Ampola:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{buscarAmpolaController.ampola.ampolaMl}" size="30"/>
+                        </p:column>
 
-                    <p:outputLabel value="Data de Cadastro"/>
-                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
-                                value="#{buscarAmpolaController.ampola.dataCadastro}" showOn="button"/>
+                        <p:column>
+                            <p:outputLabel value="Data de Cadastro:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="26"
+                                        value="#{buscarAmpolaController.ampola.dataCadastro}" showOn="button"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Data de Validade"/>
-                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
-                                value="#{buscarAmpolaController.ampola.dataValidade}" showOn="button"/>
-
-                </h:panelGrid>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Data de Validade:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="26"
+                                        value="#{buscarAmpolaController.ampola.dataValidade}" showOn="button"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
 
             <p:panel>
@@ -109,7 +135,7 @@
                     <p:column headerText="Ações" style="text-align: center;">
                         <p:commandButton value="Dar baixa" icon="pi pi-check"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                         actionListener="#{buscarAmpolaController.darBaixa(ampola)}" />
+                                         actionListener="#{buscarAmpolaController.darBaixa(ampola)}"/>
                     </p:column>
                 </p:dataTable>
             </p:panel>

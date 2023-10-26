@@ -9,7 +9,7 @@
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
 
     <h:head>
-        <title>Soroteca Unifio - Cadastro de Paciente</title>
+        <title>SGS - Cadastro de Paciente</title>
 
         <!-- Favicon e import do CSS -->
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
@@ -28,67 +28,116 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid columns="3">
-                    <p:commandButton value="Novo" icon="pi pi-plus-circle"
-                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                     action="#{cadastroPacienteController.novo()}"
-                                     update="idMessage panelGridCampos"/>
-                    <p:commandButton value="Salvar" icon="pi pi-save"
-                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                     action="#{cadastroPacienteController.insert()}"
-                                     update="idMessage panelGridCampos"/>
-                    <p:button value="Buscar" icon="pi pi-search"
-                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                              outcome="/buscar/paciente"/>
+                <h:panelGrid style="width: 100%" columns="5">
+                    <p:row>
+                        <p:commandButton value="Novo" icon="pi pi-plus-circle"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{cadastroPacienteController.novo()}"
+                                         update="idMessage panelGridCampos"/>
+                        <i class="pi pi-ellipsis-v mr-2"/>
+                        <p:commandButton value="Salvar" icon="pi pi-check-circle"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{cadastroPacienteController.insert()}"
+                                         update="idMessage panelGridCampos"
+                                         style="margin-left: 6px"/>
+                        <p:button value="Buscar" icon="pi pi-search"
+                                  styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                  outcome="/buscar/paciente"
+                                  style="float: right"/>
+                    </p:row>
                 </h:panelGrid>
             </p:panel>
 
             <p:panel>
-                <h:panelGrid id="panelGridCampos" columns="2">
-                    <p:outputLabel value="Nome"/>
-                    <p:inputText value="#{cadastroPacienteController.paciente.nome}" required="true"
-                                 requiredMessage="Campo Nome é obrigatório"/>
+                <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="nome" value="Nome:"/>
+                        </p:column>
 
-                    <p:outputLabel value="Sobrenome"/>
-                    <p:inputText value="#{cadastroPacienteController.paciente.sobrenome}" required="true"
-                                 requiredMessage="Campo Sobrenome é obrigatório"/>
+                        <p:column>
+                            <p:inputText id="nome" value="#{cadastroPacienteController.paciente.nome}" required="true"
+                                         requiredMessage="Campo Nome é obrigatório"
+                                         style="text-transform: uppercase"/>
+                        </p:column>
 
-                    <p:outputLabel value="Data de Nascimento"/>
-                    <p:calendar styleClass="custom-calendar" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
-                                value="#{cadastroPacienteController.paciente.dataNascimento}" required="true"
-                                requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"
-                                navigator="true"/>
+                        <p:column>
+                            <p:outputLabel for="sobrenome" value="Sobrenome:"/>
+                        </p:column>
 
-                    <p:outputLabel value="CPF"/>
-                    <p:inputMask mask="999.999.999-99" value="#{cadastroPacienteController.paciente.cpf}"
-                                 required="true"
-                                 requiredMessage="Campo CPF é obrigatório"/>
+                        <p:column>
+                            <p:inputText id="sobrenome" value="#{cadastroPacienteController.paciente.sobrenome}"
+                                         required="true"
+                                         requiredMessage="Campo Sobrenome é obrigatório"
+                                         style="text-transform: uppercase"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Selecione a Fenotipagem"/>
-                    <p:selectOneMenu value="#{cadastroPacienteController.paciente.fenotipagem}"
-                                     converter="omnifaces.SelectItemsConverter"
-                                     style="width: 200px;"
-                                     required="true" requiredMessage="Campo Fenotipagem é obrigatório">
-                        <f:selectItem itemLabel="Selecione"/>
-                        <f:selectItems value="#{cadastroPacienteController.fenotipagemList}" var="fenotipagem"
-                                       itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
-                    </p:selectOneMenu>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="dataNascimento" value="Data de Nascimento:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="dataNascimento" styleClass="custom-calendar" locale="pt"
+                                        pattern="dd/MM/yyyy"
+                                        readonlyInput="true"
+                                        value="#{cadastroPacienteController.paciente.dataNascimento}" required="true"
+                                        requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"
+                                        navigator="true"
+                                        size="16"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel for="cpf" value="CPF:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputMask id="cpf" mask="999.999.999-99"
+                                         value="#{cadastroPacienteController.paciente.cpf}"
+                                         required="true"
+                                         requiredMessage="Campo CPF é obrigatório"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Anticorpo Identificado"/>
-                    <p:selectOneMenu value="#{cadastroPacienteController.paciente.anticorpoIdentificado}"
-                                     converter="omnifaces.SelectItemsConverter"
-                                     style="width: 200px;"
-                                     required="true" requiredMessage="Campo Anticorpo Identificado é obrigatório">
-                        <f:selectItem itemLabel="Selecione"/>
-                        <f:selectItems value="#{cadastroPacienteController.anticorposList}" var="anticorpo"
-                                       itemLabel="#{anticorpo.anticorpoIdentificado}"/>
-                    </p:selectOneMenu>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="fenotipagem" value="Fenotipagem:"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="fenotipagem" value="#{cadastroPacienteController.paciente.fenotipagem}"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             style="width: 200px;" labelTemplate="Selecione"
+                                             required="true" requiredMessage="Campo Fenotipagem é obrigatório">
+                                <f:selectItems value="#{cadastroPacienteController.fenotipagemList}" var="fenotipagem"
+                                               itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel for="anticorpoIdentificado" value="Anticorpo Identificado:"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="anticorpoIdentificado"
+                                             value="#{cadastroPacienteController.paciente.anticorpoIdentificado}"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             style="width: 200px;" labelTemplate="Selecione"
+                                             required="true"
+                                             requiredMessage="Campo Anticorpo Identificado é obrigatório">
+                                <f:selectItems value="#{cadastroPacienteController.anticorposList}" var="anticorpo"
+                                               itemLabel="#{anticorpo.anticorpoIdentificado}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Titulo Anticorpo"/>
-                    <p:inputMask mask="99/99" value="#{cadastroPacienteController.paciente.tituloAnticorpo}"
-                                 required="true" requiredMessage="Titulo Anticorpo obrigatório"/>
-
-                </h:panelGrid>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="tituloAnticorpo" value="Titulo Anticorpo:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputMask id="tituloAnticorpo" mask="99/99"
+                                         value="#{cadastroPacienteController.paciente.tituloAnticorpo}"
+                                         required="true" requiredMessage="Titulo Anticorpo obrigatório"
+                                         size="21"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
 
             <!-- Incluir rodapé -->
