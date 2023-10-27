@@ -112,7 +112,7 @@ public class BuscarPacienteController implements Serializable {
     }
 
     @PostConstruct
-    public void listarFenotipagens () {
+    public void listarFenotipagens() {
         fenotipagemList = fenotipagemRepository.getAll();
     }
 
@@ -120,6 +120,17 @@ public class BuscarPacienteController implements Serializable {
         if (pacienteList.isEmpty()) {
             Messages.addFlashGlobalWarn("Nenhum registro encontrado.");
         }
+    }
+
+    public String exibirAnticorposString(List<Anticorpo> list) {
+        if (list == null || list.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Anticorpo item : list) {
+            sb.append(item).append(", ");
+        }
+        return sb.substring(0, sb.length() - 2);
     }
 
 }

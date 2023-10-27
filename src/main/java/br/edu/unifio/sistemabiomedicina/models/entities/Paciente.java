@@ -27,8 +27,10 @@ public class Paciente implements Serializable {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Fenotipagem fenotipagem;
 
-    @ManyToOne
-    private Anticorpo anticorpoIdentificado;
+    @ManyToMany
+    @JoinTable(name = "tb_anticorpo_paciente", joinColumns = {@JoinColumn(name = "id_paciente")},
+            inverseJoinColumns = {@JoinColumn(name = "id_anticorpo")})
+    private List<Anticorpo> anticorpos;
     private String tituloAnticorpo;
 
 }

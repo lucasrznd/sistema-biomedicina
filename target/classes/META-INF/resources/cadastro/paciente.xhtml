@@ -115,16 +115,17 @@
                             <p:outputLabel for="anticorpoIdentificado" value="Anticorpo Identificado:"/>
                         </p:column>
                         <p:column>
-                            <p:selectOneMenu id="anticorpoIdentificado"
-                                             value="#{cadastroPacienteController.paciente.anticorpoIdentificado}"
-                                             converter="omnifaces.SelectItemsConverter"
-                                             style="width: 200px;"
-                                             required="true"
-                                             requiredMessage="Campo Anticorpo Identificado é obrigatório">
-                                <f:selectItem itemLabel="Selecione"/>
-                                <f:selectItems value="#{cadastroPacienteController.anticorposList}" var="anticorpo"
-                                               itemLabel="#{anticorpo.anticorpoIdentificado}"/>
-                            </p:selectOneMenu>
+                            <p:selectCheckboxMenu id="anticorpoIdentificado" converter="omnifaces.SelectItemsConverter"
+                                                  filter="true" filterMatchMode="startsWith"
+                                                  label="Anticorpos" multiple="true" emptyLabel="Selecione"
+                                                  updateLabel="true"
+                                                  style="min-width: 12rem; max-width: 12rem" panelStyle="width: 30rem"
+                                                  scrollHeight="250"
+                                                  value="#{cadastroPacienteController.paciente.anticorpos}">
+                                <p:ajax event="itemUnselect" listener="#{cadastroPacienteController.onItemUnselect}"/>
+                                <f:selectItems value="#{cadastroPacienteController.anticorposList}"/>
+                                <f:attribute name="collectionType" value="java.util.ArrayList" />
+                            </p:selectCheckboxMenu>
                         </p:column>
                     </p:row>
 

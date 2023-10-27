@@ -113,7 +113,7 @@
                     </p:column>
 
                     <p:column headerText="Anticorpo Identificado" style="text-align: center;">
-                        <h:outputText value="#{paciente.anticorpoIdentificado.anticorpoIdentificado}"/>
+                        <h:outputText value="#{buscarPacienteController.exibirAnticorposString(paciente.anticorpos)}"/>
                     </p:column>
 
                     <p:column headerText="Título do Anticorpo" style="text-align: center;">
@@ -197,7 +197,7 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Anticorpo Identificado"/>
-                    <p:selectOneMenu value="#{buscarPacienteController.pacienteSelecionado.anticorpoIdentificado}"
+                    <p:selectOneMenu value="#{buscarPacienteController.pacienteSelecionado.anticorpos}"
                                      converter="omnifaces.SelectItemsConverter"
                                      style="width: 200px;"
                                      required="true" requiredMessage="Campo Anticorpo Identificado é obrigatório">

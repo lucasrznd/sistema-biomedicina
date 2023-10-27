@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_anticorpo")
@@ -18,9 +20,13 @@ public class Anticorpo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String anticorpoIdentificado;
-    //private String tituloAnticorpo;
 
-    /*@OneToMany(mappedBy = "anticorpo")
-    private List<AnticorpoPaciente> anticorposPaciente; */
+    @ManyToMany(mappedBy = "anticorpos")
+    private List<Paciente> pacientes;
+
+    @Override
+    public String toString() {
+        return anticorpoIdentificado;
+    }
 
 }
