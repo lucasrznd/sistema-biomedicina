@@ -1,6 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.repositories;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
+import br.edu.unifio.sistemabiomedicina.utils.StringUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -50,6 +51,9 @@ public class FenotipagemRepository {
 
     @Transactional
     public void insert(Fenotipagem fenotipagem) {
+        // Converte os atributos que sao String para UPPERCASE
+        StringUtil.convertToUpperCase(fenotipagem);
+
         em.persist(fenotipagem);
     }
 
@@ -59,6 +63,9 @@ public class FenotipagemRepository {
 
         fenotipagemEncontrada.setTipagemAbo(fenotipagem.getTipagemAbo());
         fenotipagemEncontrada.setTipagemRh(fenotipagem.getTipagemRh());
+
+        // Converte os atributos que sao String para UPPERCASE
+        StringUtil.convertToUpperCase(fenotipagemEncontrada);
 
         em.persist(fenotipagemEncontrada);
     }

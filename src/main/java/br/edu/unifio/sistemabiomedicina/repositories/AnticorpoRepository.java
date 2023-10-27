@@ -1,6 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.repositories;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
+import br.edu.unifio.sistemabiomedicina.utils.StringUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -32,6 +33,9 @@ public class AnticorpoRepository {
 
     @Transactional
     public void insert(Anticorpo anticorpo) {
+        // Converte os atributos que sao String para UPPERCASE
+        StringUtil.convertToUpperCase(anticorpo);
+
         em.persist(anticorpo);
     }
 
@@ -40,6 +44,9 @@ public class AnticorpoRepository {
         Anticorpo anticorpoEncontrado = getById(anticorpo);
 
         anticorpoEncontrado.setAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
+
+        // Converte os atributos que sao String para UPPERCASE
+        StringUtil.convertToUpperCase(anticorpoEncontrado);
 
         em.persist(anticorpoEncontrado);
     }

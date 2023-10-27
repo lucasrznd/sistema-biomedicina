@@ -25,7 +25,7 @@ public class CadastroPacienteController implements Serializable {
     /* Repositories e classes da entidade Paciente */
     @Autowired
     private PacienteRepository pacienteRepository;
-    private Paciente paciente = new Paciente();
+    private Paciente paciente;
 
     /* Repositories e classes da entidade Fenotipagem */
     @Autowired
@@ -38,6 +38,7 @@ public class CadastroPacienteController implements Serializable {
     private AnticorpoRepository anticorpoRepository;
     private List<Anticorpo> anticorposList;
 
+    @PostConstruct
     public void novo() {
         paciente = new Paciente();
     }
@@ -47,10 +48,6 @@ public class CadastroPacienteController implements Serializable {
 
         /*Retorna uma mensagem na tela para o usuário*/
         Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
-    }
-
-    public void imprimirAnticorpos() {
-        System.out.println(fenotipagemList);
     }
 
     @PostConstruct

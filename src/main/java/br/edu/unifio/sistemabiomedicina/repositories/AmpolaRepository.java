@@ -1,6 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.repositories;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
+import br.edu.unifio.sistemabiomedicina.utils.StringUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -68,6 +69,9 @@ public class AmpolaRepository {
 
     @Transactional
     public void insert(Ampola ampola) {
+        // Converte os atributos que sao String para UPPERCASE
+        StringUtil.convertToUpperCase(ampola);
+
         em.persist(ampola);
     }
 
@@ -80,6 +84,9 @@ public class AmpolaRepository {
         ampolaEncontrada.setAmpolaMl(ampola.getAmpolaMl());
         ampolaEncontrada.setDataCadastro(ampola.getDataCadastro());
         ampolaEncontrada.setDataValidade(ampola.getDataValidade());
+
+        // Converte os atributos que sao String para UPPERCASE
+        StringUtil.convertToUpperCase(ampolaEncontrada);
 
         em.persist(ampolaEncontrada);
     }

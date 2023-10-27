@@ -1,6 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.repositories;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
+import br.edu.unifio.sistemabiomedicina.utils.StringUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -49,6 +50,9 @@ public class PacienteRepository {
 
     @Transactional
     public void insert(Paciente paciente) {
+        // Converte os atributos que sao String para UPPERCASE
+        StringUtil.convertToUpperCase(paciente);
+
         em.persist(paciente);
     }
 
@@ -61,6 +65,9 @@ public class PacienteRepository {
         pacienteEncontrado.setCpf(paciente.getCpf());
         pacienteEncontrado.setDataNascimento(paciente.getDataNascimento());
         pacienteEncontrado.setFenotipagem(paciente.getFenotipagem());
+
+        // Converte os atributos que sao String para UPPERCASE
+        StringUtil.convertToUpperCase(pacienteEncontrado);
 
         em.persist(pacienteEncontrado);
     }

@@ -37,35 +37,84 @@
             </p:panel>
 
             <p:panel>
-                <h:panelGrid id="panelGridCampos" columns="2">
-                    <p:outputLabel value="Nome do Paciente"/>
-                    <p:autoComplete value="#{baixaAmpolaController.ampola.paciente.nome}" size="30"
-                                    readonly="true"/>
+                <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Nome do Paciente:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{baixaAmpolaController.ampola.paciente.nome}" size="30"
+                                         readonly="true"/>
+                        </p:column>
 
-                    <p:outputLabel value="Código Internação"/>
-                    <p:inputText value="#{baixaAmpolaController.ampola.codigoInternacao}" size="30"
-                                 readonly="true"/>
+                        <p:column>
+                            <p:outputLabel value="Código Internação:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{baixaAmpolaController.ampola.codigoInternacao}" size="30"
+                                         readonly="true"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="ML da Ampola"/>
-                    <p:inputText value="#{baixaAmpolaController.ampola.ampolaMl}" size="30"
-                                 readonly="true"/>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="ML da Ampola:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{baixaAmpolaController.ampola.ampolaMl}" size="30"
+                                         readonly="true"/>
+                        </p:column>
 
-                    <p:outputLabel value="Data de Cadastro"/>
-                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
-                                value="#{baixaAmpolaController.ampola.dataCadastro}" readonly="true"/>
+                        <p:column>
+                            <p:outputLabel value="Data de Cadastro:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="25"
+                                        value="#{baixaAmpolaController.ampola.dataCadastro}" readonly="true"
+                                        showOn="button"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Data de Validade"/>
-                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
-                                value="#{baixaAmpolaController.ampola.dataValidade}" readonly="true"/>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Data de Validade:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="25"
+                                        value="#{baixaAmpolaController.ampola.dataValidade}" readonly="true"
+                                        showOn="button"/>
+                        </p:column>
 
-                    <p:outputLabel value="Número da Gaveta"/>
-                    <p:inputNumber value="#{baixaAmpolaController.ampola.armazenamento.numeroGaveta}"
-                                   readonly="true"/>
+                        <p:column>
+                            <p:outputLabel value="Número da Gaveta:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputNumber value="#{baixaAmpolaController.ampola.armazenamento.numeroGaveta}"
+                                           readonly="true"
+                                           size="30"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Número da Caixa"/>
-                    <p:inputNumber value="#{baixaAmpolaController.ampola.armazenamento.numeroCaixa}"
-                                   readonly="true"/>
-                </h:panelGrid>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Número da Caixa:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputNumber value="#{baixaAmpolaController.ampola.armazenamento.numeroCaixa}"
+                                           readonly="true"
+                                           size="30"/>
+                        </p:column>
+
+                        <p:column>
+                            <p:outputLabel value="Armazenada:"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox id="statusArmazenamento" styleClass="custom-checkbox"
+                                                     disabled="true"
+                                                     value="#{baixaAmpolaController.ampola.statusArmazenamento}"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
 
             <!-- Incluir rodapé -->

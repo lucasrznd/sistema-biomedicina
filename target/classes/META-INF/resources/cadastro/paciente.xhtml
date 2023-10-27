@@ -104,8 +104,9 @@
                         <p:column>
                             <p:selectOneMenu id="fenotipagem" value="#{cadastroPacienteController.paciente.fenotipagem}"
                                              converter="omnifaces.SelectItemsConverter"
-                                             style="width: 200px;" labelTemplate="Selecione"
+                                             style="width: 200px;" label="Selecione"
                                              required="true" requiredMessage="Campo Fenotipagem é obrigatório">
+                                <f:selectItem itemLabel="Selecione"/>
                                 <f:selectItems value="#{cadastroPacienteController.fenotipagemList}" var="fenotipagem"
                                                itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
                             </p:selectOneMenu>
@@ -117,9 +118,10 @@
                             <p:selectOneMenu id="anticorpoIdentificado"
                                              value="#{cadastroPacienteController.paciente.anticorpoIdentificado}"
                                              converter="omnifaces.SelectItemsConverter"
-                                             style="width: 200px;" labelTemplate="Selecione"
+                                             style="width: 200px;"
                                              required="true"
                                              requiredMessage="Campo Anticorpo Identificado é obrigatório">
+                                <f:selectItem itemLabel="Selecione"/>
                                 <f:selectItems value="#{cadastroPacienteController.anticorposList}" var="anticorpo"
                                                itemLabel="#{anticorpo.anticorpoIdentificado}"/>
                             </p:selectOneMenu>

@@ -30,8 +30,6 @@ public class CadastroAnticorpoController implements Serializable {
     public void insert() {
         anticorpoRepository.insert(anticorpo);
 
-        anticorpo = new Anticorpo();
-
         /*Retorna uma mensagem na tela para o usuário*/
         Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
     }
