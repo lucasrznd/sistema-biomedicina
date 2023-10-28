@@ -1,7 +1,6 @@
 package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
-import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
 import br.edu.unifio.sistemabiomedicina.models.entities.Armazenamento;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
 import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
@@ -11,7 +10,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import lombok.Data;
-import org.jboss.logging.annotations.Pos;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Messages;
 import org.primefaces.event.UnselectEvent;

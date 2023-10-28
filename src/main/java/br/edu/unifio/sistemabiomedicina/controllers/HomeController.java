@@ -5,6 +5,7 @@ import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,4 +25,5 @@ public class HomeController {
     public void ultimosCadastrados() {
         ampolaList = ampolaRepository.ultimasCadastradas();
     }
+
 }
