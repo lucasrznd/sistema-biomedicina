@@ -3,6 +3,7 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
 import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
 import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
+import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.annotation.View;
 import lombok.Data;
@@ -43,6 +44,8 @@ public class BuscarAnticorpoController implements Serializable {
 
     public void buscarPorAnticorpoIdentificado() {
         anticorpoList = anticorpoRepository.getByAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
+
+        ListaUtil.verificaTamanhoLista(anticorpoList);
         PrimeFaces.current().ajax().update("form:datatable");
     }
 

@@ -53,7 +53,7 @@ public class CadastroAmpolaController implements Serializable {
     public List<Paciente> buscarPaciente(String nome) {
         List<Paciente> pacientesEncontrados = pacienteRepository.getByNome(nome);
 
-        if (pacientesEncontrados.size() == 0) {
+        if (pacientesEncontrados.isEmpty()) {
             Messages.addFlashGlobalError("Paciente não encontrado");
         }
         return pacientesEncontrados;

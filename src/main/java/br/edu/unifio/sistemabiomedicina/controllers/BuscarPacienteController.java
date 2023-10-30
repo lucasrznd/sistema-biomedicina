@@ -7,6 +7,7 @@ import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
 import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
+import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
@@ -56,13 +57,15 @@ public class BuscarPacienteController implements Serializable {
 
     public void buscarPaciente() {
         if (camposDeBuscaVazios()) {
-            Messages.addFlashGlobalError("Preencha pelo menos um campo para busca.");
+            Messages.addFlashGlobalWarn("Preencha um campo para busca.");
         } else if (!paciente.getNome().isEmpty()) {
             buscaPorNome();
         } else if (!paciente.getSobrenome().isEmpty()) {
             buscaPorSobrenome();
         } else if (paciente.getDataNascimento() != null) {
             buscarPorDataNascimento();
+        } else if (!paciente.getCpf().isEmpty()) {
+            buscarPorCpf();
         }
     }
 
@@ -74,21 +77,28 @@ public class BuscarPacienteController implements Serializable {
     private void buscaPorNome() {
         pacienteList = pacienteRepository.getByNome(paciente.getNome());
 
-        verificaTamanhoLista(pacienteList);
+        ListaUtil.verificaTamanhoLista(pacienteList);
         PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscaPorSobrenome() {
         pacienteList = pacienteRepository.getBySobrenome(paciente.getSobrenome());
 
-        verificaTamanhoLista(pacienteList);
+        ListaUtil.verificaTamanhoLista(pacienteList);
         PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscarPorDataNascimento() {
         pacienteList = pacienteRepository.getByDataNascimento(paciente.getDataNascimento());
 
-        verificaTamanhoLista(pacienteList);
+        ListaUtil.verificaTamanhoLista(pacienteList);
+        PrimeFaces.current().ajax().update("form:datatable");
+    }
+
+    private void buscarPorCpf() {
+        pacienteList = pacienteRepository.getByCpf(paciente.getCpf());
+
+        ListaUtil.verificaTamanhoLista(pacienteList);
         PrimeFaces.current().ajax().update("form:datatable");
     }
 
@@ -114,12 +124,6 @@ public class BuscarPacienteController implements Serializable {
     @PostConstruct
     public void listarFenotipagens() {
         fenotipagemList = fenotipagemRepository.getAll();
-    }
-
-    private void verificaTamanhoLista(List<Paciente> pacienteList) {
-        if (pacienteList.isEmpty()) {
-            Messages.addFlashGlobalWarn("Nenhum registro encontrado.");
-        }
     }
 
     public String exibirAnticorposString(List<Anticorpo> list) {

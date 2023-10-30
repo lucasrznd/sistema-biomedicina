@@ -48,6 +48,12 @@ public class PacienteRepository {
         return query.getResultList();
     }
 
+    public List<Paciente> getByCpf(String cpf) {
+        Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.cpf = :cpf");
+        query.setParameter("cpf", cpf);
+        return query.getResultList();
+    }
+
     @Transactional
     public void insert(Paciente paciente) {
         // Converte os atributos que sao String para UPPERCASE

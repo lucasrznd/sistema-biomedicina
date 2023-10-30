@@ -3,10 +3,12 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
 import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
 import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
+import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
+import org.omnifaces.util.Messages;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,13 +44,31 @@ public class BuscarFenotipagemController implements Serializable {
     }
 
     public void buscarFenotipagem() {
-        if (!fenotipagem.getTipagemRh().equals("")) {
-            fenotipagemList = fenotipagemRepository.getByFenotipagemCompleta(fenotipagem.getTipagemAbo(),
-                    fenotipagem.getTipagemRh());
+        if (camposDeBuscaVazios()) {
+            Messages.addFlashGlobalWarn("Preencha um campo para busca.");
+        } else if (!fenotipagem.getTipagemAbo().isEmpty()) {
+            buscarPorTipagemAbo();
         } else {
-            fenotipagemList = fenotipagemRepository.getByTipagemAbo(fenotipagem.getTipagemAbo());
-            PrimeFaces.current().ajax().update("form:datatable");
+            buscarPorTipagemRh();
         }
+    }
+
+    private boolean camposDeBuscaVazios() {
+        return fenotipagem.getTipagemAbo().isEmpty() && fenotipagem.getTipagemRh().isEmpty();
+    }
+
+    private void buscarPorTipagemAbo() {
+        fenotipagemList = fenotipagemRepository.getByTipagemAbo(fenotipagem.getTipagemAbo());
+
+        ListaUtil.verificaTamanhoLista(fenotipagemList);
+        PrimeFaces.current().ajax().update("form:datatable");
+    }
+
+    private void buscarPorTipagemRh() {
+        fenotipagemList = fenotipagemRepository.getByTipagemRh(fenotipagem.getTipagemRh());
+
+        ListaUtil.verificaTamanhoLista(fenotipagemList);
+        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     public void update() {

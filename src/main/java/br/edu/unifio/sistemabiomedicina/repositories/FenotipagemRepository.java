@@ -42,7 +42,7 @@ public class FenotipagemRepository {
         return query.getResultList();
     }
 
-    public List<Fenotipagem> getByTipagemRh(Character tipagemRh) {
+    public List<Fenotipagem> getByTipagemRh(String tipagemRh) {
         Query query = em.createQuery("SELECT f FROM Fenotipagem f where f.tipagemRh LIKE:tipagemRh");
         query.setParameter("tipagemRh", "%" + tipagemRh + "%");
         return query.getResultList();

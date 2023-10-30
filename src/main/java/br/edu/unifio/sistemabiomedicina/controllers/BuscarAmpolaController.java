@@ -5,6 +5,7 @@ import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
 import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
 import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
+import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
@@ -71,32 +72,36 @@ public class BuscarAmpolaController implements Serializable {
     private void buscarPorNomePaciente() {
         ampolaList = ampolaRepository.getByNomePaciente(ampola.getPaciente().getNome());
 
-        verificaTamanhoLista(ampolaList);
+        ListaUtil.verificaTamanhoLista(ampolaList);
         PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscarPorCodigoInternacao() {
         ampolaList = ampolaRepository.getByCodigoInternacao(ampola.getCodigoInternacao());
 
-        verificaTamanhoLista(ampolaList);
+        ListaUtil.verificaTamanhoLista(ampolaList);
+        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscarPorMlAmpola() {
         ampolaList = ampolaRepository.getByAmpolaMl(ampola.getAmpolaMl());
 
-        verificaTamanhoLista(ampolaList);
+        ListaUtil.verificaTamanhoLista(ampolaList);
+        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscarPorDataCadastro() {
         ampolaList = ampolaRepository.getByDataCadastro(ampola.getDataCadastro());
 
-        verificaTamanhoLista(ampolaList);
+        ListaUtil.verificaTamanhoLista(ampolaList);
+        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscarPorDataValidade() {
         ampolaList = ampolaRepository.getByDataValidade(ampola.getDataValidade());
 
-        verificaTamanhoLista(ampolaList);
+        ListaUtil.verificaTamanhoLista(ampolaList);
+        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     public List<Paciente> buscarPaciente(String nome) {
@@ -126,12 +131,6 @@ public class BuscarAmpolaController implements Serializable {
 
         // Redireciona para a página de dar baixa
         Faces.redirect("/baixa/ampola.xhtml");
-    }
-
-    private void verificaTamanhoLista(List<Ampola> ampolaList) {
-        if (ampolaList.isEmpty()) {
-            Messages.addFlashGlobalWarn("Nenhum registro encontrado.");
-        }
     }
 
 }
