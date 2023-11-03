@@ -64,18 +64,10 @@ public class PacienteRepository {
 
     @Transactional
     public void update(Paciente paciente) {
-        Paciente pacienteEncontrado = getById(paciente);
-
-        pacienteEncontrado.setNome(paciente.getNome());
-        pacienteEncontrado.setSobrenome(paciente.getSobrenome());
-        pacienteEncontrado.setCpf(paciente.getCpf());
-        pacienteEncontrado.setDataNascimento(paciente.getDataNascimento());
-        pacienteEncontrado.setFenotipagem(paciente.getFenotipagem());
-
         // Converte os atributos que sao String para UPPERCASE
-        StringUtil.convertToUpperCase(pacienteEncontrado);
+        StringUtil.convertToUpperCase(paciente);
 
-        em.persist(pacienteEncontrado);
+        em.merge(paciente);
     }
 
     @Transactional

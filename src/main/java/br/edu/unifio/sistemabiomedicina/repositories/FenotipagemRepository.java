@@ -59,15 +59,10 @@ public class FenotipagemRepository {
 
     @Transactional
     public void update(Fenotipagem fenotipagem) {
-        Fenotipagem fenotipagemEncontrada = getById(fenotipagem);
-
-        fenotipagemEncontrada.setTipagemAbo(fenotipagem.getTipagemAbo());
-        fenotipagemEncontrada.setTipagemRh(fenotipagem.getTipagemRh());
-
         // Converte os atributos que sao String para UPPERCASE
-        StringUtil.convertToUpperCase(fenotipagemEncontrada);
+        StringUtil.convertToUpperCase(fenotipagem);
 
-        em.persist(fenotipagemEncontrada);
+        em.merge(fenotipagem);
     }
 
     @Transactional

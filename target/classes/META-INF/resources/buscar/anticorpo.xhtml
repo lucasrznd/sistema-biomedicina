@@ -6,6 +6,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+    <f:viewAction action="#{buscarAnticorpoController.novo()}"/>
+</f:metadata>
+
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
 
     <h:head>
@@ -106,16 +110,23 @@
         </h:form>
 
         <p:dialog modal="true"
-                  header="Editar Dados" height="200" width="500" widgetVar="modal">
+                  header="Editar Dados" height="100" width="500" widgetVar="modal">
             <h:form id="formModal">
 
                 <p:growl id="message" showDetail="true"/>
-                <p:panelGrid columns="2">
-                    <p:outputLabel value="Digite o Anticorpo Identificado"/>
-                    <p:inputText maxlength="50"
-                                 value="#{buscarAnticorpoController.anticorpoSelecionado.anticorpoIdentificado}"
-                                 required="true"
-                                 requiredMessage="Campo Anticorpo Identificado é obrigatório."/>
+                <p:panelGrid style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Anticorpo Identificado:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText maxlength="50"
+                                         value="#{buscarAnticorpoController.anticorpoSelecionado.anticorpoIdentificado}"
+                                         required="true"
+                                         requiredMessage="Campo Anticorpo Identificado é obrigatório."
+                                         style="text-transform: uppercase"/>
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
 
                 <div style="display: flex; justify-content: center">

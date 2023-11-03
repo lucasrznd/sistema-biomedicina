@@ -3,8 +3,8 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
 import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
 import lombok.Data;
-import org.omnifaces.cdi.ViewScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@ViewScoped
+@RequestScoped
 @Data
 public class HomeController {
 

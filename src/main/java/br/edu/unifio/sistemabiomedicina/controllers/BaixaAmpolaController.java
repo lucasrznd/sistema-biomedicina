@@ -26,7 +26,7 @@ public class BaixaAmpolaController implements Serializable {
     }
 
     @PostConstruct
-    public void carregar() {
+    public void load() {
         ampola = Faces.getFlashAttribute("ampolaSelecionada");
     }
 
@@ -37,4 +37,5 @@ public class BaixaAmpolaController implements Serializable {
         /* Redireciona para a tela de busca */
         Faces.redirect("/buscar/ampola.xhtml");
     }
+
 }

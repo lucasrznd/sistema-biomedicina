@@ -6,6 +6,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+    <f:viewAction action="#{cadastroAmpolaController.novo()}"/>
+</f:metadata>
+
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
 
     <h:head>
@@ -25,6 +29,10 @@
             <p:panel>
                 <h2>Novo Paciente</h2>
                 <p:messages id="idMessage" closable="true"/>
+
+                <p:growl>
+                    <p:autoUpdate />
+                </p:growl>
             </p:panel>
 
             <p:panel>
@@ -124,7 +132,7 @@
                                                   value="#{cadastroPacienteController.paciente.anticorpos}">
                                 <p:ajax event="itemUnselect" listener="#{cadastroPacienteController.onItemUnselect}"/>
                                 <f:selectItems value="#{cadastroPacienteController.anticorposList}"/>
-                                <f:attribute name="collectionType" value="java.util.ArrayList" />
+                                <f:attribute name="collectionType" value="java.util.ArrayList"/>
                             </p:selectCheckboxMenu>
                         </p:column>
                     </p:row>

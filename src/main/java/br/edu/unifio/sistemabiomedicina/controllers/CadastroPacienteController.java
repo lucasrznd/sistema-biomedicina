@@ -15,10 +15,8 @@ import org.omnifaces.util.Messages;
 import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -26,17 +24,17 @@ import java.util.List;
 @Data
 public class CadastroPacienteController implements Serializable {
 
-    /* Repositories e classes da entidade Paciente */
+    /* Repositorie, entitiy Paciente */
     @Autowired
     private PacienteRepository pacienteRepository;
     private Paciente paciente;
 
-    /* Repositories e classes da entidade Fenotipagem */
+    /* Repositorie, entitiy Fenotipagem */
     @Autowired
     private FenotipagemRepository fenotipagemRepository;
     private List<Fenotipagem> fenotipagemList;
 
-    /* Repositories e classes da entidade Anticorpo */
+    /* Repositorie, entitiy Anticorpo */
     @Autowired
     private AnticorpoRepository anticorpoRepository;
     private List<Anticorpo> anticorposList;
@@ -44,14 +42,9 @@ public class CadastroPacienteController implements Serializable {
     @PostConstruct
     public void novo() {
         paciente = new Paciente();
-    }
 
-    public void imprimir() {
-        System.out.println(paciente.getAnticorpos());
-
-        for (Anticorpo anticorpo : paciente.getAnticorpos()) {
-            System.out.println(anticorpo.getId());
-        }
+        anticorposList = anticorpoRepository.getAll();
+        fenotipagemList = fenotipagemRepository.getAll();
     }
 
     public void insert() {
@@ -61,16 +54,6 @@ public class CadastroPacienteController implements Serializable {
         Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
     }
 
-    @PostConstruct
-    public void listarAnticorpos() {
-        anticorposList = anticorpoRepository.getAll();
-    }
-
-    @PostConstruct
-    public void listarFenotipagens() {
-        fenotipagemList = fenotipagemRepository.getAll();
-    }
-
     public void onItemUnselect(UnselectEvent event) {
         FacesMessage msg = new FacesMessage();
         msg.setSummary("Item removido: " + event.getObject().toString());
@@ -78,4 +61,5 @@ public class CadastroPacienteController implements Serializable {
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+
 }

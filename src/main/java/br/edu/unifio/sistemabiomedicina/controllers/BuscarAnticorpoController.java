@@ -24,7 +24,7 @@ public class BuscarAnticorpoController implements Serializable {
     @Autowired
     private AnticorpoRepository anticorpoRepository;
     private Anticorpo anticorpo;
-    private List<Anticorpo> anticorpoList = new ArrayList<>();
+    private List<Anticorpo> anticorpoList;
 
     private Anticorpo anticorpoSelecionado;
 

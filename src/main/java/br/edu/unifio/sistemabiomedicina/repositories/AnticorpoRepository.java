@@ -41,14 +41,10 @@ public class AnticorpoRepository {
 
     @Transactional
     public void update(Anticorpo anticorpo) {
-        Anticorpo anticorpoEncontrado = getById(anticorpo);
-
-        anticorpoEncontrado.setAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
-
         // Converte os atributos que sao String para UPPERCASE
-        StringUtil.convertToUpperCase(anticorpoEncontrado);
+        StringUtil.convertToUpperCase(anticorpo);
 
-        em.persist(anticorpoEncontrado);
+        em.merge(anticorpo);
     }
 
     @Transactional

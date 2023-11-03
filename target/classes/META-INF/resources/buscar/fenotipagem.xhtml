@@ -6,6 +6,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+    <f:viewAction action="#{buscarFenotipagemController.novo()}"/>
+</f:metadata>
+
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
 
     <h:head>
@@ -72,7 +76,6 @@
                              paginator="true" rows="3"
                              rowKey="#{fenotipagem.id}">
 
-                    <p:growl id="message" showDetail="true"/>
                     <p:column headerText="Código" style="text-align: center;">
                         <h:outputText value="#{fenotipagem.id}"/>
                     </p:column>
@@ -98,7 +101,8 @@
                         <!-- Fim código para botão Editar -->
 
                         <!-- Inicio código para botão delete -->
-                        <p:commandButton action="#{buscarFenotipagemController.delete()}" update="message dataTable"
+                        <p:commandButton action="#{buscarFenotipagemController.delete()}"
+                                         update="dataTable :formModal:message"
                                          icon="pi pi-trash"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                          style="margin-left: 10px">
@@ -127,21 +131,36 @@
 
         <!-- Inicio do modal para Editar -->
         <p:dialog modal="true"
-                  header="Editar Dados" height="200" width="500" widgetVar="modal">
+                  header="Editar Dados" height="150" width="500" widgetVar="modal">
             <h:form id="formModal">
-                <p:panelGrid columns="2">
-                    <p:outputLabel for="tipagemAboModal" value="Digite a tipagem ABO:"/>
-                    <p:inputText id="tipagemAboModal" maxlength="2"
-                                 value="#{buscarFenotipagemController.fenotipagemSelecionada.tipagemAbo}"
-                                 required="true"
-                                 requiredMessage="Campo Tipagem ABO é obrigatório."
-                                 oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
 
-                    <p:outputLabel for="tipagemRhModal" value="Digite a tipagem RH:"/>
-                    <p:inputText id="tipagemRhModal" maxlength="1" required="true"
-                                 requiredMessage="Campo Tipagem RH é obrigatório."
-                                 value="#{buscarFenotipagemController.fenotipagemSelecionada.tipagemRh}"
-                                 oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
+                <p:growl id="message" showDetail="true"/>
+                <p:panelGrid style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="tipagemAboModal" value="Tipagem ABO:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="tipagemAboModal" maxlength="2"
+                                         value="#{buscarFenotipagemController.fenotipagemSelecionada.tipagemAbo}"
+                                         required="true"
+                                         requiredMessage="Campo Tipagem ABO é obrigatório."
+                                         oninput="this.value = this.value.replace(/[^A-Z]/g, '');"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="tipagemRhModal" value="Tipagem RH:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="tipagemRhModal" maxlength="1" required="true"
+                                         requiredMessage="Campo Tipagem RH é obrigatório."
+                                         value="#{buscarFenotipagemController.fenotipagemSelecionada.tipagemRh}"
+                                         oninput="this.value = this.value.replace(/[^+-]/g, '');"/>
+                        </p:column>
+                    </p:row>
+
                 </p:panelGrid>
 
                 <div style="display: flex; justify-content: center">
@@ -149,7 +168,7 @@
                         <p:commandButton value="Salvar" icon="pi pi-save"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
                                          action="#{buscarFenotipagemController.update()}"
-                                         process="@form" update="@form :formPrincipal:dataTable"/>
+                                         process="@form" update="@form :formPrincipal:dataTable message"/>
                     </p:panelGrid>
                 </div>
             </h:form>

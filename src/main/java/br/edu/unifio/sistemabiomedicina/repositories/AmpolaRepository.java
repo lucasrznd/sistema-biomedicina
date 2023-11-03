@@ -77,18 +77,10 @@ public class AmpolaRepository {
 
     @Transactional
     public void update(Ampola ampola) {
-        Ampola ampolaEncontrada = getById(ampola);
-
-        ampolaEncontrada.setCodigoInternacao(ampola.getCodigoInternacao());
-        ampolaEncontrada.setPaciente(ampola.getPaciente());
-        ampolaEncontrada.setAmpolaMl(ampola.getAmpolaMl());
-        ampolaEncontrada.setDataCadastro(ampola.getDataCadastro());
-        ampolaEncontrada.setDataValidade(ampola.getDataValidade());
-
         // Converte os atributos que sao String para UPPERCASE
-        StringUtil.convertToUpperCase(ampolaEncontrada);
+        StringUtil.convertToUpperCase(ampola);
 
-        em.persist(ampolaEncontrada);
+        em.merge(ampola);
     }
 
     @Transactional

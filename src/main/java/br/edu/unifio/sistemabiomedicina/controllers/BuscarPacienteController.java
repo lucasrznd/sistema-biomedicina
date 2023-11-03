@@ -45,6 +45,10 @@ public class BuscarPacienteController implements Serializable {
     public void novo() {
         paciente = new Paciente();
         pacienteSelecionado = new Paciente();
+        pacienteList = new ArrayList<>();
+
+        anticorposList = anticorpoRepository.getAll();
+        fenotipagemList = fenotipagemRepository.getAll();
     }
 
     public void redirect() {
@@ -114,16 +118,6 @@ public class BuscarPacienteController implements Serializable {
         /* Remover objeto do arrayList */
         pacienteList.remove(pacienteSelecionado);
         GrowlView.showWarn("Removido", "Registro removido com sucesso.");
-    }
-
-    @PostConstruct
-    public void listarAnticorpos() {
-        anticorposList = anticorpoRepository.getAll();
-    }
-
-    @PostConstruct
-    public void listarFenotipagens() {
-        fenotipagemList = fenotipagemRepository.getAll();
     }
 
     public String exibirAnticorposString(List<Anticorpo> list) {

@@ -6,6 +6,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+    <f:viewAction action="#{buscarPacienteController.novo()}"/>
+</f:metadata>
+
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
 
     <h:head>
@@ -163,52 +167,103 @@
 
         <!-- Inicio do modal para Editar -->
         <p:dialog modal="true"
-                  header="Editar Dados" height="500" width="600" widgetVar="modal">
+                  header="Editar Dados" height="300" width="800" widgetVar="modal">
             <h:form id="formModal">
 
                 <p:growl id="message" showDetail="true"/>
-                <p:panelGrid columns="2">
-                    <p:outputLabel value="Nome"/>
-                    <p:inputText value="#{buscarPacienteController.pacienteSelecionado.nome}" required="true"
-                                 requiredMessage="Campo Nome é obrigatório"/>
+                <p:panelGrid style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="nome" value="Nome:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="nome" value="#{buscarPacienteController.pacienteSelecionado.nome}"
+                                         required="true"
+                                         requiredMessage="Campo Nome é obrigatório"
+                                         style="text-transform: uppercase"/>
+                        </p:column>
 
-                    <p:outputLabel value="Sobrenome"/>
-                    <p:inputText value="#{buscarPacienteController.pacienteSelecionado.sobrenome}" required="true"
-                                 requiredMessage="Campo Sobrenome é obrigatório"/>
+                        <p:column>
+                            <p:outputLabel for="sobrenome" value="Sobrenome:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="sobrenome"
+                                         value="#{buscarPacienteController.pacienteSelecionado.sobrenome}"
+                                         required="true"
+                                         requiredMessage="Campo Sobrenome é obrigatório"
+                                         style="text-transform: uppercase"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Data de Nascimento"/>
-                    <p:calendar styleClass="custom-calendar" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
-                                value="#{buscarPacienteController.pacienteSelecionado.dataNascimento}" required="true"
-                                requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"/>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="dataNascimento" value="Data de Nascimento:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="dataNascimento" styleClass="custom-calendar" locale="pt"
+                                        pattern="dd/MM/yyyy"
+                                        readonlyInput="true"
+                                        value="#{buscarPacienteController.pacienteSelecionado.dataNascimento}"
+                                        required="true"
+                                        requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"
+                                        size="15"/>
+                        </p:column>
 
-                    <p:outputLabel value="CPF"/>
-                    <p:inputMask mask="999.999.999-99" value="#{buscarPacienteController.pacienteSelecionado.cpf}"
-                                 required="true"
-                                 requiredMessage="Campo CPF é obrigatório"/>
+                        <p:column>
+                            <p:outputLabel for="cpf" value="CPF:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputMask id="cpf" mask="999.999.999-99"
+                                         value="#{buscarPacienteController.pacienteSelecionado.cpf}"
+                                         required="true"
+                                         requiredMessage="Campo CPF é obrigatório"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Selecione a Fenotipagem"/>
-                    <p:selectOneMenu value="#{buscarPacienteController.pacienteSelecionado.fenotipagem}"
-                                     converter="omnifaces.SelectItemsConverter"
-                                     style="width: 200px;"
-                                     required="true" requiredMessage="Campo Fenotipagem é obrigatório">
-                        <f:selectItem itemLabel="Selecione"/>
-                        <f:selectItems value="#{cadastroPacienteController.fenotipagemList}" var="fenotipagem"
-                                       itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
-                    </p:selectOneMenu>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="fenotip" value="Fenotipagem:"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="fenotip"
+                                             value="#{buscarPacienteController.pacienteSelecionado.fenotipagem}"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             style="width: 180px;"
+                                             required="true" requiredMessage="Campo Fenotipagem é obrigatório">
+                                <f:selectItem itemLabel="Selecione"/>
+                                <f:selectItems value="#{cadastroPacienteController.fenotipagemList}" var="fenotipagem"
+                                               itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
+                            </p:selectOneMenu>
+                        </p:column>
 
-                    <p:outputLabel value="Anticorpo Identificado"/>
-                    <p:selectOneMenu value="#{buscarPacienteController.pacienteSelecionado.anticorpos}"
-                                     converter="omnifaces.SelectItemsConverter"
-                                     style="width: 200px;"
-                                     required="true" requiredMessage="Campo Anticorpo Identificado é obrigatório">
-                        <f:selectItem itemLabel="Selecione"/>
-                        <f:selectItems value="#{buscarPacienteController.anticorposList}" var="anticorpo"
-                                       itemLabel="#{anticorpo.anticorpoIdentificado}"/>
-                    </p:selectOneMenu>
+                        <p:column>
+                            <p:outputLabel for="anticorpoIdentificado" value="Anticorpo Identificado:"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectCheckboxMenu id="anticorpoIdentificado" converter="omnifaces.SelectItemsConverter"
+                                                  filter="true" filterMatchMode="startsWith"
+                                                  label="Anticorpos" multiple="true" emptyLabel="Selecione"
+                                                  updateLabel="true"
+                                                  style="min-width: 12rem; max-width: 12rem" panelStyle="width: 30rem"
+                                                  scrollHeight="250"
+                                                  value="#{buscarPacienteController.pacienteSelecionado.anticorpos}">
+                                <p:ajax event="itemUnselect"/>
+                                <f:selectItems value="#{buscarPacienteController.anticorposList}"/>
+                                <f:attribute name="collectionType" value="java.util.ArrayList"/>
+                            </p:selectCheckboxMenu>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Titulo Anticorpo"/>
-                    <p:inputMask mask="99/99" value="#{buscarPacienteController.pacienteSelecionado.tituloAnticorpo}"
-                                 required="true" requiredMessage="Titulo Anticorpo obrigatório"/>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="tituloAnticopro" value="Titulo Anticorpo:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputMask id="tituloAnticopro" mask="99/99"
+                                         value="#{buscarPacienteController.pacienteSelecionado.tituloAnticorpo}"
+                                         required="true" requiredMessage="Titulo Anticorpo obrigatório"/>
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
 
                 <div style="display: flex; justify-content: center">

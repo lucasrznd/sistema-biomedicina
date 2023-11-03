@@ -25,6 +25,8 @@ public class CadastroAnticorpoController implements Serializable {
     @PostConstruct
     public void novo() {
         anticorpo = new Anticorpo();
+
+        anticorposList = anticorpoRepository.getAll();
     }
 
     public void insert() {
@@ -34,8 +36,4 @@ public class CadastroAnticorpoController implements Serializable {
         Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
     }
 
-    @PostConstruct
-    public void listarAnticorpos() {
-        anticorposList = anticorpoRepository.getAll();
-    }
 }
