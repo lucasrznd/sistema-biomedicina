@@ -64,29 +64,22 @@ public class BuscarPacienteController implements Serializable {
             Messages.addFlashGlobalWarn("Preencha um campo para busca.");
         } else if (!paciente.getNome().isEmpty()) {
             buscaPorNome();
-        } else if (!paciente.getSobrenome().isEmpty()) {
-            buscaPorSobrenome();
         } else if (paciente.getDataNascimento() != null) {
             buscarPorDataNascimento();
         } else if (!paciente.getCpf().isEmpty()) {
             buscarPorCpf();
+        } else if (paciente.getFenotipagem() != null) {
+            buscarPorFenotipagem();
         }
     }
 
     private boolean camposDeBuscaVazios() {
-        return paciente.getNome().isEmpty() && paciente.getSobrenome().isEmpty() &&
-                paciente.getDataNascimento() == null && paciente.getCpf().isEmpty();
+        return paciente.getNome().isEmpty() && paciente.getDataNascimento() == null
+                && paciente.getCpf().isEmpty() && paciente.getFenotipagem() == null;
     }
 
     private void buscaPorNome() {
         pacienteList = pacienteRepository.getByNome(paciente.getNome());
-
-        ListaUtil.verificaTamanhoLista(pacienteList);
-        PrimeFaces.current().ajax().update("form:datatable");
-    }
-
-    private void buscaPorSobrenome() {
-        pacienteList = pacienteRepository.getBySobrenome(paciente.getSobrenome());
 
         ListaUtil.verificaTamanhoLista(pacienteList);
         PrimeFaces.current().ajax().update("form:datatable");
@@ -104,6 +97,12 @@ public class BuscarPacienteController implements Serializable {
 
         ListaUtil.verificaTamanhoLista(pacienteList);
         PrimeFaces.current().ajax().update("form:datatable");
+    }
+
+    private void buscarPorFenotipagem() {
+        pacienteList = pacienteRepository.getByFenotipagem(paciente.getFenotipagem());
+
+        ListaUtil.verificaTamanhoLista(pacienteList);
     }
 
     public void update() {

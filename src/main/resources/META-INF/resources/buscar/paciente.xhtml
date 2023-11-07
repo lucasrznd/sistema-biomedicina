@@ -52,19 +52,10 @@
                         </p:column>
                         <p:column>
                             <p:inputText value="#{buscarPacienteController.paciente.nome}"
-                                         style="text-transform: uppercase"/>
+                                         style="text-transform: uppercase"
+                                         size="30"/>
                         </p:column>
 
-                        <p:column>
-                            <p:outputLabel value="Sobrenome:"/>
-                        </p:column>
-                        <p:column>
-                            <p:inputText value="#{buscarPacienteController.paciente.sobrenome}"
-                                         style="text-transform: uppercase"/>
-                        </p:column>
-                    </p:row>
-
-                    <p:row style="text-align: center">
                         <p:column>
                             <p:outputLabel value="Data de Nascimento:"/>
                         </p:column>
@@ -75,12 +66,28 @@
                                         navigator="true"
                                         size="16"/>
                         </p:column>
+                    </p:row>
 
+                    <p:row style="text-align: center">
                         <p:column>
                             <p:outputLabel value="CPF:"/>
                         </p:column>
                         <p:column>
-                            <p:inputMask mask="999.999.999-99" value="#{buscarPacienteController.paciente.cpf}"/>
+                            <p:inputMask mask="999.999.999-99" value="#{buscarPacienteController.paciente.cpf}"
+                                         size="30"/>
+                        </p:column>
+
+                        <p:column>
+                            <p:outputLabel for="fenotipagem" value="Fenotipagem:"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="fenotipagem" value="#{buscarPacienteController.paciente.fenotipagem}"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             style="width: 200px;" label="Selecione">
+                                <f:selectItem itemLabel="Selecione"/>
+                                <f:selectItems value="#{buscarPacienteController.fenotipagemList}" var="fenotipagem"
+                                               itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
+                            </p:selectOneMenu>
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -98,10 +105,6 @@
                         <h:outputText value="#{paciente.nome}"/>
                     </p:column>
 
-                    <p:column headerText="Sobrenome" style="text-align: center;">
-                        <h:outputText value="#{paciente.sobrenome}"/>
-                    </p:column>
-
                     <p:column headerText="Data de Nascimento" style="text-align: center;">
                         <h:outputText value="#{paciente.dataNascimento}">
                             <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
@@ -114,14 +117,6 @@
 
                     <p:column headerText="Fenotipagem" style="text-align: center;">
                         <h:outputText value="#{paciente.fenotipagem.fenotipagemCompleta}"/>
-                    </p:column>
-
-                    <p:column headerText="Anticorpo Identificado" style="text-align: center;">
-                        <h:outputText value="#{buscarPacienteController.exibirAnticorposString(paciente.anticorpos)}"/>
-                    </p:column>
-
-                    <p:column headerText="Título do Anticorpo" style="text-align: center;">
-                        <h:outputText value="#{paciente.tituloAnticorpo}"/>
                     </p:column>
 
                     <p:column headerText="Editar/Excluir" style="text-align: center;">
@@ -167,7 +162,7 @@
 
         <!-- Inicio do modal para Editar -->
         <p:dialog modal="true"
-                  header="Editar Dados" height="300" width="800" widgetVar="modal">
+                  header="Editar Dados" height="200" width="850" widgetVar="modal">
             <h:form id="formModal">
 
                 <p:growl id="message" showDetail="true"/>
@@ -180,22 +175,10 @@
                             <p:inputText id="nome" value="#{buscarPacienteController.pacienteSelecionado.nome}"
                                          required="true"
                                          requiredMessage="Campo Nome é obrigatório"
-                                         style="text-transform: uppercase"/>
+                                         style="text-transform: uppercase"
+                                         size="25"/>
                         </p:column>
 
-                        <p:column>
-                            <p:outputLabel for="sobrenome" value="Sobrenome:"/>
-                        </p:column>
-                        <p:column>
-                            <p:inputText id="sobrenome"
-                                         value="#{buscarPacienteController.pacienteSelecionado.sobrenome}"
-                                         required="true"
-                                         requiredMessage="Campo Sobrenome é obrigatório"
-                                         style="text-transform: uppercase"/>
-                        </p:column>
-                    </p:row>
-
-                    <p:row style="text-align: center">
                         <p:column>
                             <p:outputLabel for="dataNascimento" value="Data de Nascimento:"/>
                         </p:column>
@@ -208,7 +191,9 @@
                                         requiredMessage="Campo Data de Nascimento é obrigatório" showOn="button"
                                         size="15"/>
                         </p:column>
+                    </p:row>
 
+                    <p:row style="text-align: center">
                         <p:column>
                             <p:outputLabel for="cpf" value="CPF:"/>
                         </p:column>
@@ -216,11 +201,10 @@
                             <p:inputMask id="cpf" mask="999.999.999-99"
                                          value="#{buscarPacienteController.pacienteSelecionado.cpf}"
                                          required="true"
-                                         requiredMessage="Campo CPF é obrigatório"/>
+                                         requiredMessage="Campo CPF é obrigatório"
+                                         size="25"/>
                         </p:column>
-                    </p:row>
 
-                    <p:row style="text-align: center">
                         <p:column>
                             <p:outputLabel for="fenotip" value="Fenotipagem:"/>
                         </p:column>
@@ -235,35 +219,8 @@
                                                itemLabel="#{fenotipagem.fenotipagemCompleta}"/>
                             </p:selectOneMenu>
                         </p:column>
-
-                        <p:column>
-                            <p:outputLabel for="anticorpoIdentificado" value="Anticorpo Identificado:"/>
-                        </p:column>
-                        <p:column>
-                            <p:selectCheckboxMenu id="anticorpoIdentificado" converter="omnifaces.SelectItemsConverter"
-                                                  filter="true" filterMatchMode="startsWith"
-                                                  label="Anticorpos" multiple="true" emptyLabel="Selecione"
-                                                  updateLabel="true"
-                                                  style="min-width: 12rem; max-width: 12rem" panelStyle="width: 30rem"
-                                                  scrollHeight="250"
-                                                  value="#{buscarPacienteController.pacienteSelecionado.anticorpos}">
-                                <p:ajax event="itemUnselect"/>
-                                <f:selectItems value="#{buscarPacienteController.anticorposList}"/>
-                                <f:attribute name="collectionType" value="java.util.ArrayList"/>
-                            </p:selectCheckboxMenu>
-                        </p:column>
                     </p:row>
 
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel for="tituloAnticopro" value="Titulo Anticorpo:"/>
-                        </p:column>
-                        <p:column>
-                            <p:inputMask id="tituloAnticopro" mask="99/99"
-                                         value="#{buscarPacienteController.pacienteSelecionado.tituloAnticorpo}"
-                                         required="true" requiredMessage="Titulo Anticorpo obrigatório"/>
-                        </p:column>
-                    </p:row>
                 </p:panelGrid>
 
                 <div style="display: flex; justify-content: center">

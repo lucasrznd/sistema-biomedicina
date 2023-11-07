@@ -20,17 +20,10 @@ public class Paciente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String sobrenome;
     private LocalDate dataNascimento;
     private String cpf;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private Fenotipagem fenotipagem;
-
-    @ManyToMany
-    @JoinTable(name = "tb_anticorpo_paciente", joinColumns = {@JoinColumn(name = "id_paciente")},
-            inverseJoinColumns = {@JoinColumn(name = "id_anticorpo")})
-    private List<Anticorpo> anticorpos;
-    private String tituloAnticorpo;
 
 }

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.List;
@@ -22,7 +21,7 @@ public class Anticorpo implements Serializable {
     private String anticorpoIdentificado;
 
     @ManyToMany(mappedBy = "anticorpos")
-    private List<Paciente> pacientes;
+    private List<Ampola> ampola;
 
     @Override
     public String toString() {

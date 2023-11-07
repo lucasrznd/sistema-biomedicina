@@ -1,5 +1,6 @@
 package br.edu.unifio.sistemabiomedicina.repositories;
 
+import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
 import br.edu.unifio.sistemabiomedicina.utils.StringUtil;
 import jakarta.persistence.EntityManager;
@@ -36,12 +37,6 @@ public class PacienteRepository {
         return query.getResultList();
     }
 
-    public List<Paciente> getBySobrenome(String sobrenome) {
-        Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.sobrenome LIKE:sobrenome");
-        query.setParameter("sobrenome", "%" + sobrenome + "%");
-        return query.getResultList();
-    }
-
     public List<Paciente> getByDataNascimento(LocalDate dataNascimento) {
         Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.dataNascimento = :dataNascimento");
         query.setParameter("dataNascimento", dataNascimento);
@@ -51,6 +46,12 @@ public class PacienteRepository {
     public List<Paciente> getByCpf(String cpf) {
         Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.cpf = :cpf");
         query.setParameter("cpf", cpf);
+        return query.getResultList();
+    }
+
+    public List<Paciente> getByFenotipagem(Fenotipagem fenotipagem) {
+        Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.fenotipagem = :fenotipagem");
+        query.setParameter("fenotipagem", fenotipagem);
         return query.getResultList();
     }
 

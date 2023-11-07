@@ -8,6 +8,7 @@ import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_ampola")
@@ -19,13 +20,21 @@ public class Ampola implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long codigoInternacao;
-    private Integer ampolaMl;
-    private LocalDate dataCadastro;
-    private LocalDate dataValidade;
 
     @ManyToOne
     private Paciente paciente;
+
+    private Long codigoInternacao;
+    private Integer ampolaMl;
+
+    @ManyToMany
+    @JoinTable(name = "tb_anticorpo_ampola", joinColumns = {@JoinColumn(name = "id_ampola")},
+            inverseJoinColumns = {@JoinColumn(name = "id_anticorpo")})
+    private List<Anticorpo> anticorpos;
+    private String tituloAnticorpo;
+
+    private LocalDate dataCadastro;
+    private LocalDate dataValidade;
 
     @ManyToOne
     @Cascade(org.hibernate.annotations.CascadeType.ALL)

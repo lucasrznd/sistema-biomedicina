@@ -1,6 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
+import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
 import br.edu.unifio.sistemabiomedicina.models.entities.Armazenamento;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
 import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
@@ -35,11 +36,14 @@ public class CadastroAmpolaController implements Serializable {
 
     @Autowired
     private AnticorpoRepository anticorpoRepository;
+    private List<Anticorpo> anticorpoList;
 
     @PostConstruct
     public void novo() {
         ampola = new Ampola();
         armazenamento = new Armazenamento();
+
+        anticorpoList = anticorpoRepository.getAll();
     }
 
     public void insert() {
