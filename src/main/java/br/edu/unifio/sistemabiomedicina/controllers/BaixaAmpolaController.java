@@ -21,11 +21,6 @@ public class BaixaAmpolaController implements Serializable {
     private Ampola ampola;
 
     @PostConstruct
-    public void novo() {
-        ampola = new Ampola();
-    }
-
-    @PostConstruct
     public void load() {
         ampola = Faces.getFlashAttribute("ampolaSelecionada");
     }

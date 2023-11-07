@@ -8,7 +8,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.annotation.View;
 import lombok.Data;
 import org.omnifaces.util.Faces;
-import org.primefaces.PrimeFaces;
+import org.omnifaces.util.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,10 +43,17 @@ public class BuscarAnticorpoController implements Serializable {
     }
 
     public void buscarPorAnticorpoIdentificado() {
+        if (campoDeBuscaVazio()) {
+            Messages.addFlashGlobalWarn("Preencha um campo para busca.");
+            return;
+        }
         anticorpoList = anticorpoRepository.getByAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
 
         ListaUtil.verificaTamanhoLista(anticorpoList);
-        PrimeFaces.current().ajax().update("form:datatable");
+    }
+
+    public boolean campoDeBuscaVazio() {
+        return anticorpo.getAnticorpoIdentificado().isEmpty();
     }
 
     public void update() {

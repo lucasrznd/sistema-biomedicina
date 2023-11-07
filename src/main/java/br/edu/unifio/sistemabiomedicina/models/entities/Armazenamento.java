@@ -16,7 +16,7 @@ public class Armazenamento {
     private Integer numeroCaixa;
 
     public String posicaoFreezer() {
-        return getNumeroGaveta() + "/" + getNumeroCaixa();
+        return getNumeroGaveta() + " | " + getNumeroCaixa();
     }
 
 }

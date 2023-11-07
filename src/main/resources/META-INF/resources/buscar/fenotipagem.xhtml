@@ -73,8 +73,7 @@
             <p:panel>
                 <p:dataTable id="dataTable" var="fenotipagem" showGridlines="true"
                              value="#{buscarFenotipagemController.fenotipagemList}"
-                             paginator="true" rows="3"
-                             rowKey="#{fenotipagem.id}">
+                             paginator="true" rows="3">
 
                     <p:column headerText="Código" style="text-align: center;">
                         <h:outputText value="#{fenotipagem.id}"/>

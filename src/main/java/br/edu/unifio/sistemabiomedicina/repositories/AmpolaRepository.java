@@ -34,7 +34,7 @@ public class AmpolaRepository {
     }
 
     public List<Ampola> getByNomePaciente(String nomePaciente) {
-        Query query = em.createQuery("SELECT a FROM Ampola a WHERE a.paciente.nome LIKE:nomePaciente");
+        Query query = em.createQuery("SELECT a FROM Ampola a WHERE a.paciente.nome LIKE:nomePaciente AND a.statusArmazenamento = true");
         query.setParameter("nomePaciente", "%" + nomePaciente + "%");
         return query.getResultList();
     }
@@ -61,10 +61,6 @@ public class AmpolaRepository {
         Query query = em.createQuery("SELECT a FROM Ampola a WHERE a.dataValidade = :dataValidade");
         query.setParameter("dataValidade", dataValidade);
         return query.getResultList();
-    }
-
-    public Ampola getByDataValidade(Ampola ampola) {
-        return em.find(Ampola.class, ampola.getDataValidade());
     }
 
     @Transactional
