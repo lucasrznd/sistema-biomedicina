@@ -24,7 +24,7 @@
 
             <p:panel>
                 <h2>Baixa de Ampola</h2>
-                <p:messages id="idMessage" closable="true"/>
+                <p:growl id="message" showDetail="true"/>
             </p:panel>
 
             <p:panel>
@@ -32,12 +32,23 @@
                     <p:commandButton value="Dar Baixa" icon="pi pi-check"
                                      action="#{baixaAmpolaController.darBaixa()}"
                                      styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                     update="idMessage panelGridCampos"/>
+                                     update="message panelGridCampos"/>
                 </h:panelGrid>
             </p:panel>
 
             <p:panel>
                 <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="codigoOperador" value="Código do Operador:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="codigoOperador" value="#{baixaAmpolaController.operador.id}"
+                                         required="true"
+                                         requiredMessage="Código do Operador é obrigatório."
+                                         size="5"/>
+                        </p:column>
+                    </p:row>
                     <p:row style="text-align: center">
                         <p:column>
                             <p:outputLabel value="Nome do Paciente:"/>
@@ -58,14 +69,6 @@
 
                     <p:row style="text-align: center">
                         <p:column>
-                            <p:outputLabel value="ML da Ampola:"/>
-                        </p:column>
-                        <p:column>
-                            <p:inputText value="#{baixaAmpolaController.ampola.ampolaMl}" size="30"
-                                         readonly="true"/>
-                        </p:column>
-
-                        <p:column>
                             <p:outputLabel value="Data de Cadastro:"/>
                         </p:column>
                         <p:column>
@@ -73,9 +76,7 @@
                                         value="#{baixaAmpolaController.ampola.dataCadastro}" readonly="true"
                                         showOn="button"/>
                         </p:column>
-                    </p:row>
 
-                    <p:row style="text-align: center">
                         <p:column>
                             <p:outputLabel value="Data de Validade:"/>
                         </p:column>
@@ -83,6 +84,17 @@
                             <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="25"
                                         value="#{baixaAmpolaController.ampola.dataValidade}" readonly="true"
                                         showOn="button"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Número da Caixa:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputNumber value="#{baixaAmpolaController.ampola.armazenamento.numeroCaixa}"
+                                           readonly="true"
+                                           size="30"/>
                         </p:column>
 
                         <p:column>
@@ -97,12 +109,11 @@
 
                     <p:row style="text-align: center">
                         <p:column>
-                            <p:outputLabel value="Número da Caixa:"/>
+                            <p:outputLabel value="ML da Ampola:"/>
                         </p:column>
                         <p:column>
-                            <p:inputNumber value="#{baixaAmpolaController.ampola.armazenamento.numeroCaixa}"
-                                           readonly="true"
-                                           size="30"/>
+                            <p:inputText value="#{baixaAmpolaController.ampola.ampolaMl}" size="30"
+                                         readonly="true"/>
                         </p:column>
 
                         <p:column>

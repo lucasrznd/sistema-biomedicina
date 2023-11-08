@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewAction action="#{historicoRetiradaController.novo()}"/>
+</f:metadata>
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
+    <h:head>
+        <title>SISGES - Histórico de Retirada</title>
+
+        <!-- Favicon e import do CSS -->
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/ampola-icon.png"/>
+        <h:outputStylesheet name="css/estilo.css"/>
+        <h:outputScript name="primefaces/locales/locale-pt.js"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <!--Incluir menu-->
+            <ui:include src="/menu.xhtml"/>
+
+            <p:panel>
+                <h2>Histórico de Retirada</h2>
+                <p:messages id="idMessage" closable="true"/>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid columns="3">
+                    <p:commandButton value="Retirada" icon="pi pi-arrow-circle-up"
+                                     actionListener="#{historicoRetiradaController.redirect()}"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"/>
+                    <i class="pi pi-ellipsis-v mr-2"/>
+                    <p:commandButton value="Buscar" icon="pi pi-search"
+                                     actionListener="#{historicoRetiradaController.buscar()}"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     update="idMessage dataTable"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <p:panelGrid id="panelGridCampos" style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="codigoOperador" value="Código do Operador:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="codigoOperador" value="#{historicoRetiradaController.operador.id}"/>
+                        </p:column>
+
+                        <p:column>
+                            <p:outputLabel for="dataRetirada" value="Data Retirada:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="dataRetirada" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
+                                        size="26"
+                                        value="#{historicoRetiradaController.retirada.dataRetirada}" showOn="button"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <p:dataTable id="dataTable" value="#{historicoRetiradaController.retiradaList}"
+                             showGridlines="true" styleClass="centered-table"
+                             var="retirada" paginator="true" rows="5">
+
+                    <p:column headerText="Nome do Paciente" style="text-align: center;">
+                        <h:outputText value="#{retirada.ampola.paciente.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Código de Internação" style="text-align: center;">
+                        <h:outputText value="#{retirada.ampola.codigoInternacao}"/>
+                    </p:column>
+
+                    <p:column headerText="ML da Ampola" style="text-align: center;">
+                        <h:outputText value="#{retirada.ampola.ampolaMl}"/>
+                    </p:column>
+
+                    <p:column headerText="Data de Cadastro" style="text-align: center;">
+                        <h:outputText value="#{retirada.ampola.dataCadastro}">
+                            <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Data de Validade" style="text-align: center;">
+                        <h:outputText value="#{retirada.ampola.dataValidade}">
+                            <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Gaveta/Caixa" style="text-align: center;">
+                        <h:outputText value="#{retirada.ampola.armazenamento.posicaoFreezer()}"/>
+                    </p:column>
+
+                    <p:column headerText="Data/Hora Retirada" style="text-align: center;">
+                        <h:outputText value="#{retirada.dataRetirada}">
+                            <f:convertDateTime locale="pt" pattern="dd/MM/yyyy HH:mm:ss" type="localDateTime"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Operador" style="text-align: center;">
+                        <h:outputText value="#{retirada.operador.login}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <!-- Incluir rodapé -->
+            <ui:include src="/rodape.xhtml"/>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>

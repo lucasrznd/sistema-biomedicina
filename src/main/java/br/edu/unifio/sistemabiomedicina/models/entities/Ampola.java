@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
@@ -27,6 +28,7 @@ public class Ampola implements Serializable {
     private Long codigoInternacao;
     private Integer ampolaMl;
 
+    @ToString.Exclude
     @ManyToMany
     @JoinTable(name = "tb_anticorpo_ampola", joinColumns = {@JoinColumn(name = "id_ampola")},
             inverseJoinColumns = {@JoinColumn(name = "id_anticorpo")})

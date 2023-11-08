@@ -17,8 +17,14 @@ public class AmpolaRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Ampola> getALL() {
-        Query query = em.createQuery("SELECT a FROM Ampola a");
+    public List<Ampola> getAll() {
+        Query query = em.createQuery("SELECT a FROM Ampola a ORDER BY a.id DESC");
+        return query.getResultList();
+    }
+
+    public List<Ampola> getAllTrue() {
+        Query query = em.createQuery("SELECT a FROM Ampola a WHERE a.statusArmazenamento = true" +
+                " ORDER BY a.id DESC");
         return query.getResultList();
     }
 

@@ -44,7 +44,7 @@ public class BuscarAmpolaController implements Serializable {
         ampolaSelecionada = new Ampola();
         ampolaList = new ArrayList<>();
 
-        Faces.redirect("/cadastro/ampola.xhtml");
+        Faces.redirect("/cadastro/ampolaSelecionada.xhtml");
     }
 
     public void buscarAmpola() {
@@ -130,7 +130,7 @@ public class BuscarAmpolaController implements Serializable {
         Faces.setFlashAttribute("ampolaSelecionada", ampolaSelecionada);
 
         // Redireciona para a página de dar baixa
-        Faces.redirect("/baixa/ampola.xhtml");
+        Faces.redirect("/baixa/ampolaSelecionada.xhtml");
     }
 
 }

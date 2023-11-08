@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewAction action="#{retiradaAmpolaController.novo()}"/>
+</f:metadata>
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
+    <h:head>
+        <title>SISGES - Retirada de Ampola</title>
+
+        <!-- Favicon e import do CSS -->
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/ampola-icon.png"/>
+        <h:outputStylesheet name="css/estilo.css"/>
+        <h:outputScript name="primefaces/locales/locale-pt.js"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <!--Incluir menu-->
+            <ui:include src="/menu.xhtml"/>
+
+            <p:panel>
+                <h2>Retirada de Ampola</h2>
+                <p:messages id="idMessage" closable="true"/>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid columns="3">
+                    <p:commandButton value="Retirada" icon="pi pi-arrow-circle-up"
+                                     actionListener="#{retiradaAmpolaController.efetuarRetirada()}"
+                                     styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                     update="idMessage dataTable"/>
+                    <i class="pi pi-ellipsis-v mr-2"/>
+                    <p:button icon="pi pi-history" outcome="/retirada/historico/ampola.xhtml"
+                              styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                              value="Histórico"
+                              style="margin-left: 6px"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="codigoOperador" value="Código do Operador:"/>
+                    <p:inputText id="codigoOperador" value="#{retiradaAmpolaController.operador.id}"
+                                 required="true" requiredMessage="Código do Operador é obrigatório."/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel>
+                <!--
+                <p:selectManyMenu id="advanced" value="#{retiradaAmpolaController.ampolasSelecionadas}"
+                                  converter="omnifaces.SelectItemsConverter"
+                                  var="amp" filter="true" filterMatchMode="contains" filterNormalize="true"
+                                  showCheckbox="true" styleClass="manymenu-advanced"
+                                  style="width: 85rem">
+                    <f:selectItems value="#{retiradaAmpolaController.ampolaList}" var="ampola"
+                                   itemLabel="#{ampola.dataValidade}"
+                                   itemValue="#{ampola}"/>
+
+                    <p:column headerText="Código">
+                        <h:outputText value="#{amp.id}"/>
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{amp.paciente.nome}"/>
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{amp.paciente.fenotipagem.fenotipagemCompleta}"/>
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{amp.ampolaMl}"/>
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{amp.dataCadastro}"/>
+                    </p:column>
+                </p:selectManyMenu> -->
+
+                <p:dataTable id="dataTable" value="#{retiradaAmpolaController.ampolaList}"
+                             showGridlines="true" styleClass="centered-table"
+                             var="ampola" paginator="true" rows="5" rowKey="#{ampola.id}"
+                             selection="#{retiradaAmpolaController.ampolasSelecionadas}"
+                             selectionMode="multiple">
+
+                    <p:column headerText="Código" style="text-align: center;">
+                        <h:outputText value="#{ampola.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome do Paciente" style="text-align: center;">
+                        <h:outputText value="#{ampola.paciente.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Código de Internação" style="text-align: center;">
+                        <h:outputText value="#{ampola.codigoInternacao}"/>
+                    </p:column>
+
+                    <p:column headerText="ML da Ampola" style="text-align: center;">
+                        <h:outputText value="#{ampola.ampolaMl}"/>
+                    </p:column>
+
+                    <p:column headerText="Data de Cadastro" style="text-align: center;">
+                        <h:outputText value="#{ampola.dataCadastro}">
+                            <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Data de Validade" style="text-align: center;">
+                        <h:outputText value="#{ampola.dataValidade}">
+                            <f:convertDateTime locale="pt" pattern="dd/MM/yyyy" type="localDate"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Gaveta/Caixa" style="text-align: center;">
+                        <h:outputText value="#{ampola.armazenamento.posicaoFreezer()}"/>
+                    </p:column>
+
+                    <p:column headerText="Armazenada" style="text-align: center;">
+                        <h:outputText value="#{ampola.statusDeArmazenamento()}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <!-- Incluir rodapé -->
+            <ui:include src="/rodape.xhtml"/>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>
