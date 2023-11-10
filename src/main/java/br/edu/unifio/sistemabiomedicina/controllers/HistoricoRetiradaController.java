@@ -3,8 +3,8 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 import br.edu.unifio.sistemabiomedicina.models.entities.Operador;
 import br.edu.unifio.sistemabiomedicina.models.entities.Retirada;
 import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
-import br.edu.unifio.sistemabiomedicina.repositories.RetiradaRepository;
-import br.edu.unifio.sistemabiomedicina.service.OperadorService;
+import br.edu.unifio.sistemabiomedicina.services.OperadorService;
+import br.edu.unifio.sistemabiomedicina.services.RetiradaService;
 import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
@@ -22,24 +22,23 @@ import java.util.List;
 public class HistoricoRetiradaController implements Serializable {
 
     @Autowired
-    private RetiradaRepository retiradaRepository;
-    private List<Retirada> retiradaList;
+    private RetiradaService retiradaService;
     private Retirada retirada;
-
-    private Operador operador;
+    private List<Retirada> retiradaList;
 
     @Autowired
     private AmpolaRepository ampolaRepository;
 
     @Autowired
     private OperadorService operadorService;
+    private Operador operador;
 
     @PostConstruct
     public void novo() {
         operador = new Operador();
         retirada = new Retirada();
 
-        retiradaList = retiradaRepository.getAll();
+        retiradaList = retiradaService.getAll();
     }
 
     public void redirect() {
@@ -58,6 +57,8 @@ public class HistoricoRetiradaController implements Serializable {
             } else {
                 Messages.addFlashGlobalError("Código de Operador inválido.");
             }
+        } else if (retirada.getDataRetirada() != null) {
+            buscarPorDataRetirada();
         }
     }
 
@@ -66,7 +67,7 @@ public class HistoricoRetiradaController implements Serializable {
     }
 
     private void buscarPorOperador() {
-        retiradaList = retiradaRepository.getByCodigoOperador(operador.getId());
+        retiradaList = retiradaService.getByCodigoOperador(operador.getId());
 
         ListaUtil.verificaTamanhoLista(retiradaList);
     }
@@ -74,7 +75,7 @@ public class HistoricoRetiradaController implements Serializable {
     private void buscarPorDataRetirada() {
         /* Converte o atributo LocalDateTime para LocalDate para a consulta*/
         LocalDate dataConvertida = retirada.getDataRetirada().toLocalDate();
-        retiradaList = retiradaRepository.getByDataRetirada(dataConvertida);
+        retiradaList = retiradaService.getByDataRetirada(dataConvertida);
 
         ListaUtil.verificaTamanhoLista(retiradaList);
     }

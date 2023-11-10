@@ -1,7 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
-import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
+import br.edu.unifio.sistemabiomedicina.services.FenotipagemService;
 import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
@@ -9,7 +9,6 @@ import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
-import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,10 +22,10 @@ import java.util.List;
 public class BuscarFenotipagemController implements Serializable {
 
     @Autowired
-    private FenotipagemRepository fenotipagemRepository;
-    private List<Fenotipagem> fenotipagemList;
+    private FenotipagemService fenotipagemService;
     private Fenotipagem fenotipagem;
 
+    private List<Fenotipagem> fenotipagemList;
     private Fenotipagem fenotipagemSelecionada;
 
     @PostConstruct
@@ -58,27 +57,25 @@ public class BuscarFenotipagemController implements Serializable {
     }
 
     private void buscarPorTipagemAbo() {
-        fenotipagemList = fenotipagemRepository.getByTipagemAbo(fenotipagem.getTipagemAbo());
+        fenotipagemList = fenotipagemService.getByTipagemAbo(fenotipagem.getTipagemAbo());
 
         ListaUtil.verificaTamanhoLista(fenotipagemList);
-        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscarPorTipagemRh() {
-        fenotipagemList = fenotipagemRepository.getByTipagemRh(fenotipagem.getTipagemRh());
+        fenotipagemList = fenotipagemService.getByTipagemRh(fenotipagem.getTipagemRh());
 
         ListaUtil.verificaTamanhoLista(fenotipagemList);
-        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     public void update() {
-        fenotipagemRepository.update(fenotipagemSelecionada);
+        fenotipagemService.update(fenotipagemSelecionada);
 
         GrowlView.showInfo("Sucesso", "Registro editado com sucesso.");
     }
 
     public void delete() {
-        fenotipagemRepository.delete(fenotipagemSelecionada);
+        fenotipagemService.delete(fenotipagemSelecionada);
 
         /* Remover objeto do arrayList */
         fenotipagemList.remove(fenotipagemSelecionada);

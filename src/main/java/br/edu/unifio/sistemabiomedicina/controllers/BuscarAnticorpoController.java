@@ -1,7 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
-import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
+import br.edu.unifio.sistemabiomedicina.services.AnticorpoService;
 import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
@@ -22,11 +22,11 @@ import java.util.List;
 public class BuscarAnticorpoController implements Serializable {
 
     @Autowired
-    private AnticorpoRepository anticorpoRepository;
+    private AnticorpoService anticorpoService;
     private Anticorpo anticorpo;
-    private List<Anticorpo> anticorpoList;
 
     private Anticorpo anticorpoSelecionado;
+    private List<Anticorpo> anticorpoList;
 
     @PostConstruct
     public void novo() {
@@ -42,29 +42,33 @@ public class BuscarAnticorpoController implements Serializable {
         Faces.redirect("/cadastro/anticorpo.xhtml");
     }
 
-    public void buscarPorAnticorpoIdentificado() {
+    public void buscar() {
         if (campoDeBuscaVazio()) {
             Messages.addFlashGlobalWarn("Preencha um campo para busca.");
             return;
         }
-        anticorpoList = anticorpoRepository.getByAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
 
-        ListaUtil.verificaTamanhoLista(anticorpoList);
+        buscarPorAnticorpoIdentificado();
     }
 
     public boolean campoDeBuscaVazio() {
         return anticorpo.getAnticorpoIdentificado().isEmpty();
     }
 
+    private void buscarPorAnticorpoIdentificado() {
+        anticorpoList = anticorpoService.getByAnticorpoIdentificado(anticorpo.getAnticorpoIdentificado());
+
+        ListaUtil.verificaTamanhoLista(anticorpoList);
+    }
+
     public void update() {
-        anticorpoRepository.update(anticorpoSelecionado);
+        anticorpoService.update(anticorpoSelecionado);
 
         GrowlView.showInfo("Sucesso", "Registro editado com sucesso.");
     }
 
     public void delete() {
-        anticorpoRepository.delete(anticorpoSelecionado);
-        anticorpoList = anticorpoRepository.getAll();
+        anticorpoService.delete(anticorpoSelecionado);
 
         GrowlView.showWarn("Removido", "Registro removido com sucesso.");
     }

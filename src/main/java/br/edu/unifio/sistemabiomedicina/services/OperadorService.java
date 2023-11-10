@@ -1,4 +1,4 @@
-package br.edu.unifio.sistemabiomedicina.service;
+package br.edu.unifio.sistemabiomedicina.services;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Operador;
 import br.edu.unifio.sistemabiomedicina.repositories.OperadorRepository;

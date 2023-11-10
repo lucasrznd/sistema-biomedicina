@@ -1,7 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
-import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
+import br.edu.unifio.sistemabiomedicina.services.AnticorpoService;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Component
 @ViewScoped
@@ -18,21 +17,18 @@ import java.util.List;
 public class CadastroAnticorpoController implements Serializable {
 
     @Autowired
-    private AnticorpoRepository anticorpoRepository;
+    private AnticorpoService anticorpoService;
     private Anticorpo anticorpo;
-    private List<Anticorpo> anticorposList;
 
     @PostConstruct
     public void novo() {
         anticorpo = new Anticorpo();
-
-        anticorposList = anticorpoRepository.getAll();
     }
 
     public void insert() {
-        anticorpoRepository.insert(anticorpo);
+        anticorpoService.insert(anticorpo);
 
-        /*Retorna uma mensagem na tela para o usuário*/
+        /* Retorna mensagem de sucesso. */
         Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
     }
 

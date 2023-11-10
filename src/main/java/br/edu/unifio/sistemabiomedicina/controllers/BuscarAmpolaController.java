@@ -2,8 +2,8 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
-import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
+import br.edu.unifio.sistemabiomedicina.services.AmpolaService;
 import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
@@ -11,7 +11,6 @@ import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
-import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +24,7 @@ import java.util.List;
 public class BuscarAmpolaController implements Serializable {
 
     @Autowired
-    private AmpolaRepository ampolaRepository;
+    private AmpolaService ampolaService;
     private Ampola ampola;
     private List<Ampola> ampolaList = new ArrayList<>();
     private Ampola ampolaSelecionada;
@@ -44,18 +43,16 @@ public class BuscarAmpolaController implements Serializable {
         ampolaSelecionada = new Ampola();
         ampolaList = new ArrayList<>();
 
-        Faces.redirect("/cadastro/ampolaSelecionada.xhtml");
+        Faces.redirect("/cadastro/ampola.xhtml");
     }
 
-    public void buscarAmpola() {
+    public void buscar() {
         if (camposDeBuscaVazios()) {
             Messages.addFlashGlobalError("Preencha um dos campos para busca.");
         } else if (ampola.getPaciente() != null) {
             buscarPorNomePaciente();
         } else if (ampola.getCodigoInternacao() != null) {
             buscarPorCodigoInternacao();
-        } else if (ampola.getAmpolaMl() != null) {
-            buscarPorMlAmpola();
         } else if (ampola.getDataCadastro() != null) {
             buscarPorDataCadastro();
         } else if (ampola.getDataValidade() != null) {
@@ -70,38 +67,27 @@ public class BuscarAmpolaController implements Serializable {
     }
 
     private void buscarPorNomePaciente() {
-        ampolaList = ampolaRepository.getByNomePaciente(ampola.getPaciente().getNome());
+        ampolaList = ampolaService.getByNomePaciente(ampola.getPaciente().getNome());
 
         ListaUtil.verificaTamanhoLista(ampolaList);
-        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscarPorCodigoInternacao() {
-        ampolaList = ampolaRepository.getByCodigoInternacao(ampola.getCodigoInternacao());
+        ampolaList = ampolaService.getByCodigoInternacao(ampola.getCodigoInternacao());
 
         ListaUtil.verificaTamanhoLista(ampolaList);
-        PrimeFaces.current().ajax().update("form:datatable");
-    }
-
-    private void buscarPorMlAmpola() {
-        ampolaList = ampolaRepository.getByAmpolaMl(ampola.getAmpolaMl());
-
-        ListaUtil.verificaTamanhoLista(ampolaList);
-        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscarPorDataCadastro() {
-        ampolaList = ampolaRepository.getByDataCadastro(ampola.getDataCadastro());
+        ampolaList = ampolaService.getByDataCadastro(ampola.getDataCadastro());
 
         ListaUtil.verificaTamanhoLista(ampolaList);
-        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     private void buscarPorDataValidade() {
-        ampolaList = ampolaRepository.getByDataValidade(ampola.getDataValidade());
+        ampolaList = ampolaService.getByDataValidade(ampola.getDataValidade());
 
         ListaUtil.verificaTamanhoLista(ampolaList);
-        PrimeFaces.current().ajax().update("form:datatable");
     }
 
     public List<Paciente> buscarPaciente(String nome) {
@@ -114,13 +100,13 @@ public class BuscarAmpolaController implements Serializable {
     }
 
     public void update() {
-        ampolaRepository.update(ampolaSelecionada);
+        ampolaService.update(ampolaSelecionada);
 
         GrowlView.showInfo("Conclúido", "Registro editado com sucesso.");
     }
 
     public void delete() {
-        ampolaRepository.delete(ampolaSelecionada);
+        ampolaService.delete(ampolaSelecionada);
 
         GrowlView.showWarn("Removido", "Registro removido com sucesso.");
     }

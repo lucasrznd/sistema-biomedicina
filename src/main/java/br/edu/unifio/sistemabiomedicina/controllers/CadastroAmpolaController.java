@@ -4,9 +4,9 @@ import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
 import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
 import br.edu.unifio.sistemabiomedicina.models.entities.Armazenamento;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
-import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
-import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
-import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
+import br.edu.unifio.sistemabiomedicina.services.AmpolaService;
+import br.edu.unifio.sistemabiomedicina.services.AnticorpoService;
+import br.edu.unifio.sistemabiomedicina.services.PacienteService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -26,16 +26,16 @@ import java.util.List;
 public class CadastroAmpolaController implements Serializable {
 
     @Autowired
-    private AmpolaRepository ampolaRepository;
+    private AmpolaService ampolaService;
     private Ampola ampola;
 
     @Autowired
-    private PacienteRepository pacienteRepository;
+    private PacienteService pacienteService;
 
     private Armazenamento armazenamento;
 
     @Autowired
-    private AnticorpoRepository anticorpoRepository;
+    private AnticorpoService anticorpoService;
     private List<Anticorpo> anticorpoList;
 
     @PostConstruct
@@ -43,19 +43,19 @@ public class CadastroAmpolaController implements Serializable {
         ampola = new Ampola();
         armazenamento = new Armazenamento();
 
-        anticorpoList = anticorpoRepository.getAll();
+        anticorpoList = anticorpoService.getAll();
     }
 
     public void insert() {
         ampola.setArmazenamento(armazenamento);
-        ampolaRepository.insert(ampola);
+        ampolaService.insert(ampola);
 
-        /*Retorna uma mensagem na tela para o usuário*/
+        /* Retorna mensagem de sucesso. */
         Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
     }
 
     public List<Paciente> buscarPaciente(String nome) {
-        List<Paciente> pacientesEncontrados = pacienteRepository.getByNome(nome);
+        List<Paciente> pacientesEncontrados = pacienteService.getByNome(nome);
 
         if (pacientesEncontrados.isEmpty()) {
             Messages.addFlashGlobalError("Paciente não encontrado");

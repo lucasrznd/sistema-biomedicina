@@ -17,12 +17,13 @@ public class RetiradaRepository {
     private EntityManager em;
 
     public List<Retirada> getAll() {
-        Query query = em.createQuery("SELECT r FROM Retirada r ORDER BY r.dataRetirada");
+        Query query = em.createQuery("SELECT r FROM Retirada r ORDER BY r.dataRetirada DESC");
         return query.getResultList();
     }
 
     public List<Retirada> getByCodigoOperador(Long codigoOperador) {
-        Query query = em.createQuery("SELECT r FROM Retirada r WHERE r.operador.id = :codigoOperador");
+        Query query = em.createQuery("SELECT r FROM Retirada r WHERE r.operador.id = :codigoOperador " +
+                "ORDER BY r.dataRetirada DESC");
         query.setParameter("codigoOperador", codigoOperador);
         return query.getResultList();
     }

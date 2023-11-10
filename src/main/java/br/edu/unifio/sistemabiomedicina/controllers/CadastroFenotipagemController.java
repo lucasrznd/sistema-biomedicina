@@ -1,7 +1,7 @@
 package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
-import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
+import br.edu.unifio.sistemabiomedicina.services.FenotipagemService;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.cdi.ViewScoped;
@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class CadastroFenotipagemController implements Serializable {
 
     @Autowired
-    private FenotipagemRepository fenotipagemRepository;
+    private FenotipagemService fenotipagemService;
     private Fenotipagem fenotipagem;
 
     @PostConstruct
@@ -26,9 +26,9 @@ public class CadastroFenotipagemController implements Serializable {
     }
 
     public void insert() {
-        fenotipagemRepository.insert(fenotipagem);
+        fenotipagemService.insert(fenotipagem);
 
-        /*Retorna uma mensagem na tela para o usuário*/
+        /* Retorna mensagem de sucesso. */
         Messages.addFlashGlobalInfo("Registro armazenado com sucesso.");
     }
 }

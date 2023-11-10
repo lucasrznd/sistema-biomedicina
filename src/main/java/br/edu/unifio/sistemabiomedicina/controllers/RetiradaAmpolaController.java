@@ -2,10 +2,9 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
 import br.edu.unifio.sistemabiomedicina.models.entities.Operador;
-import br.edu.unifio.sistemabiomedicina.models.entities.Retirada;
-import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
-import br.edu.unifio.sistemabiomedicina.repositories.OperadorRepository;
-import br.edu.unifio.sistemabiomedicina.repositories.RetiradaRepository;
+import br.edu.unifio.sistemabiomedicina.services.AmpolaService;
+import br.edu.unifio.sistemabiomedicina.services.OperadorService;
+import br.edu.unifio.sistemabiomedicina.services.RetiradaService;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.omnifaces.util.Messages;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,29 +20,27 @@ import java.util.List;
 public class RetiradaAmpolaController implements Serializable {
 
     @Autowired
-    private AmpolaRepository ampolaRepository;
+    private AmpolaService ampolaService;
     private List<Ampola> ampolaList;
     private List<Ampola> ampolasSelecionadas;
 
     @Autowired
-    private OperadorRepository operadorRepository;
-    private List<Operador> operadorList;
+    private OperadorService operadorService;
     private Operador operador;
 
     @Autowired
-    private RetiradaRepository retiradaRepository;
+    private RetiradaService retiradaService;
 
     @PostConstruct
     public void novo() {
         ampolasSelecionadas = new ArrayList<>();
         operador = new Operador();
 
-        ampolaList = ampolaRepository.getAllTrue();
-        operadorList = operadorRepository.getAll();
+        ampolaList = ampolaService.getAllTrue();
     }
 
     public void efetuarRetirada() {
-        if (!autenticarOperador()) {
+        if (!operadorService.autenticarOperador(operador)) {
             Messages.addFlashGlobalError("Código de Operador inválido.");
             return;
         }
@@ -53,30 +49,11 @@ public class RetiradaAmpolaController implements Serializable {
             return;
         }
 
-        realizarRetirada();
+        /* Percorre a lista de selecionadas e efetua retirada  */
+        retiradaService.realizarRetirada(ampolasSelecionadas, operador);
 
-        ampolaList = ampolaRepository.getAllTrue();
+        ampolaList = ampolaService.getAllTrue();
         Messages.addFlashGlobalInfo("Retirada concluída com sucesso.");
-    }
-
-    private void realizarRetirada() {
-        for (Ampola amp : ampolasSelecionadas) {
-            amp.setStatusArmazenamento(false);
-            ampolaRepository.update(amp);
-
-            Retirada retirada = new Retirada(null, operador, amp, LocalDateTime.now());
-            retiradaRepository.insert(retirada);
-        }
-    }
-
-    private boolean autenticarOperador() {
-        for (Operador op : operadorList) {
-            if (operador.getId().equals(op.getId())) {
-                operador = op;
-                return true;
-            }
-        }
-        return false;
     }
 
 }

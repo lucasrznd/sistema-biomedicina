@@ -1,11 +1,9 @@
 package br.edu.unifio.sistemabiomedicina.controllers;
 
-import br.edu.unifio.sistemabiomedicina.models.entities.Anticorpo;
 import br.edu.unifio.sistemabiomedicina.models.entities.Fenotipagem;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
-import br.edu.unifio.sistemabiomedicina.repositories.AnticorpoRepository;
-import br.edu.unifio.sistemabiomedicina.repositories.FenotipagemRepository;
-import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
+import br.edu.unifio.sistemabiomedicina.services.FenotipagemService;
+import br.edu.unifio.sistemabiomedicina.services.PacienteService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -24,33 +22,27 @@ import java.util.List;
 @Data
 public class CadastroPacienteController implements Serializable {
 
-    /* Repositorie, entitiy Paciente */
+    /* Paciente */
     @Autowired
-    private PacienteRepository pacienteRepository;
+    private PacienteService pacienteService;
     private Paciente paciente;
 
-    /* Repositorie, entitiy Fenotipagem */
+    /* Fenotipagem */
     @Autowired
-    private FenotipagemRepository fenotipagemRepository;
+    private FenotipagemService fenotipagemService;
     private List<Fenotipagem> fenotipagemList;
-
-    /* Repositorie, entitiy Anticorpo */
-    @Autowired
-    private AnticorpoRepository anticorpoRepository;
-    private List<Anticorpo> anticorposList;
 
     @PostConstruct
     public void novo() {
         paciente = new Paciente();
 
-        anticorposList = anticorpoRepository.getAll();
-        fenotipagemList = fenotipagemRepository.getAll();
+        fenotipagemList = fenotipagemService.getAll();
     }
 
     public void insert() {
-        pacienteRepository.insert(paciente);
+        pacienteService.insert(paciente);
 
-        /*Retorna uma mensagem na tela para o usuário*/
+        /* Retorna mensagem de sucesso. */
         Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
     }
 
