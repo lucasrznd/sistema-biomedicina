@@ -2,8 +2,8 @@ package br.edu.unifio.sistemabiomedicina.controllers;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
 import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
-import br.edu.unifio.sistemabiomedicina.repositories.PacienteRepository;
 import br.edu.unifio.sistemabiomedicina.services.AmpolaService;
+import br.edu.unifio.sistemabiomedicina.services.PacienteService;
 import br.edu.unifio.sistemabiomedicina.utils.GrowlView;
 import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
@@ -30,7 +30,7 @@ public class BuscarAmpolaController implements Serializable {
     private Ampola ampolaSelecionada;
 
     @Autowired
-    private PacienteRepository pacienteRepository;
+    private PacienteService pacienteService;
 
     @PostConstruct
     public void novo() {
@@ -49,15 +49,11 @@ public class BuscarAmpolaController implements Serializable {
     public void buscar() {
         if (camposDeBuscaVazios()) {
             Messages.addFlashGlobalError("Preencha um dos campos para busca.");
-        } else if (ampola.getPaciente() != null) {
-            buscarPorNomePaciente();
-        } else if (ampola.getCodigoInternacao() != null) {
-            buscarPorCodigoInternacao();
-        } else if (ampola.getDataCadastro() != null) {
-            buscarPorDataCadastro();
-        } else if (ampola.getDataValidade() != null) {
-            buscarPorDataValidade();
+            return;
         }
+
+        ampolaList = ampolaService.buscaDinamica(ampola);
+        ListaUtil.verificaTamanhoLista(ampolaList);
     }
 
     private boolean camposDeBuscaVazios() {
@@ -66,32 +62,8 @@ public class BuscarAmpolaController implements Serializable {
                 && ampola.getDataValidade() == null;
     }
 
-    private void buscarPorNomePaciente() {
-        ampolaList = ampolaService.getByNomePaciente(ampola.getPaciente().getNome());
-
-        ListaUtil.verificaTamanhoLista(ampolaList);
-    }
-
-    private void buscarPorCodigoInternacao() {
-        ampolaList = ampolaService.getByCodigoInternacao(ampola.getCodigoInternacao());
-
-        ListaUtil.verificaTamanhoLista(ampolaList);
-    }
-
-    private void buscarPorDataCadastro() {
-        ampolaList = ampolaService.getByDataCadastro(ampola.getDataCadastro());
-
-        ListaUtil.verificaTamanhoLista(ampolaList);
-    }
-
-    private void buscarPorDataValidade() {
-        ampolaList = ampolaService.getByDataValidade(ampola.getDataValidade());
-
-        ListaUtil.verificaTamanhoLista(ampolaList);
-    }
-
     public List<Paciente> buscarPaciente(String nome) {
-        List<Paciente> pacientesEncontrados = pacienteRepository.getByNome(nome);
+        List<Paciente> pacientesEncontrados = pacienteService.getByNome(nome);
 
         if (pacientesEncontrados.isEmpty()) {
             Messages.addFlashGlobalWarn("Nenhum registro encontrado.");

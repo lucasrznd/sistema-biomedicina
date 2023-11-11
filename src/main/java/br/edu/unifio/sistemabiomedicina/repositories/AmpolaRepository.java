@@ -1,14 +1,17 @@
 package br.edu.unifio.sistemabiomedicina.repositories;
 
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
+import br.edu.unifio.sistemabiomedicina.models.entities.Paciente;
 import br.edu.unifio.sistemabiomedicina.utils.StringUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -33,6 +36,39 @@ public class AmpolaRepository {
         Query query = em.createQuery("SELECT a FROM Ampola a ORDER BY a.id DESC");
         query.setMaxResults(3);
         return query.getResultList();
+    }
+
+    public List<Ampola> buscaDinamica(Ampola ampola) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Ampola> criteriaQuery = criteriaBuilder.createQuery(Ampola.class);
+        Root<Ampola> root = criteriaQuery.from(Ampola.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (ampola.getPaciente() != null) {
+            Join<Ampola, Paciente> pacienteJoin = root.join("paciente");
+
+            if (ampola.getPaciente().getNome() != null && !ampola.getPaciente().getNome().isBlank()) {
+                predicates.add(criteriaBuilder.like(pacienteJoin.get("nome"), "%" +
+                        ampola.getPaciente().getNome() + "%"));
+            }
+        }
+
+        if (ampola.getCodigoInternacao() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("codigoInternacao"), ampola.getCodigoInternacao()));
+        }
+
+        if (ampola.getDataCadastro() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("dataCadastro"), ampola.getDataCadastro()));
+        }
+
+        if (ampola.getDataValidade() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("dataValidade"), ampola.getDataValidade()));
+        }
+
+        criteriaQuery.where(predicates.toArray(new Predicate[0]));
+
+        return em.createQuery(criteriaQuery).getResultList();
     }
 
     public Ampola getById(Ampola ampola) {

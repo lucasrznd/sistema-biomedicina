@@ -45,27 +45,15 @@ public class BuscarFenotipagemController implements Serializable {
     public void buscarFenotipagem() {
         if (camposDeBuscaVazios()) {
             Messages.addFlashGlobalWarn("Preencha um campo para busca.");
-        } else if (!fenotipagem.getTipagemAbo().isEmpty()) {
-            buscarPorTipagemAbo();
-        } else {
-            buscarPorTipagemRh();
+            return;
         }
+
+        fenotipagemList = fenotipagemService.buscaDinamica(fenotipagem);
+        ListaUtil.verificaTamanhoLista(fenotipagemList);
     }
 
     private boolean camposDeBuscaVazios() {
         return fenotipagem.getTipagemAbo().isEmpty() && fenotipagem.getTipagemRh().isEmpty();
-    }
-
-    private void buscarPorTipagemAbo() {
-        fenotipagemList = fenotipagemService.getByTipagemAbo(fenotipagem.getTipagemAbo());
-
-        ListaUtil.verificaTamanhoLista(fenotipagemList);
-    }
-
-    private void buscarPorTipagemRh() {
-        fenotipagemList = fenotipagemService.getByTipagemRh(fenotipagem.getTipagemRh());
-
-        ListaUtil.verificaTamanhoLista(fenotipagemList);
     }
 
     public void update() {

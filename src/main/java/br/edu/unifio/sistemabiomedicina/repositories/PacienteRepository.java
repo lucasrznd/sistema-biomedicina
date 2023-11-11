@@ -6,10 +6,15 @@ import br.edu.unifio.sistemabiomedicina.utils.StringUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -28,6 +33,34 @@ public class PacienteRepository {
 
     public Paciente getById(Long id) {
         return em.find(Paciente.class, id);
+    }
+
+    public List<Paciente> buscaDinamica(Paciente paciente) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Paciente> criteriaQuery = criteriaBuilder.createQuery(Paciente.class);
+        Root<Paciente> root = criteriaQuery.from(Paciente.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (paciente.getNome() != null && !paciente.getNome().isBlank()) {
+            predicates.add(criteriaBuilder.like(root.get("nome"), "%" + paciente.getNome() + "%"));
+        }
+
+        if (paciente.getDataNascimento() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("dataNascimento"), paciente.getDataNascimento()));
+        }
+
+        if (paciente.getCpf() != null && !paciente.getCpf().isBlank()) {
+            predicates.add(criteriaBuilder.equal(root.get("cpf"), paciente.getCpf()));
+        }
+
+        if (paciente.getFenotipagem() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("fenotipagem"), paciente.getFenotipagem()));
+        }
+
+        criteriaQuery.where(predicates.toArray(new Predicate[0]));
+
+        return em.createQuery(criteriaQuery).getResultList();
     }
 
     public List<Paciente> getByNome(String nome) {

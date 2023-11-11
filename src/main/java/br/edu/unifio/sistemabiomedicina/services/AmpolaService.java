@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -19,20 +18,8 @@ public class AmpolaService implements Serializable {
         return ampolaRepository.getAllTrue();
     }
 
-    public List<Ampola> getByNomePaciente(String nome) {
-        return ampolaRepository.getByNomePaciente(nome);
-    }
-
-    public List<Ampola> getByCodigoInternacao(Long codigoInternacao) {
-        return ampolaRepository.getByCodigoInternacao(codigoInternacao);
-    }
-
-    public List<Ampola> getByDataValidade(LocalDate dataValidade) {
-        return ampolaRepository.getByDataValidade(dataValidade);
-    }
-
-    public List<Ampola> getByDataCadastro(LocalDate dataCadastro) {
-        return ampolaRepository.getByDataCadastro(dataCadastro);
+    public List<Ampola> buscaDinamica(Ampola ampola) {
+        return ampolaRepository.buscaDinamica(ampola);
     }
 
     public void insert(Ampola ampola) {

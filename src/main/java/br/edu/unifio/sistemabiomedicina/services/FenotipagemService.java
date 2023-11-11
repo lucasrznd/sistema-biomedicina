@@ -18,12 +18,8 @@ public class FenotipagemService implements Serializable {
         return fenotipagemRepository.getAll();
     }
 
-    public List<Fenotipagem> getByTipagemAbo(String tipagemAbo) {
-        return fenotipagemRepository.getByTipagemAbo(tipagemAbo);
-    }
-
-    public List<Fenotipagem> getByTipagemRh(String tipagemRh) {
-        return fenotipagemRepository.getByTipagemRh(tipagemRh);
+    public List<Fenotipagem> buscaDinamica(Fenotipagem fenotipagem) {
+        return fenotipagemRepository.buscaDinamica(fenotipagem);
     }
 
     public void insert(Fenotipagem fenotipagem) {

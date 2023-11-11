@@ -54,44 +54,16 @@ public class BuscarPacienteController implements Serializable {
     public void buscar() {
         if (camposDeBuscaVazios()) {
             Messages.addFlashGlobalWarn("Preencha um campo para busca.");
-        } else if (!paciente.getNome().isEmpty()) {
-            buscaPorNome();
-        } else if (paciente.getDataNascimento() != null) {
-            buscarPorDataNascimento();
-        } else if (!paciente.getCpf().isEmpty()) {
-            buscarPorCpf();
-        } else if (paciente.getFenotipagem() != null) {
-            buscarPorFenotipagem();
+            return;
         }
+
+        pacienteList = pacienteService.buscaDinamica(paciente);
+        ListaUtil.verificaTamanhoLista(pacienteList);
     }
 
     private boolean camposDeBuscaVazios() {
         return paciente.getNome().isEmpty() && paciente.getDataNascimento() == null
                 && paciente.getCpf().isEmpty() && paciente.getFenotipagem() == null;
-    }
-
-    private void buscaPorNome() {
-        pacienteList = pacienteService.getByNome(paciente.getNome());
-
-        ListaUtil.verificaTamanhoLista(pacienteList);
-    }
-
-    private void buscarPorDataNascimento() {
-        pacienteList = pacienteService.getByDataNascimento(paciente.getDataNascimento());
-
-        ListaUtil.verificaTamanhoLista(pacienteList);
-    }
-
-    private void buscarPorCpf() {
-        pacienteList = pacienteService.getByCpf(paciente.getCpf());
-
-        ListaUtil.verificaTamanhoLista(pacienteList);
-    }
-
-    private void buscarPorFenotipagem() {
-        pacienteList = pacienteService.getByFenotipagem(paciente.getFenotipagem());
-
-        ListaUtil.verificaTamanhoLista(pacienteList);
     }
 
     public void update() {

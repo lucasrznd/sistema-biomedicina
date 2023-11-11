@@ -5,9 +5,14 @@ import br.edu.unifio.sistemabiomedicina.utils.StringUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -27,6 +32,26 @@ public class FenotipagemRepository {
 
     public Fenotipagem getById(Long id) {
         return em.find(Fenotipagem.class, id);
+    }
+
+    public List<Fenotipagem> buscaDinamica(Fenotipagem fenotipagem) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Fenotipagem.class);
+        Root<Fenotipagem> root = criteriaQuery.from(Fenotipagem.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (!fenotipagem.getTipagemAbo().isBlank()) {
+            predicates.add(criteriaBuilder.equal(root.get("tipagemAbo"), fenotipagem.getTipagemAbo()));
+        }
+
+        if (!fenotipagem.getTipagemRh().isBlank()) {
+            predicates.add(criteriaBuilder.equal(root.get("tipagemRh"), fenotipagem.getTipagemRh()));
+        }
+
+        criteriaQuery.where(predicates.toArray(new Predicate[0]));
+
+        return em.createQuery(criteriaQuery).getResultList();
     }
 
     public List<Fenotipagem> getByTipagemAbo(String tipagemAbo) {
