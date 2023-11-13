@@ -50,7 +50,7 @@ public class RetiradaAmpolaController implements Serializable {
         }
 
         /* Percorre a lista de selecionadas e efetua retirada  */
-        retiradaService.realizarRetirada(ampolasSelecionadas, operador);
+        retiradaService.insert(ampolasSelecionadas, operador);
 
         ampolaList = ampolaService.getAllTrue();
         Messages.addFlashGlobalInfo("Retirada concluída com sucesso.");

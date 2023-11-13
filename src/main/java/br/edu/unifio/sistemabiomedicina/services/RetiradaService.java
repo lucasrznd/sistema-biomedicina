@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,15 +25,11 @@ public class RetiradaService implements Serializable {
         return retiradaRepository.getAll();
     }
 
-    public List<Retirada> getByCodigoOperador(Long codigoOperador) {
-        return retiradaRepository.getByCodigoOperador(codigoOperador);
+    public List<Retirada> buscaDinamica(Retirada retirada) {
+        return retiradaRepository.buscaDinamica(retirada);
     }
 
-    public List<Retirada> getByDataRetirada(LocalDate dataRetirada) {
-        return retiradaRepository.getByDataRetirada(dataRetirada);
-    }
-
-    public void realizarRetirada(List<Ampola> ampolasSelecionadas, Operador operador) {
+    public void insert(List<Ampola> ampolasSelecionadas, Operador operador) {
         for (Ampola amp : ampolasSelecionadas) {
             amp.setStatusArmazenamento(false);
             ampolaRepository.update(amp);

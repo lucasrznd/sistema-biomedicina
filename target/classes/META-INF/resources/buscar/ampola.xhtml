@@ -118,7 +118,7 @@
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Gaveta/Caixa" style="text-align: center;">
+                    <p:column headerText="Gaveta | Caixa" style="text-align: center;">
                         <h:outputText value="#{ampola.armazenamento.posicaoFreezer()}"/>
                     </p:column>
 
@@ -127,57 +127,137 @@
                     </p:column>
 
 
-                    <p:column headerText="Ações" style="text-align: center;">
-                        <p:commandButton value="Dar baixa" icon="pi pi-check"
+                    <p:column headerText="Editar/Excluir" style="text-align: center;">
+                        <!-- Inicio código para botão Editar -->
+                        <p:commandButton icon="pi pi-pencil"
                                          styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                         actionListener="#{buscarAmpolaController.darBaixa(ampola)}"/>
+                                         oncomplete="PF('modal').show()"
+                                         update=":formModal"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{ampola}"
+                                                         target="#{buscarAmpolaController.ampolaSelecionada}"/>
+                        </p:commandButton>
+                        <!-- Fim código para botão Editar -->
+                        <i class="pi pi-ellipsis-v mr-2"/>
+                        <!-- Inicio código para botão delete -->
+                        <p:commandButton action="#{buscarAmpolaController.delete()}" update="dataTable"
+                                         icon="pi pi-trash"
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat">
+                            <p:confirm header="Confirmação" message="Deseja remover este registro?"
+                                       icon="pi pi-info-circle"/>
+                            <f:setPropertyActionListener
+                                    target="#{buscarAmpolaController.ampolaSelecionada}"
+                                    value="#{ampola}"/>
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true"
+                                         width="350">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"
+                                             process="@this"/>
+                        </p:confirmDialog>
+                        <!-- Fim código para botão delete -->
+
                     </p:column>
                 </p:dataTable>
             </p:panel>
         </h:form>
 
         <p:dialog modal="true"
-                  header="Editar Dados" height="550" width="850" widgetVar="modal">
+                  header="Editar Dados" height="300" width="850" widgetVar="modal">
             <h:form id="formModal">
 
                 <p:growl id="message" showDetail="true"/>
-                <p:panelGrid columns="2">
-                    <p:outputLabel value="Nome do Paciente"/>
-                    <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.paciente.nome}" readonly="true"
-                                 size="30"/>
+                <p:panelGrid style="width: 100%" layout="tabular" columns="0">
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="Nome do Paciente:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.paciente.nome}"
+                                         readonly="true"
+                                         size="25"/>
+                        </p:column>
 
-                    <p:outputLabel value="Código Internação"/>
-                    <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.codigoInternacao}" required="true"
-                                 size="30"
-                                 requiredMessage="Campo Código Internação é obrigatório"/>
+                        <p:column>
+                            <p:outputLabel for="codigoInternacao" value="Código Internação:"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="codigoInternacao"
+                                         value="#{buscarAmpolaController.ampolaSelecionada.codigoInternacao}"
+                                         required="true"
+                                         size="25"
+                                         requiredMessage="Código Internação é obrigatório."/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="ML da Ampola"/>
-                    <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.ampolaMl}" required="true" size="30"
-                                 requiredMessage="Campo ML da Ampola é obrigatório"/>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="dataCadastro" value="Data de Cadastro:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="dataCadastro" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
+                                        size="20"
+                                        value="#{buscarAmpolaController.ampolaSelecionada.dataCadastro}" required="true"
+                                        requiredMessage="Data de Cadastro é obrigatório." showOn="button"
+                                        navigator="true"/>
+                        </p:column>
 
-                    <p:outputLabel value="Data de Cadastro"/>
-                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
-                                value="#{buscarAmpolaController.ampolaSelecionada.dataCadastro}" required="true"
-                                requiredMessage="Campo Data de Cadastro é obrigatório" showOn="button"/>
+                        <p:column>
+                            <p:outputLabel for="dataValidade" value="Data de Validade:"/>
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="dataValidade" locale="pt" pattern="dd/MM/yyyy" readonlyInput="true"
+                                        value="#{buscarAmpolaController.ampolaSelecionada.dataValidade}" required="true"
+                                        requiredMessage="Data de Validade é obrigatório." showOn="button"
+                                        navigator="true"
+                                        size="20"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Data de Validade"/>
-                    <p:calendar locale="pt" pattern="dd/MM/yyyy" readonlyInput="true" size="30"
-                                value="#{buscarAmpolaController.ampolaSelecionada.dataValidade}" required="true"
-                                requiredMessage="Campo Data de Validade é obrigatório" showOn="button"/>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel for="numeroGaveta" value="Número da Gaveta:"/>
+                        </p:column>
+                        <p:column>
+                            <p:spinner id="numeroGaveta"
+                                       value="#{buscarAmpolaController.ampolaSelecionada.armazenamento.numeroGaveta}"
+                                       min="1" max="5" required="true"
+                                       requiredMessage="Número da Gaveta é obrigatório."
+                                       size="20"/>
+                        </p:column>
 
-                    <p:outputLabel value="Número da Gaveta"/>
-                    <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.armazenamento.numeroGaveta}"
-                                 size="30" required="true"
-                                 requiredMessage="Campo Número da Gaveta é obrigatório"/>
+                        <p:column>
+                            <p:outputLabel for="numeroCaixa" value="Número da Caixa:"/>
+                        </p:column>
+                        <p:column>
+                            <p:spinner id="numeroCaixa"
+                                       value="#{buscarAmpolaController.ampolaSelecionada.armazenamento.numeroCaixa}"
+                                       min="1" max="50" required="true"
+                                       requiredMessage="Campo Número da Caixa é obrigatório."
+                                       size="20"/>
+                        </p:column>
+                    </p:row>
 
-                    <p:outputLabel value="Número da Caixa"/>
-                    <p:inputNumber value="#{buscarAmpolaController.ampolaSelecionada.armazenamento.numeroCaixa}"
-                                   size="30" required="true" requiredMessage="Campo Número da Caixa é obrigatório"
-                                   min="1" max="50"/>
+                    <p:row style="text-align: center">
+                        <p:column>
+                            <p:outputLabel value="ML da Ampola"/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{buscarAmpolaController.ampolaSelecionada.ampolaMl}" required="true"
+                                         size="5"
+                                         requiredMessage="Campo ML da Ampola é obrigatório"/>
+                        </p:column>
 
-                    <p:outputLabel value="Armazenada"/>
-                    <p:selectBooleanCheckbox styleClass="custom-checkbox"
-                                             value="#{buscarAmpolaController.ampolaSelecionada.statusArmazenamento}"/>
+                        <p:column>
+                            <p:outputLabel value="Armazenada"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox styleClass="custom-checkbox"
+                                                     value="#{buscarAmpolaController.ampolaSelecionada.statusArmazenamento}"/>
+                        </p:column>
+                    </p:row>
+
                 </p:panelGrid>
 
                 <div style="display: flex; justify-content: center">

@@ -82,12 +82,11 @@
                                                          target="#{buscarAnticorpoController.anticorpoSelecionado}"/>
                         </p:commandButton>
                         <!-- Fim código para botão Editar -->
-
+                        <i class="pi pi-ellipsis-v mr-2"/>
                         <!-- Inicio código para botão delete -->
                         <p:commandButton action="#{buscarAnticorpoController.delete()}" update="dataTable"
                                          icon="pi pi-trash"
-                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat"
-                                         style="margin-left: 10px">
+                                         styleClass="ui-button-raised ui-button-secondary ui-button-flat">
                             <p:confirm header="Confirmação" message="Deseja remover este registro?"
                                        icon="pi pi-info-circle"/>
                             <f:setPropertyActionListener

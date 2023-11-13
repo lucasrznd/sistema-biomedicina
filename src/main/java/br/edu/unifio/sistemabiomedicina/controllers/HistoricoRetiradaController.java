@@ -7,6 +7,7 @@ import br.edu.unifio.sistemabiomedicina.services.OperadorService;
 import br.edu.unifio.sistemabiomedicina.services.RetiradaService;
 import br.edu.unifio.sistemabiomedicina.utils.ListaUtil;
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
 import lombok.Data;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
@@ -14,10 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
 @Component
+@ViewScoped
 @Data
 public class HistoricoRetiradaController implements Serializable {
 
@@ -51,33 +52,13 @@ public class HistoricoRetiradaController implements Serializable {
             return;
         }
 
-        if (operador.getId() != null) {
-            if (operadorService.autenticarOperador(operador)) {
-                buscarPorOperador();
-            } else {
-                Messages.addFlashGlobalError("Código de Operador inválido.");
-            }
-        } else if (retirada.getDataRetirada() != null) {
-            buscarPorDataRetirada();
-        }
+        retirada.setOperador(operador);
+        retiradaList = retiradaService.buscaDinamica(retirada);
+        ListaUtil.verificaTamanhoLista(retiradaList);
     }
 
     private boolean camposDeBuscaVazios() {
         return operador.getId() == null && retirada.getDataRetirada() == null;
-    }
-
-    private void buscarPorOperador() {
-        retiradaList = retiradaService.getByCodigoOperador(operador.getId());
-
-        ListaUtil.verificaTamanhoLista(retiradaList);
-    }
-
-    private void buscarPorDataRetirada() {
-        /* Converte o atributo LocalDateTime para LocalDate para a consulta*/
-        LocalDate dataConvertida = retirada.getDataRetirada().toLocalDate();
-        retiradaList = retiradaService.getByDataRetirada(dataConvertida);
-
-        ListaUtil.verificaTamanhoLista(retiradaList);
     }
 
 }
