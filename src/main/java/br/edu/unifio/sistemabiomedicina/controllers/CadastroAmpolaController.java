@@ -29,8 +29,6 @@ public class CadastroAmpolaController implements Serializable {
     @Autowired
     private PacienteService pacienteService;
 
-    private Armazenamento armazenamento;
-
     @Autowired
     private AnticorpoService anticorpoService;
     private List<Anticorpo> anticorpoList;
@@ -38,13 +36,12 @@ public class CadastroAmpolaController implements Serializable {
     @PostConstruct
     public void novo() {
         ampola = new Ampola();
-        armazenamento = new Armazenamento();
+        ampola.setArmazenamento(new Armazenamento());
 
         anticorpoList = anticorpoService.getAll();
     }
 
     public void insert() {
-        ampola.setArmazenamento(armazenamento);
         ampolaService.insert(ampola);
 
         /* Retorna mensagem de sucesso. */
