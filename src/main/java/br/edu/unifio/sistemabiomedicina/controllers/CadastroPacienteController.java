@@ -40,7 +40,7 @@ public class CadastroPacienteController implements Serializable {
         pacienteService.insert(paciente);
 
         /* Retorna mensagem de sucesso. */
-        Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
+        Messages.addFlashGlobalInfo("Registro armazenado com sucesso.");
     }
 
 }

@@ -45,14 +45,14 @@ public class CadastroAmpolaController implements Serializable {
         ampolaService.insert(ampola);
 
         /* Retorna mensagem de sucesso. */
-        Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
+        Messages.addFlashGlobalInfo("Registro armazenado com sucesso.");
     }
 
     public List<Paciente> buscarPaciente(String nome) {
         List<Paciente> pacientesEncontrados = pacienteService.getByNome(nome);
 
         if (pacientesEncontrados.isEmpty()) {
-            Messages.addFlashGlobalError("Paciente não encontrado");
+            Messages.addFlashGlobalError("Paciente não encontrado.");
         }
         return pacientesEncontrados;
     }

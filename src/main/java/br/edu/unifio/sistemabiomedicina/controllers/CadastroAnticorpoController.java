@@ -29,7 +29,7 @@ public class CadastroAnticorpoController implements Serializable {
         anticorpoService.insert(anticorpo);
 
         /* Retorna mensagem de sucesso. */
-        Messages.addFlashGlobalInfo("Registro armazenado com sucesso");
+        Messages.addFlashGlobalInfo("Registro armazenado com sucesso.");
     }
 
 }

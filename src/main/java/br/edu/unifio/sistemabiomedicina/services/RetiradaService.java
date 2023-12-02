@@ -3,7 +3,6 @@ package br.edu.unifio.sistemabiomedicina.services;
 import br.edu.unifio.sistemabiomedicina.models.entities.Ampola;
 import br.edu.unifio.sistemabiomedicina.models.entities.Operador;
 import br.edu.unifio.sistemabiomedicina.models.entities.Retirada;
-import br.edu.unifio.sistemabiomedicina.repositories.AmpolaRepository;
 import br.edu.unifio.sistemabiomedicina.repositories.RetiradaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,7 @@ import java.util.List;
 public class RetiradaService implements Serializable {
 
     @Autowired
-    private AmpolaRepository ampolaRepository;
+    private AmpolaService ampolaService;
 
     @Autowired
     private RetiradaRepository retiradaRepository;
@@ -32,7 +31,7 @@ public class RetiradaService implements Serializable {
     public void insert(List<Ampola> ampolasSelecionadas, Operador operador) {
         for (Ampola amp : ampolasSelecionadas) {
             amp.setStatusArmazenamento(false);
-            ampolaRepository.update(amp);
+            ampolaService.update(amp);
 
             Retirada retirada = new Retirada(null, operador, amp, LocalDateTime.now());
             retiradaRepository.insert(retirada);

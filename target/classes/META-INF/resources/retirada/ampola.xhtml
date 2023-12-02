@@ -54,37 +54,6 @@
             </p:panel>
 
             <p:panel>
-                <!--
-                <p:selectManyMenu id="advanced" value="#{retiradaAmpolaController.ampolasSelecionadas}"
-                                  converter="omnifaces.SelectItemsConverter"
-                                  var="amp" filter="true" filterMatchMode="contains" filterNormalize="true"
-                                  showCheckbox="true" styleClass="manymenu-advanced"
-                                  style="width: 85rem">
-                    <f:selectItems value="#{retiradaAmpolaController.ampolaList}" var="ampola"
-                                   itemLabel="#{ampola.dataValidade}"
-                                   itemValue="#{ampola}"/>
-
-                    <p:column headerText="Código">
-                        <h:outputText value="#{amp.id}"/>
-                    </p:column>
-
-                    <p:column>
-                        <h:outputText value="#{amp.paciente.nome}"/>
-                    </p:column>
-
-                    <p:column>
-                        <h:outputText value="#{amp.paciente.fenotipagem.fenotipagemCompleta}"/>
-                    </p:column>
-
-                    <p:column>
-                        <h:outputText value="#{amp.ampolaMl}"/>
-                    </p:column>
-
-                    <p:column>
-                        <h:outputText value="#{amp.dataCadastro}"/>
-                    </p:column>
-                </p:selectManyMenu> -->
-
                 <p:dataTable id="dataTable" value="#{retiradaAmpolaController.ampolaList}"
                              showGridlines="true" styleClass="centered-table"
                              var="ampola" paginator="true" rows="5" rowKey="#{ampola.id}"
