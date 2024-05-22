@@ -46,13 +46,13 @@ This is an experimental project aimed at creating a serology management system i
 git clone https://github.com/lucasrznd/sistema-biomedicina.git
 ```
 
-2. Configure your database (I used MySQL, but use your preferred database):
+2. Configure your database (I used Postgres, but use your preferred database):
 
 ```
-spring.datasource.url=jdbc:mysql://localhost:3306/db_biomedicina
-spring.datasource.username=root
-spring.datasource.password=1234
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=${POSTGRES_URL}
+spring.datasource.username=${POSTGRES_USER}
+spring.datasource.password=${POSTGRES_PASSWORD}
+spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
 3. Navigate to the project directory:
