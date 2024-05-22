@@ -1,47 +1,84 @@
-# Sistema de Soroteca em Parceria com o Curso de Biomedicina
+<p align="center">
+  <img width="380" height="216" src="https://github.com/lucasrznd/sistema-biomedicina/blob/main/src/main/resources/META-INF/resources/img/sisges.png">
+</p>
 
-<!-- <p align="center">
-  <img src="soroteca.jpg" alt="Sistema de Soroteca">
-</p> -->
+<div align="center">
 
-## Visão Geral
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white)
+</div>
 
-Este é um projeto experimental que tem como objetivo criar um sistema de gestão de soroteca em parceria com o curso de biomedicina. A soroteca é um componente crítico no armazenamento e controle de soros e amostras de pacientes, e este sistema visa simplificar e automatizar o processo de registro e gerenciamento de pacientes, suas fenotipagens, anticorpos e ampolas associadas.
+<p align="center">
+ <a href="#description">Description</a> • 
+ <a href="#features">Features</a> • 
+ <a href="#installation">Installation</a> •
+ <a href="#contribution">Contribution</a> 
+</p>
 
-## Tecnologias Utilizadas
+<h2 id="description">📙 Description</h2>
+This is an experimental project aimed at creating a serology management system in partnership with the biomedicine course at Centro Universitário das Faculdades Integradas de Ourinhos. The serology system is critical for the storage and control of sera and patient samples, and this system aims to simplify and automate the process of registering and managing patients, their phenotyping, antibodies, and associated vials.
 
-- **Backend**: Desenvolvido em Java com Spring Initializer, Spring Data e Hibernate.
-- **Frontend**: Desenvolvido em conjunto no mesmo projeto com JSF (JavaServer Faces) e PrimeFaces.
+<h2 id="features">✨ Features</h2>
 
-## Funcionalidades Principais
+- **Patient Registration**: Register detailed information about patients, including personal data, phenotyping, and antibodies.
+- **Vial Registration**: Allows the registration of specific information about the vials associated with each patient, such as collection date, sample type, storage conditions, among others.
+- **JSF Screens**: The project includes user interface screens developed in JSF with the PrimeFaces library, making system interaction more user-friendly and efficient.
+- **User Authentication**: The login screen allows authenticated users to access the system's functionalities.
+- **Vial and Patient Listing**: Provides a convenient way to view and search for information about registered vials and patients.
 
-O sistema foi projetado para oferecer uma variedade de funcionalidades essenciais, incluindo:
+### Technologies Used
 
-- **Cadastro de Pacientes**: Registre informações detalhadas sobre os pacientes, incluindo dados pessoais, fenotipagem e anticorpos.
+- **Backend**: Developed in Java with Spring Initializer, Spring Data, and Hibernate.
+- **Frontend**: Developed within the same project using JSF (JavaServer Faces) and PrimeFaces.
 
-- **Cadastro de Ampolas**: Permite o registro de informações específicas sobre as ampolas associadas a cada paciente, como data de coleta, tipo de amostra, condições de armazenamento, entre outros.
+### Prerequisites
 
-- **Telas em JSF**: O projeto inclui telas de interface de usuário desenvolvidas em JSF com a biblioteca PrimeFaces, tornando a interação com o sistema mais amigável e eficiente.
+- Java Development Kit (JDK) 17 or higher.
+- Maven for dependency management.
+- Create the **db_biomedicina** schema in your MySQL.
 
-- **Autenticação de Usuários**: A tela de login permite que os usuários autenticados acessem as funcionalidades do sistema.
+<h2 id="installation">🛠️ Installation</h2>
 
-- **Listagem de Ampolas e Pacientes**: Fornece uma maneira conveniente de visualizar e buscar informações sobre as ampolas e pacientes cadastrados.
+1. Clone the repository to your local environment:
 
-## Executando o Projeto
+```
+git clone https://github.com/lucasrznd/sistema-biomedicina.git
+```
 
-Para executar o projeto em sua máquina local, utilize a <b>versão 17</b> do JDK, clone o repositório e crie o schema <b>db_biomedicina</b> no mySQL.
+2. Configure your database (I used MySQL, but use your preferred database):
 
-## Contato
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/db_biomedicina
+spring.datasource.username=root
+spring.datasource.password=1234
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
 
-Se você tiver alguma dúvida ou sugestão relacionada a este projeto, sinta-se à vontade para entrar em contato conosco:
+3. Navigate to the project directory:
 
-- **Lucas Rezende**: lucasffrezende@gmail.com
-- GitHub: [lucasrznd](https://github.com/lucasrznd)
-- **Leonardo Hermes**:
-- GitHub: [zZ-LeoZin-Zz](https://github.com/zZ-LeoZin-Zz)
+```
+cd sistema-biomedicina
+```
 
-Agradecemos pelo seu interesse no projeto e esperamos que ele seja útil para a comunidade de biomedicina e profissionais de saúde.
+4. Compile the project using Maven:
 
-## Licença
+```
+mvn clean install
+```
 
-Este projeto é licenciado sob a [Licença MIT](LICENSE), o que significa que você pode usá-lo, modificá-lo e distribuí-lo livremente.
+5. Run the generated JAR file in the target folder or deploy the JAR to your application server.
+
+<h2 id="contribution">🤝 Contribution</h2>
+
+Contributions are welcome! If you have suggestions, improvements, or find bugs, feel free to open an issue or submit a pull request.
+
+<h2 id="authors">👨🏻‍💻 Authors</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/lucasrznd"><img src="https://avatars.githubusercontent.com/u/101664450?v=4&v=" width="115px;" alt="Lucas Rezende"/><br /><sub><b>Lucas Rezende</b></sub></a><br/><a title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/zZ-LeoZin-Zz"><img src="https://avatars.githubusercontent.com/u/88119600?v=4" width="115px;" alt="Leonardo Hermes"/><br /><sub><b>Leonardo Hermes</b></sub></a><br/><a title="Code">💻</a></td>
+  </tbody>
+</table>
