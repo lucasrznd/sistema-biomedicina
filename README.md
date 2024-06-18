@@ -32,12 +32,6 @@ This is an experimental project aimed at creating a serology management system i
 - **Backend**: Developed in Java with Spring Initializer, Spring Data, and Hibernate.
 - **Frontend**: Developed within the same project using JSF (JavaServer Faces) and PrimeFaces.
 
-### Prerequisites
-
-- Java Development Kit (JDK) 17 or higher.
-- Maven for dependency management.
-- Create the **db_biomedicina** schema in your MySQL.
-
 <h2 id="installation">🛠️ Installation</h2>
 
 1. Clone the repository to your local environment:
@@ -46,28 +40,31 @@ This is an experimental project aimed at creating a serology management system i
 git clone https://github.com/lucasrznd/sistema-biomedicina.git
 ```
 
-2. Configure your database (I used Postgres, but use your preferred database):
-
-```
-spring.datasource.url=${POSTGRES_URL}
-spring.datasource.username=${POSTGRES_USER}
-spring.datasource.password=${POSTGRES_PASSWORD}
-spring.datasource.driver-class-name=org.postgresql.Driver
-```
-
-3. Navigate to the project directory:
+2. Navigate to the project directory:
 
 ```
 cd sistema-biomedicina
 ```
 
-4. Compile the project using Maven:
+3. Build the Docker image:
 
 ```
-mvn clean install
+docker build -t biomed .
 ```
 
-5. Run the generated JAR file in the target folder or deploy the JAR to your application server.
+5. Start the application using Docker Compose:
+
+```
+docker-compose up -d
+```
+
+### Avaible URL's 
+| url               |                                         
+|----------------------|
+| <kbd>localhost:8080/cadastro/fenotipagem.xhtml</kbd>     
+| <kbd>localhost:8080/cadastro/anticorpo.xhtml</kbd>     
+| <kbd>localhost:8080/cadastro/ampola.xhtml</kbd>
+| <kbd>localhost:8080/cadastro/paciente.xhtml</kbd>
 
 <h2 id="contribution">🤝 Contribution</h2>
 
