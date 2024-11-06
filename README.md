@@ -11,67 +11,56 @@
 </div>
 
 <p align="center">
- <a href="#description">Description</a> • 
- <a href="#features">Features</a> • 
- <a href="#installation">Installation</a> •
- <a href="#contribution">Contribution</a> 
+ <a href="#description">Descrição</a> • 
+ <a href="#features">Funcionalidades</a> • 
+ <a href="#installation">Instalação</a> •
+ <a href="#contribution">Contribuição</a> 
 </p>
 
-<h2 id="description">📙 Description</h2>
-This is an experimental project aimed at creating a serology management system in partnership with the biomedicine course at Centro Universitário das Faculdades Integradas de Ourinhos. The serology system is critical for the storage and control of sera and patient samples, and this system aims to simplify and automate the process of registering and managing patients, their phenotyping, antibodies, and associated vials.
+<h2 id="description">📙 Descrição</h2> Este é um projeto destinado a criar um sistema de gestão de sorologia em parceria com o curso de biomedicina do Centro Universitário das Faculdades Integradas de Ourinhos. O sistema de sorologia é essencial para o armazenamento e controle de soros e amostras de pacientes, e este sistema visa simplificar e automatizar o processo de registro e gerenciamento de pacientes, sua fenotipagem, anticorpos e ampolas associadas.
 
-<h2 id="features">✨ Features</h2>
+<h2 id="features">✨ Funcionalidades</h2>
 
-- **Patient Registration**: Register detailed information about patients, including personal data, phenotyping, and antibodies.
-- **Vial Registration**: Allows the registration of specific information about the vials associated with each patient, such as collection date, sample type, storage conditions, among others.
-- **JSF Screens**: The project includes user interface screens developed in JSF with the PrimeFaces library, making system interaction more user-friendly and efficient.
-- **User Authentication**: The login screen allows authenticated users to access the system's functionalities.
-- **Vial and Patient Listing**: Provides a convenient way to view and search for information about registered vials and patients.
+- **Cadastro de Pacientes**: Registra informações detalhadas sobre os pacientes, incluindo dados pessoais, fenotipagem e anticorpos.
+- **Cadastro de Ampolas**: Permite o registro de informações específicas sobre as ampolas associadas a cada paciente, como data de coleta, tipo de amostra, condições de armazenamento, entre outros.
+- **Listagem de Ampolas e Pacientes**: Fornece uma maneira prática de visualizar e buscar informações sobre ampolas e pacientes registrados.
 
-### Technologies Used
+### Tecnologias Utilizadas
 
-- **Backend**: Developed in Java with Spring Initializer, Spring Data, and Hibernate.
-- **Frontend**: Developed within the same project using JSF (JavaServer Faces) and PrimeFaces.
+- **Backend**: Desenvolvido em Java com Spring Initializer, Spring Data e Hibernate.
+- **Frontend**: Desenvolvido utilizando JSF (JavaServer Faces) e PrimeFaces.
 
-<h2 id="installation">🛠️ Installation</h2>
+<h2 id="installation">🛠️ Instalação</h2>
 
-1. Clone the repository to your local environment:
+1. Clone o repositório para o seu ambiente local:
 
 ```
 git clone https://github.com/lucasrznd/sistema-biomedicina.git
 ```
 
-2. Navigate to the project directory:
+2. Navegue até o diretório do projeto:
 
 ```
 cd sistema-biomedicina
 ```
 
-3. Build the Docker image:
+3. Construa a imagem Docker:
 
 ```
 docker build -t biomed .
 ```
 
-5. Start the application using Docker Compose:
+5. Inicie a aplicação usando Docker Compose:
 
 ```
 docker-compose up -d
 ```
 
-### Avaible URL's 
-| url               |                                         
-|----------------------|
-| <kbd>localhost:8080/cadastro/fenotipagem.xhtml</kbd>     
-| <kbd>localhost:8080/cadastro/anticorpo.xhtml</kbd>     
-| <kbd>localhost:8080/cadastro/ampola.xhtml</kbd>
-| <kbd>localhost:8080/cadastro/paciente.xhtml</kbd>
+<h2 id="contribution">🤝 Contribuição</h2>
 
-<h2 id="contribution">🤝 Contribution</h2>
+Contribuições são bem-vindas! Se você tiver sugestões, melhorias ou encontrar bugs, sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
-Contributions are welcome! If you have suggestions, improvements, or find bugs, feel free to open an issue or submit a pull request.
-
-<h2 id="authors">👨🏻‍💻 Authors</h2>
+<h2 id="authors">👨🏻‍💻 Autores</h2>
 
 <table>
   <tbody>
