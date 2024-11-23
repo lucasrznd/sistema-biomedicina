@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
+    <h:head>
+        <title>SISGES</title>
+
+        <!-- Import Javascript Primefaces Locale Brasil -->
+        <h:outputScript name="primefaces/locales/locale-pt.js"/>
+
+        <!-- Favicon e import do CSS -->
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/META-INF/resources/resources/images/ampola-icon.png"/>
+        <h:outputStylesheet library="resources" name="css/estilo.css"/>
+    </h:head>
+
+    <h:body>
+        <p:growl id="mensagem" closable="true"/>
+
+        <div id="cabecalho">
+            <h:form id="formMenu">
+                <p:menubar>
+                    <p:menuitem outcome="/pages/home.xhtml">
+                        <p:graphicImage library="images" name="sisges.png" style="width: 103px; height: 49px;"/>
+                    </p:menuitem>
+
+                    <p:submenu label="Cadastros">
+                        <p:menuitem value="Ampolas" />
+                        <p:menuitem value="Pacientes" outcome="/pages/pacientes.xhtml" />
+                        <p:menuitem value="Anticorpos" outcome="/pages/anticorpos.xhtml"/>
+                        <p:menuitem value="Fenotipagens" outcome="/pages/fenotipagem.xhtml"/>
+                    </p:submenu>
+
+                    <p:submenu label="Retirada">
+                        <p:menuitem value="Ampola"/>
+                    </p:submenu>
+                </p:menubar>
+            </h:form>
+        </div>
+
+        <div id="conteudo" style="margin-top: 5px">
+            <ui:insert name="conteudo"/>
+        </div>
+
+        <div class="rodape">
+            <p>Sistema Gerenciador de Soroteca (SISGES) - Todos os Direitos Reservados ©</p>
+        </div>
+    </h:body>
+</f:view>
+</html>

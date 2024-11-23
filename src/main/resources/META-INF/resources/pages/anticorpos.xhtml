@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/modelo.xhtml">
+
+    <ui:define name="conteudo">
+        <h:form id="formListagem">
+            <p:panel>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Novo" icon="pi pi-plus" actionListener="#{anticorpoBean.novo}"
+                                         update=":formCadastro:painelDialog"
+                                         oncomplete="PF('dialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":formCadastro:painelDialog"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="tabela" var="anticorpo" emptyMessage="Nenhum anticorpo encontrado."
+                             value="#{anticorpoBean.anticorpos}"
+                             paginator="true" rows="5" paginatorPosition="bottom">
+
+                    <p:column headerText="Código" style="text-align: center;">
+                        <h:outputText value="#{anticorpo.codigo}"/>
+                    </p:column>
+
+                    <p:column headerText="Descrição" style="text-align: center;" filterBy="#{anticorpo.descricao}">
+                        <h:outputText value="#{anticorpo.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Opções" style="text-align: center;">
+                        <p:commandButton icon="pi pi-pencil"
+                                         actionListener="#{anticorpoBean.editar}"
+                                         update=":mensagem :formCadastro:painelDialog"
+                                         oncomplete="PF('dialog').show();">
+                            <f:attribute name="anticorpoSelecionado" value="#{anticorpo}"/>
+                            <p:resetInput target=":formCadastro:painelDialog"/>
+                        </p:commandButton>
+
+                        <i class="pi pi-ellipsis-v mr-2"/>
+
+                        <p:commandButton icon="pi pi-trash"
+                                         styleClass="ui-button-danger"
+                                         actionListener="#{anticorpoBean.excluir}"
+                                         update=":mensagem :formListagem:tabela">
+                            <p:confirm header="Confirmação"
+                                       message="Deseja excluir a anticorpo?" icon="ui-icon-alert"/>
+                            <f:attribute name="anticorpoSelecionado" value="#{anticorpo}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true"
+                                 width="350">
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
+                                     process="@this"/>
+                </p:confirmDialog>
+            </p:panel>
+        </h:form>
+
+        <h:form id="formCadastro">
+            <p:dialog header="Detalhes do Anticorpo" showEffect="fade" modal="true" widgetVar="dialog"
+                      responsive="true" draggable="false">
+                <p:outputPanel id="painelDialog" class="ui-fluid">
+                    <p:outputPanel>
+                        <div class="field">
+                            <p:outputLabel for="descricao" value="Descrição:"/>
+                            <p:inputText id="descricao" value="#{anticorpoBean.anticorpo.descricao}"
+                                         maxlength="20" style="margin-top: 5px"
+                                         required="true" requiredMessage="O campo 'Descrição' é obrigatório."
+                                         converter="upperCaseConverter">
+                                <p:ajax event="blur" update="@this"/>
+                            </p:inputText>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Salvar" icon="pi pi-check" actionListener="#{anticorpoBean.salvar}"
+                                     update=":mensagem :formCadastro:painelDialog :formListagem:tabela"
+                                     process="painelDialog @this"/>
+                    <p:commandButton value="Sair" icon="pi pi-times" onclick="PF('dialog').hide()"
+                                     class="ui-button-secondary" type="button"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

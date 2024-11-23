@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/modelo.xhtml">
+
+    <ui:define name="conteudo">
+        <h:form id="formListagem">
+            <p:panel>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Novo" icon="pi pi-plus" actionListener="#{pacienteBean.novo}"
+                                         update=":formCadastro:painelDialog"
+                                         oncomplete="PF('dialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":formCadastro:painelDialog"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="tabela" var="paciente" emptyMessage="Nenhum paciente encontrado."
+                             value="#{pacienteBean.pacientes}"
+                             paginator="true" rows="5" paginatorPosition="bottom">
+
+                    <p:column headerText="Código" style="text-align: center;">
+                        <h:outputText value="#{paciente.codigo}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome" style="text-align: center;" filterBy="#{paciente.nome}"
+                              sortBy="#{paciente.nome}">
+                        <h:outputText value="#{paciente.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Data de Nascimento" style="text-align: center;">
+                        <h:outputText value="#{paciente.dataNascimento}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" type="localDate" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="CPF" style="text-align: center;">
+                        <h:outputText value="#{paciente.cpf}"/>
+                    </p:column>
+
+                    <p:column headerText="Fenotipagem" style="text-align: center;">
+                        <h:outputText value="#{paciente.fenotipagem.tipagemAbo}#{paciente.fenotipagem.tipagemRh}"/>
+                    </p:column>
+
+                    <p:column headerText="Opções" style="text-align: center;">
+                        <p:commandButton icon="pi pi-pencil"
+                                         actionListener="#{pacienteBean.editar}"
+                                         update=":mensagem :formCadastro:painelDialog"
+                                         oncomplete="PF('dialog').show();">
+                            <f:attribute name="pacienteSelecionado" value="#{paciente}"/>
+                            <p:resetInput target=":formCadastro:painelDialog"/>
+                        </p:commandButton>
+
+                        <i class="pi pi-ellipsis-v mr-2"/>
+
+                        <p:commandButton icon="pi pi-trash"
+                                         styleClass="ui-button-danger"
+                                         actionListener="#{pacienteBean.excluir}"
+                                         update=":mensagem :formListagem:tabela">
+                            <p:confirm header="Confirmação"
+                                       message="Deseja excluir a paciente?" icon="ui-icon-alert"/>
+                            <f:attribute name="pacienteSelecionado" value="#{paciente}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true"
+                                 width="350">
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
+                                     process="@this"/>
+                </p:confirmDialog>
+            </p:panel>
+        </h:form>
+
+        <h:form id="formCadastro">
+            <p:dialog header="Detalhes do Paciente" showEffect="fade" modal="true" widgetVar="dialog"
+                      responsive="true" draggable="false">
+                <p:outputPanel id="painelDialog" class="ui-fluid">
+                    <p:outputPanel>
+                        <div class="field">
+                            <p:outputLabel for="nome" value="Nome:"/>
+                            <p:inputText id="nome" value="#{pacienteBean.paciente.nome}"
+                                         maxlength="100" style="margin-top: 5px"
+                                         required="true" requiredMessage="O campo 'Nome' é obrigatório."
+                                         converter="upperCaseConverter">
+                                <p:ajax event="blur" update="@this"/>
+                            </p:inputText>
+                        </div>
+
+                        <div class="field" style="margin-top: 10px">
+                            <p:outputLabel for="dataNascimento" value="Data de Nascimento:"/>
+                            <p:datePicker id="dataNascimento" value="#{pacienteBean.paciente.dataNascimento}"
+                                          style="margin-top: 5px" locale="pt_BR" pattern="dd/MM/yyyy" yearNavigator="true"
+                                          required="true"
+                                          requiredMessage="O campo 'Data de Nascimento' é obrigatório."/>
+                        </div>
+
+                        <div class="field" style="margin-top: 10px">
+                            <p:outputLabel for="cpf" value="CPF:"/>
+                            <p:inputMask id="cpf" value="#{pacienteBean.paciente.cpf}"
+                                         mask="999.999.999-99" style="margin-top: 5px"
+                                         required="true" requiredMessage="O campo 'CPF' é obrigatório."/>
+                        </div>
+
+                        <div class="field" style="margin-top: 10px">
+                            <p:outputLabel for="fenotipagem" value="Fenotipagem:"/>
+                            <p:selectOneMenu id="fenotipagem" value="#{pacienteBean.paciente.fenotipagem}" filter="true"
+                                             converter="omnifaces.SelectItemsConverter" style="margin-top: 5px"
+                                             required="true" requiredMessage="O campo 'Fenotipagem' é obrigatório.">
+                                <f:selectItem noSelectionOption="true" itemLabel="Selecione uma" itemValue=""/>
+                                <f:selectItems value="#{pacienteBean.fenotipagens}" var="fenotipagem"
+                                               itemValue="#{fenotipagem}" itemLabel="#{fenotipagem.tipagemAbo}#{fenotipagem.tipagemRh}"/>
+                            </p:selectOneMenu>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Salvar" icon="pi pi-check" actionListener="#{pacienteBean.salvar}"
+                                     update=":mensagem :formCadastro:painelDialog :formListagem:tabela"
+                                     process="painelDialog @this"/>
+                    <p:commandButton value="Sair" icon="pi pi-times" onclick="PF('dialog').hide()"
+                                     class="ui-button-secondary" type="button"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>
