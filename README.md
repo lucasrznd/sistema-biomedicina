@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="380" height="216" src="https://github.com/lucasrznd/sistema-biomedicina/blob/main/src/main/resources/META-INF/resources/img/sisges.png">
+  <img width="384" height="180" src="https://raw.githubusercontent.com/lucasrznd/sistema-biomedicina/refs/heads/main/src/main/resources/META-INF/resources/resources/images/sisges.png">
 </p>
 
 <div align="center">
