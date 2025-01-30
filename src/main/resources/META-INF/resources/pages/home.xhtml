@@ -1,28 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/modelo.xhtml">
 
-<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
-
-    <h:head>
-        <title>SISGES - Home</title>
-
-        <!-- Favicon e import do CSS -->
-        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/META-INF/resources/resources/img/ampola-icon.png"/>
-        <h:outputStylesheet name="css/estilo.css"/>
-    </h:head>
-
-    <h:body>
+    <ui:define name="conteudo">
         <h:form>
-            <!-- Incluir menu -->
-            <ui:include src="/menu.xhtml"/>
-
             <div style="display: flex; justify-content: space-between; margin-top: 30px; margin-bottom: 30px">
-
                 <p:panel header="Seja Bem-Vindo" style="width: 40%;">
                     <p class="justified">Esse sistema foi desenvolvido para fornecer uma solução eficiente no controle de ampolas,
                         permitindo o cadastro, edição e exclusão de dados relacionados a pacientes e ampolas armazenadas.</p>
@@ -69,10 +56,6 @@
                     </p:dataTable>
                 </p:panel>
             </div>
-
-            <!-- Incluir rodapé -->
-            <ui:include src="/META-INF/resources/templates/rodape.xhtml"/>
         </h:form>
-    </h:body>
-</f:view>
-</html>
+    </ui:define>
+</ui:composition>
