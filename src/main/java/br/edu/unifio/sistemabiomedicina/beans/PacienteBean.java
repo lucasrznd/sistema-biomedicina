@@ -66,7 +66,14 @@ public class PacienteBean implements Serializable {
     }
 
     public void editar(ActionEvent evento) {
-        paciente = (Paciente) evento.getComponent().getAttributes().get("pacienteSelecionado");
+        try {
+            paciente = (Paciente) evento.getComponent().getAttributes().get("pacienteSelecionado");
+
+            fenotipagens = fenotipagemRepository.findAll();
+        } catch (RuntimeException erro) {
+            Messages.addFlashGlobalError("Ocorreu um erro ao selecionar o paciente.");
+            erro.printStackTrace();
+        }
     }
 
     public void excluir(ActionEvent evento) {
