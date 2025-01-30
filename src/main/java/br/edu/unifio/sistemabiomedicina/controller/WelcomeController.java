@@ -8,7 +8,7 @@ public class WelcomeController {
 
     @GetMapping("/")
     public String redirecionarParaPaginaHome() {
-            return "redirect:/pages/fenotipagem.xhtml";
+            return "redirect:/pages/home.xhtml";
     }
 
 }
