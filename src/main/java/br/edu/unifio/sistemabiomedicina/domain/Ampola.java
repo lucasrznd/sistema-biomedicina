@@ -24,7 +24,7 @@ public class Ampola extends GenericDomain {
     private Paciente paciente;
 
     @Column(nullable = false)
-    private Long codigoInternacao;
+    private Integer codigoInternacao;
 
     @Column(nullable = false)
     private Short ampolaMl;
